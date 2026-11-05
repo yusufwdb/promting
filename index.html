@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <meta name="description" content="An illustrated introduction to prompt engineering: language models, attention, transformers, and the design of useful prompts.">
-  <title>Introduction to Prompt Engineering · promting</title>
+  <meta name="description" content="A comprehensive, interactive master textbook and laboratory manual for Prompt Engineering, LLM Architectures, RAG, and Evaluation.">
+  <title>Prompting: The Complete Master Manual & Interactive Laboratory</title>
 
-  <!-- Google Fonts & KaTeX -->
+  <!-- Google Fonts & KaTeX for Crisp Mathematical Formulations -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
       --crimson-dark: #7f1d1d;
       --crimson-soft: #fef2f2;
       --crimson-border: #fecaca;
-      --crimson-glow: rgba(185, 28, 28, 0.18);
+      --crimson-glow: rgba(185, 28, 28, 0.2);
 
       --ink: #0f172a;
       --ink-secondary: #334155;
@@ -48,7 +48,7 @@
       --crimson: #ef4444;
       --crimson-hover: #f87171;
       --crimson-dark: #dc2626;
-      --crimson-soft: #2d1215;
+      --crimson-soft: #2a1215;
       --crimson-border: #5a1c22;
       --crimson-glow: rgba(239, 68, 68, 0.25);
 
@@ -80,12 +80,12 @@
     a:hover { color: var(--crimson-hover); text-decoration: underline; }
     code, pre { font-family: var(--font-mono); }
 
-    /* Top Progress Bar */
+    /* Top Reading Progress */
     #progress-bar {
       position: fixed;
       top: 0; left: 0;
-      height: 3.5px;
-      background: linear-gradient(90deg, var(--crimson), #f87171);
+      height: 4px;
+      background: linear-gradient(90deg, var(--crimson), #f87171, #fbbf24);
       width: 0%;
       z-index: 1000;
       transition: width 0.1s ease-out;
@@ -125,15 +125,15 @@
       text-decoration: none !important;
     }
     .brand-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 8px;
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
       background: var(--crimson);
       color: #fff;
       display: grid;
       place-items: center;
       font-weight: 800;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       box-shadow: 0 2px 10px var(--crimson-glow);
     }
 
@@ -164,20 +164,32 @@
       box-shadow: 0 2px 10px var(--crimson-glow);
     }
 
-    .theme-btn {
-      width: 38px;
-      height: 38px;
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Translate & Theme Buttons */
+    .ctrl-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
       border-radius: 8px;
       border: 1px solid var(--line);
       background: var(--card);
       color: var(--ink);
-      display: inline-grid;
-      place-items: center;
+      font-size: 0.8rem;
+      font-weight: 700;
       cursor: pointer;
-      font-size: 1rem;
       transition: all 0.2s;
     }
-    .theme-btn:hover { border-color: var(--crimson); }
+    .ctrl-pill-btn:hover {
+      border-color: var(--crimson);
+      background: var(--crimson-soft);
+      color: var(--crimson);
+    }
 
     /* Hero Section */
     .hero {
@@ -256,9 +268,7 @@
       color: var(--ink) !important;
       border: 1px solid var(--line);
     }
-    .btn-outline:hover {
-      background: var(--paper-dim);
-    }
+    .btn-outline:hover { background: var(--paper-dim); }
 
     /* Hero interactive card */
     .hero-demo-card {
@@ -431,10 +441,7 @@
       align-items: center;
       gap: 6px;
     }
-    .slide-indicators {
-      display: flex;
-      gap: 6px;
-    }
+    .slide-indicators { display: flex; gap: 6px; }
     .slide-dot {
       width: 10px;
       height: 10px;
@@ -455,9 +462,7 @@
       display: none;
       animation: fadeIn 0.3s ease-in-out;
     }
-    .slide-content-stage.active {
-      display: block;
-    }
+    .slide-content-stage.active { display: block; }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
@@ -479,10 +484,7 @@
       margin-bottom: 12px;
       color: var(--ink);
     }
-    .slide-bullets {
-      list-style: none;
-      margin-top: 14px;
-    }
+    .slide-bullets { list-style: none; margin-top: 14px; }
     .slide-bullets li {
       padding-left: 22px;
       position: relative;
@@ -583,34 +585,32 @@
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     pre { padding: 20px; overflow-x: auto; color: #f3f4f6; font-size: 0.86rem; line-height: 1.65; }
 
-    /* Interactive Softmax Simulator */
-    .sim-panel {
+    /* Interactive Simulators */
+    .interactive-tool-box {
       background: var(--card);
       border: 2px solid var(--crimson-border);
       border-radius: var(--radius);
       padding: 24px;
       margin: 28px 0;
+      box-shadow: var(--shadow-sm);
     }
-    .sim-top {
+    .tool-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
       margin-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
     }
-    .temp-badge {
-      background: var(--crimson);
-      color: #fff;
-      padding: 4px 12px;
-      border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      font-weight: 700;
-    }
+
     .prob-row {
       display: grid;
       grid-template-columns: 80px 1fr 65px;
@@ -631,27 +631,24 @@
       transition: width 0.2s;
     }
 
-    /* Lab Accordion & Case Cards */
-    details.quiz-item {
-      background: var(--card);
-      border: 1px solid var(--line);
+    /* Interactive Jaccard Box */
+    .calc-input-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .calc-input-group input {
+      padding: 10px 14px;
       border-radius: 8px;
-      margin-bottom: 10px;
-    }
-    summary.quiz-question {
-      padding: 14px 18px;
-      font-weight: 650;
-      font-size: 0.92rem;
-      cursor: pointer;
-    }
-    .quiz-answer {
-      padding: 12px 18px 16px;
-      font-size: 0.88rem;
-      color: var(--ink-secondary);
-      border-top: 1px solid var(--line);
-      line-height: 1.65;
+      border: 1px solid var(--line);
+      background: var(--paper-dim);
+      color: var(--ink);
+      font-size: 0.9rem;
+      width: 100%;
     }
 
+    /* Lab Case Cards */
     .case-card {
       background: var(--card);
       border: 1px solid var(--line);
@@ -678,6 +675,7 @@
       font-weight: 700;
       cursor: pointer;
       color: var(--ink);
+      transition: all 0.15s;
     }
     .reveal-btn:hover {
       background: var(--crimson);
@@ -704,11 +702,16 @@
       font-size: 0.88rem;
     }
 
+    /* Google Translate hidden banner styling */
+    .goog-te-banner-frame.skiptranslate { display: none !important; }
+    body { top: 0px !important; }
+
     @media (max-width: 980px) {
       .hero-inner { grid-template-columns: 1fr; }
       .content-shell { grid-template-columns: 1fr; }
       .side-nav { display: none; }
       .top-nav { display: none; }
+      .calc-input-group { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -716,22 +719,34 @@
 
   <div id="progress-bar"></div>
 
-  <!-- Header -->
+  <!-- Header with Dark Mode & Translation Buttons -->
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="#top">
         <span class="brand-mark">PE</span>
-        <span>promting / master manual</span>
+        <span id="txt-brand">promting / master manual</span>
       </a>
+      
       <nav class="top-nav">
         <a class="nav-btn" href="#m01">01 · Intro</a>
         <a class="nav-btn" href="#m02">02 · LLMs</a>
         <a class="nav-btn" href="#m03">03 · Chat</a>
         <a class="nav-btn" href="#m04">04 · Apps</a>
         <a class="nav-btn" href="#m05">05 · RAG</a>
-        <a class="nav-btn nav-pill-cta" href="#m06">06 · Lab Workbook ↗</a>
+        <a class="nav-btn nav-pill-cta" href="#m06">06 · Lab ↗</a>
       </nav>
-      <button class="theme-btn" id="theme-toggle" title="Toggle Dark/Light Mode">🌓</button>
+
+      <div class="header-actions">
+        <!-- Translation Button (Cycles EN -> PL -> TR) -->
+        <button class="ctrl-pill-btn" id="lang-btn" onclick="cycleLanguage()" title="Switch Language (English / Polski / Türkçe)">
+          <span>🌐</span> <span id="lang-label">Language: EN</span>
+        </button>
+
+        <!-- Dark/Light Mode Button -->
+        <button class="ctrl-pill-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle Dark / Light Mode">
+          <span id="theme-icon">🌙</span> <span id="theme-label">Dark Mode</span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -739,14 +754,14 @@
   <section class="hero" id="top">
     <div class="hero-inner">
       <div>
-        <span class="eyebrow">Production-Grade Prompt Engineering Manual</span>
-        <h1>The Architecture of Language Model Prompts.</h1>
-        <p class="hero-lead">
+        <span class="eyebrow" id="txt-hero-eyebrow">Production-Grade Prompt Engineering Manual</span>
+        <h1 id="txt-hero-title">The Architecture of Language Model Prompts.</h1>
+        <p class="hero-lead" id="txt-hero-lead">
           A language model produces a continuation of the information it receives. Prompt engineering is the rigorous science and software discipline of transforming that continuation into something deterministic, useful, verifiable, and safe.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-crimson" href="#m01">Read Full Curriculum ↓</a>
-          <a class="btn btn-outline" href="#m06">Interactive Laboratory 🧪</a>
+          <a class="btn btn-crimson" href="#m01" id="btn-explore">Read Full Curriculum ↓</a>
+          <a class="btn btn-outline" href="#m06" id="btn-lab">Interactive Laboratory 🧪</a>
         </div>
       </div>
 
@@ -785,8 +800,9 @@
       <a href="#m04">04 · Designing Applications</a>
       <a href="#m05">05 · Context & RAG Architecture</a>
       <a href="#m06">06 · Laboratory Workbook</a>
+
       <div style="margin-top: 24px; padding: 14px; border-radius: 8px; background: var(--crimson-soft); font-size: 0.78rem; color: var(--crimson-dark); line-height: 1.5;">
-        <strong>Professional Edition:</strong> Contains exhaustive theory, exact math formulas, production code examples, interactive slides, and all 4 laboratory experiments.
+        <strong>Interactive Suite:</strong> Features interactive slides, Softmax slider, live Jaccard calculator, Chunking visualizer, and 24-run Fallacy testing workbench.
       </div>
     </aside>
 
@@ -797,7 +813,7 @@
       <!-- MODULE 01 -->
       <!-- ============================================== -->
       <article class="course-module" id="m01">
-        <span class="module-badge">Module 01 · ~10 min read</span>
+        <span class="module-badge">Module 01 · Comprehensive Theory</span>
         <h2>01 · Introduction to Prompt Engineering</h2>
         <div class="callout">
           <p><strong>Big Idea:</strong> A language model produces a continuation of the information it receives. Prompt engineering is the practice of making that continuation useful, relevant, and reliable.</p>
@@ -862,12 +878,12 @@
           </div>
         </div>
 
-        <h3>1. The Bottleneck: A Sentence Is Not a Single Vector</h3>
+        <h3>1. The Architectural Bottleneck: A Sentence Is Not a Single Vector</h3>
         <p>
           Early 2014 sequence-to-sequence translation models consisted of two parts: an <strong>encoder</strong> that read the source text and compressed it into a single fixed-dimension vector (often called a <em>thought vector</em>), and a <strong>decoder</strong> that unpacked that vector to emit the target translation.
         </p>
         <p>
-          While this worked for short phrases like <em>“How are you?”</em>, it completely collapsed when translating complex legal, technical, or literary paragraphs. Preserving names, numerical qualifiers, dependent clauses, and stylistic nuances inside a single fixed-size mathematical vector created an extreme information bottleneck. Important context was lost before decoding finished.
+          While this worked for short phrases, it collapsed when translating complex legal, technical, or literary paragraphs. Preserving names, numerical qualifiers, dependent clauses, and stylistic nuances inside a single fixed-size mathematical vector created an extreme information bottleneck. Important context was lost before decoding finished.
         </p>
 
         <div class="grid-2">
@@ -902,7 +918,7 @@ Define every technical term before using it.</code></pre>
 
         <h3>3. From Prompt to Application: The 3 Participants</h3>
         <p>
-          When interacting with a raw chatbot, it may look like only two entities exist: a human and a model. In real software engineering, there is always a third, critical participant: <strong>the application orchestrator</strong>.
+          In production software engineering, there is always an intermediary orchestrator between the user and the model:
         </p>
         <div class="table-container">
           <table>
@@ -924,7 +940,7 @@ Define every technical term before using it.</code></pre>
       <!-- MODULE 02 -->
       <!-- ============================================== -->
       <article class="course-module" id="m02">
-        <span class="module-badge">Module 02 · ~17 min read</span>
+        <span class="module-badge">Module 02 · Deep Mechanics</span>
         <h2>02 · Understanding How Language Models Work</h2>
         <div class="callout">
           <p><strong>Big Idea:</strong> To use a language model well, understand what it actually processes: <strong>tokens, probability distributions, and context</strong>. Many prompting mistakes become easy to diagnose once these mechanics are clear.</p>
@@ -981,52 +997,22 @@ Define every technical term before using it.</code></pre>
           </div>
         </div>
 
-        <h3>1. The Generation Loop in Action</h3>
-        <div class="code-block-wrapper">
-          <div class="code-header"><span>AUTOREGRESSIVE GENERATION PSEUDOCODE</span></div>
-          <pre><code>def autoregressive_generate(prompt_text, max_tokens, temperature):
-    token_ids = tokenizer.encode(prompt_text)
-    
-    for _ in range(max_tokens):
-        # 1. Forward pass through transformer layers
-        logits = model.forward(token_ids) # shape: [vocab_size]
-        
-        # 2. Rescale logits by temperature
-        scaled_logits = logits / max(temperature, 1e-5)
-        
-        # 3. Softmax into normalized probability distribution
-        probabilities = softmax(scaled_logits)
-        
-        # 4. Sample next token ID
-        next_token_id = sample(probabilities)
-        
-        # 5. Append to context sequence
-        token_ids.append(next_token_id)
-        if next_token_id == tokenizer.eos_token_id:
-            break
-            
-    return tokenizer.decode(token_ids)</code></pre>
-        </div>
+        <h3>1. Interactive Softmax & Temperature Tool</h3>
+        <p>Adjust the slider below to dynamically compute the probability distribution for next-token sampling:</p>
 
-        <!-- Live Temperature Simulator Widget -->
-        <div class="sim-panel">
-          <div class="sim-top">
+        <div class="interactive-tool-box">
+          <div class="tool-header">
             <div>
-              <strong>⚡ Live Softmax & Temperature Probability Simulator</strong>
-              <div style="font-size: 0.8rem; color: var(--muted);">Context: “The cat sat on the…”</div>
+              <strong>⚡ Live Temperature Simulator</strong>
+              <div style="font-size: 0.8rem; color: var(--muted);">Next-token distribution for: “The cat sat on the…”</div>
             </div>
-            <span class="temp-badge" id="temp-indicator">T = 0.7</span>
+            <span class="ctrl-pill-btn" style="background: var(--crimson); color: #fff;" id="temp-indicator">T = 0.7</span>
           </div>
-          <input type="range" id="temp-range" min="0.1" max="2.0" step="0.1" value="0.7" style="width: 100%; accent-color: var(--crimson); margin-bottom: 14px;" oninput="updateTemperature(this.value)">
+          <input type="range" id="temp-range" min="0.1" max="2.0" step="0.1" value="0.7" style="width: 100%; accent-color: var(--crimson); margin-bottom: 16px;" oninput="updateTemperature(this.value)">
           <div id="sim-bars"></div>
-          <p style="font-size: 0.78rem; color: var(--muted); margin-top: 12px;">
-            Slide the temperature to <strong>0.1</strong> to see greedy probability convergence on <code>mat</code> (99%), or to <strong>2.0</strong> to observe uniform randomness across unexpected candidates.
-          </p>
         </div>
 
         <h3>2. Hallucinations Taxonomy & The 5 Defenses</h3>
-        <p>A hallucination occurs when an LLM emits unsupported, factually false, or fabricated information presented with persuasive confidence.</p>
-        
         <div class="grid-3">
           <div class="info-card">
             <h4>Factual Hallucinations</h4>
@@ -1056,7 +1042,7 @@ Define every technical term before using it.</code></pre>
       <!-- MODULE 03 -->
       <!-- ============================================== -->
       <article class="course-module" id="m03">
-        <span class="module-badge">Module 03 · ~15 min read</span>
+        <span class="module-badge">Module 03 · Alignment & Systems</span>
         <h2>03 · Chat Models, Human Feedback, and Tools</h2>
         <div class="callout">
           <p><strong>Big Idea:</strong> A base model completes text. A <strong>chat assistant</strong> is aligned to participate in structured conversations, respect system boundaries, and operate tools safely.</p>
@@ -1098,7 +1084,7 @@ Define every technical term before using it.</code></pre>
             <ul class="slide-bullets">
               <li>The LLM never runs code directly. It emits structured JSON arguments matching a defined schema.</li>
               <li>The surrounding software application executes the actual HTTP/DB call.</li>
-              <li>The software feeds the result back to the model as a <code>tool</code> role message.</li>
+              <li>The software feeds the result back to the model as a <code>tool</code> message.</li>
               <li>The model interprets the response and explains it clearly to the human user.</li>
             </ul>
           </div>
@@ -1109,42 +1095,21 @@ Define every technical term before using it.</code></pre>
           </div>
         </div>
 
-        <h3>1. The HHH Alignment Framework</h3>
-        <div class="grid-3">
-          <div class="info-card">
-            <h4>Helpful</h4>
-            <p>Directly solves legitimate user goals with clear, actionable, structured explanations without extraneous fluff.</p>
-          </div>
-          <div class="info-card">
-            <h4>Honest</h4>
-            <p>Expresses calibrated confidence, acknowledges missing context, and refuses to fabricate citations or numbers.</p>
-          </div>
-          <div class="info-card">
-            <h4>Harmless</h4>
-            <p>Refuses malicious requests (malware, exploitation, weapons) while avoiding unnecessary false-positive refusals.</p>
-          </div>
-        </div>
-
-        <h3>2. Production System Prompt Template</h3>
+        <h3>The Tool Calling Sequence Diagram</h3>
         <div class="code-block-wrapper">
-          <div class="code-header"><span>PRODUCTION SYSTEM PROMPT ARCHITECTURE</span></div>
-          <pre><code># ROLE & PERSONA
-You are a Senior Technical Support Specialist for enterprise cloud deployments.
-
-# KNOWLEDGE BOUNDARIES
-- Answer ONLY using the retrieved documentation excerpts provided in this conversation.
-- If the excerpts do not contain the answer, reply: "I do not have sufficient documentation to answer this question."
-- Do NOT speculate or cite external community forums.
-
-# OPERATIONAL RULES
-- Provide at most 5 numbered troubleshooting steps.
-- Prioritize non-destructive diagnostic commands before suggesting service restarts.
-- For all terminal commands, display them inside markdown code fences with comments.
-
-# OUTPUT FORMAT
-1. Summary of Diagnosis (1 sentence)
-2. Numbered Action Steps
-3. Verification Command</code></pre>
+          <div class="code-header"><span>INTERACTION SEQUENCE (USER ⇆ APP ⇆ LLM ⇆ TOOL)</span></div>
+          <pre><code>User                    Application               LLM               Database / Tool
+ │                           │                     │                       │
+ ├── 1. "Check flight #982" ─▶                     │                       │
+ │                           ├── 2. Prompt + Tools ─▶                      │
+ │                           │                     ├── 3. {"tool": "get_flight", "id": 982}
+ │                           │   ◀─────────────────┤                       │
+ │                           ├── 4. Execute SQL / API query ──────────────▶│
+ │                           │   ◀───────────────── 5. Status: "On Time" ──┤
+ │                           ├── 6. Pass tool result ─▶                    │
+ │                           │                     ├── 7. "Flight #982 is on time."
+ │                           │   ◀─────────────────┤                       │
+ │◀── 8. Formatted response ─┤                     │                       │</code></pre>
         </div>
       </article>
 
@@ -1152,7 +1117,7 @@ You are a Senior Technical Support Specialist for enterprise cloud deployments.
       <!-- MODULE 04 -->
       <!-- ============================================== -->
       <article class="course-module" id="m04">
-        <span class="module-badge">Module 04 · ~17 min read</span>
+        <span class="module-badge">Module 04 · Architecture & Evaluation</span>
         <h2>04 · Designing Applications with Language Models</h2>
         <div class="callout">
           <p><strong>Big Idea:</strong> The model produces text; the <strong>application</strong> turns a real-world problem into the right model input and turns generated text into verified results.</p>
@@ -1194,20 +1159,39 @@ You are a Senior Technical Support Specialist for enterprise cloud deployments.
           </div>
         </div>
 
-        <h3>The Little Red Riding Hood Principle</h3>
-        <p>
-          Models generate text by matching statistical patterns. When a prompt uses a widely recognized, canonical format (such as standard dialogue, technical troubleshooting reports, or formal JSON schemas), the expected continuation is much easier for the model to infer accurately.
-        </p>
+        <h3>Interactive Operational Prompt Generator</h3>
+        <p>Choose parameters below to synthesize a structured production prompt with 1-click copy:</p>
 
-        <h3>Application Evaluation Strategies</h3>
-        <div class="grid-2">
-          <div class="info-card">
-            <h4>Offline Testing (Pre-Deployment)</h4>
-            <p>Evaluate against benchmark datasets of 50–500 test cases with known ground truth. Check JSON schema validity rates and execute generated code in isolated sandboxes.</p>
+        <div class="interactive-tool-box">
+          <div class="calc-input-group">
+            <div>
+              <label style="font-size: 0.8rem; font-weight: 700; color: var(--muted);">Target Role / Persona:</label>
+              <input type="text" id="pg-role" value="Senior Systems Architect" oninput="generateDynamicPrompt()">
+            </div>
+            <div>
+              <label style="font-size: 0.8rem; font-weight: 700; color: var(--muted);">Primary Task:</label>
+              <input type="text" id="pg-task" value="Conduct a security audit of an OAuth2 flow" oninput="generateDynamicPrompt()">
+            </div>
           </div>
-          <div class="info-card">
-            <h4>Online Telemetry (Production Monitoring)</h4>
-            <p>Measure real-world user acceptance rates of suggestions, downstream edit distances (how much the user had to rewrite), task completion, and session duration.</p>
+          <div class="calc-input-group">
+            <div>
+              <label style="font-size: 0.8rem; font-weight: 700; color: var(--muted);">Required Output Format:</label>
+              <input type="text" id="pg-format" value="Markdown table: Vulnerability | Severity | Fix" oninput="generateDynamicPrompt()">
+            </div>
+            <div>
+              <label style="font-size: 0.8rem; font-weight: 700; color: var(--muted);">Negative Constraints:</label>
+              <input type="text" id="pg-rules" value="Do not speculate; state unknown if missing" oninput="generateDynamicPrompt()">
+            </div>
+          </div>
+          <div class="code-block-wrapper" style="margin-top: 10px;">
+            <div class="code-header">
+              <span>GENERATED OPERATIONAL PROMPT</span>
+              <button class="reveal-btn" onclick="copyPrompt()">Copy to Clipboard 📋</button>
+            </div>
+            <pre><code id="pg-output"># ROLE: Senior Systems Architect
+# TASK: Conduct a security audit of an OAuth2 flow
+# FORMAT: Markdown table: Vulnerability | Severity | Fix
+# RULES: Do not speculate; state unknown if missing</code></pre>
           </div>
         </div>
       </article>
@@ -1216,7 +1200,7 @@ You are a Senior Technical Support Specialist for enterprise cloud deployments.
       <!-- MODULE 05 -->
       <!-- ============================================== -->
       <article class="course-module" id="m05">
-        <span class="module-badge">Module 05 · ~22 min read</span>
+        <span class="module-badge">Module 05 · RAG Architecture</span>
         <h2>05 · Prompt Content, Context, and RAG</h2>
         <div class="callout">
           <p><strong>Big Idea:</strong> The quality of an LLM response depends fundamentally on <strong>which information enters the prompt</strong>. The core engineering challenge is to find, prioritize, and present the most useful context.</p>
@@ -1254,41 +1238,46 @@ You are a Senior Technical Support Specialist for enterprise cloud deployments.
           </div>
         </div>
 
-        <h3>Sliding-Window Chunking with Overlap</h3>
-        <p>
-          In production RAG systems, breaking documents into chunks is necessary to prevent ideas split across sentence boundaries from being severed. A sliding window uses a defined <strong>window size</strong> and <strong>stride</strong>:
-        </p>
+        <h3>Interactive Jaccard Similarity Calculator</h3>
+        <p>Type keywords to calculate intersection $|A \cap B|$, union $|A \cup B|$, and exact Jaccard score in real time:</p>
 
+        <div class="interactive-tool-box">
+          <div class="calc-input-group">
+            <div>
+              <label style="font-size: 0.8rem; font-weight: 700; color: var(--muted);">Query Terms (Set A):</label>
+              <input type="text" id="jaccard-a" value="space travel novel science" oninput="calculateJaccard()">
+            </div>
+            <div>
+              <label style="font-size: 0.8rem; font-weight: 700; color: var(--muted);">Passage Terms (Set B):</label>
+              <input type="text" id="jaccard-b" value="space travel exploration rocket science" oninput="calculateJaccard()">
+            </div>
+          </div>
+          <div style="background: var(--paper-dim); padding: 14px 18px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.88rem;" id="jaccard-output">
+            Intersection: {science, space, travel} (3) | Union: {exploration, novel, rocket, science, space, travel} (6)<br>
+            <strong>Jaccard Similarity J(A, B) = 3 / 6 = 0.500 (50.0%)</strong>
+          </div>
+        </div>
+
+        <h3>Sliding-Window Chunking with Overlap</h3>
         <div class="code-block-wrapper">
           <div class="code-header"><span>PRODUCTION PYTHON SLIDING WINDOW CHUNKER</span></div>
           <pre><code>def snippetize(text: str, window_words: int = 200, stride_words: int = 120) -> list[str]:
-    """
-    Splits text into chunks of 200 words with 80 words overlap (stride=120).
-    Ensures contextual continuity across chunk boundaries.
-    """
     words = text.split()
     chunks = []
     for start in range(0, len(words), stride_words):
         chunk = words[start:start + window_words]
-        if not chunk:
-            break
+        if not chunk: break
         chunks.append(" ".join(chunk))
-        if start + window_words >= len(words):
-            break
+        if start + window_words >= len(words): break
     return chunks</code></pre>
         </div>
-
-        <h3>Chekhov’s Gun in Prompt Engineering</h3>
-        <p>
-          If an irrelevant detail, tangential paragraph, or noisy snippet is injected into the context window, the model will often assume it must be essential and force it into the output. <strong>Improving retrieval quality is vastly more valuable than simply increasing the number of retrieved chunks.</strong>
-        </p>
       </article>
 
       <!-- ============================================== -->
       <!-- MODULE 06 -->
       <!-- ============================================== -->
       <article class="course-module" id="m06">
-        <span class="module-badge">Module 06 · ~25 min read</span>
+        <span class="module-badge">Module 06 · Experimental Laboratory</span>
         <h2>06 · Prompt Engineering Laboratory Workbook</h2>
         <div class="callout">
           <p><strong>Your Mission:</strong> Stop treating prompts as magic phrases. Treat them as <strong>reproducible experimental designs</strong>: make a hypothesis, test alternatives, record evidence, and document what changed.</p>
@@ -1340,16 +1329,6 @@ You are a Senior Technical Support Specialist for enterprise cloud deployments.
             <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 3</span>
             <button class="slide-ctrl-btn" onclick="stepSlide('deck-6', 1)">Next Slide →</button>
           </div>
-        </div>
-
-        <h3>The Minimal 5-Factor Prompt Formula</h3>
-        <div class="code-block-wrapper">
-          <div class="code-header"><span>THE PRODUCTION PROMPT FORMULA</span></div>
-          <pre><code>TASK      What exact objective must be accomplished?
-CONTEXT   What facts, excerpts, audience profile, and constraints apply?
-FORMAT    What is the required structural output (JSON, Markdown, Table)?
-RULES     What negative constraints and boundaries must be obeyed?
-CHECK     How will we judge success or verify factual grounding?</code></pre>
         </div>
 
         <h3>Lab 1: Interactive Fallacy Case Explorer (8 Cases)</h3>
@@ -1450,10 +1429,6 @@ CHECK     How will we judge success or verify factual grounding?</code></pre>
             <p>Comparative diagnostic report evaluating CNNs, ViTs, and Classical ML across X-Rays, Lab tests, and Cardiovascular risk with tool retrieval.</p>
           </div>
         </div>
-
-        <div class="callout" style="margin-top: 30px;">
-          <p><strong>Final Lesson:</strong> Prompt engineering becomes a true engineering discipline when you can document <strong>what you changed, why you changed it, how you evaluated it, and whether it measurably improved task completion</strong>.</p>
-        </div>
       </article>
 
     </main>
@@ -1474,15 +1449,71 @@ CHECK     How will we judge success or verify factual grounding?</code></pre>
     });
 
     // Dark/Light Theme Toggle
-    const themeBtn = document.getElementById('theme-toggle');
-    themeBtn.addEventListener('click', () => {
+    function toggleTheme() {
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       if (isDark) {
         document.documentElement.removeAttribute('data-theme');
+        document.getElementById('theme-icon').textContent = '🌙';
+        document.getElementById('theme-label').textContent = 'Dark Mode';
+        localStorage.setItem('theme', 'light');
       } else {
         document.documentElement.setAttribute('data-theme', 'dark');
+        document.getElementById('theme-icon').textContent = '☀️';
+        document.getElementById('theme-label').textContent = 'Light Mode';
+        localStorage.setItem('theme', 'dark');
       }
-    });
+    }
+
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('theme-icon').textContent = '☀️';
+      document.getElementById('theme-label').textContent = 'Light Mode';
+    }
+
+    // Language Switcher (EN -> PL -> TR)
+    const languages = ['EN', 'PL', 'TR'];
+    let currentLangIdx = 0;
+
+    const translations = {
+      EN: {
+        brand: "promting / master manual",
+        eyebrow: "Production-Grade Prompt Engineering Manual",
+        title: "The Architecture of Language Model Prompts.",
+        lead: "A language model produces a continuation of the information it receives. Prompt engineering is the rigorous science and software discipline of transforming that continuation into something deterministic, useful, verifiable, and safe.",
+        explore: "Read Full Curriculum ↓",
+        lab: "Interactive Laboratory 🧪"
+      },
+      PL: {
+        brand: "prompting / podręcznik główny",
+        eyebrow: "Kompletny Podręcznik Inżynierii Promptów",
+        title: "Architektura Promptów Modeli Językowych.",
+        lead: "Model językowy generuje kontynuację informacji, które otrzymuje. Inżynieria promptów to ścisła dyscyplina przekształcania tej kontynuacji w wynik użyteczny, wiarygodny i bezpieczny.",
+        explore: "Czytaj Cały Program ↓",
+        lab: "Laboratorium Interaktywne 🧪"
+      },
+      TR: {
+        brand: "promting / ana kılavuz",
+        eyebrow: "Kurumsal Prompt Mühendisliği El Kitabı",
+        title: "Büyük Dil Modeli Prompt Mimarisi.",
+        lead: "Bir dil modeli, kendisine verilen bilginin istatistiksel devamını üretir. Prompt mühendisliği, bu devamı amaca uygun, doğrulanabilir, kararlı ve güvenli kılma sanatıdır.",
+        explore: "Tüm Müfredatı Oku ↓",
+        lab: "İnteraktif Laboratuvar 🧪"
+      }
+    };
+
+    function cycleLanguage() {
+      currentLangIdx = (currentLangIdx + 1) % languages.length;
+      const lang = languages[currentLangIdx];
+      document.getElementById('lang-label').textContent = `Language: ${lang}`;
+
+      const t = translations[lang];
+      document.getElementById('txt-brand').textContent = t.brand;
+      document.getElementById('txt-hero-eyebrow').textContent = t.eyebrow;
+      document.getElementById('txt-hero-title').textContent = t.title;
+      document.getElementById('txt-hero-lead').textContent = t.lead;
+      document.getElementById('btn-explore').textContent = t.explore;
+      document.getElementById('btn-lab').textContent = t.lab;
+    }
 
     // Hero Interactive Demo
     function setHeroDemo(el, text) {
@@ -1497,9 +1528,7 @@ CHECK     How will we judge success or verify factual grounding?</code></pre>
       el.style.display = el.style.display === 'block' ? 'none' : 'block';
     }
 
-    // =====================================
-    // SLIDE DECK ENGINE
-    // =====================================
+    // Slide Deck Engine
     function gotoSlide(deckId, index) {
       const deck = document.getElementById(deckId);
       const slides = deck.querySelectorAll('.slide-content-stage');
@@ -1523,13 +1552,9 @@ CHECK     How will we judge success or verify factual grounding?</code></pre>
       const current = parseInt(deck.getAttribute('data-current') || '0', 10);
       gotoSlide(deckId, current + delta);
     }
-
-    // Initialize all slide decks
     document.querySelectorAll('.slide-deck').forEach(d => d.setAttribute('data-current', '0'));
 
-    // =====================================
-    // SOFTMAX TEMPERATURE SIMULATOR
-    // =====================================
+    // Softmax Simulator
     const vocab = [
       { word: 'mat', logit: 6.2 },
       { word: 'sofa', logit: 4.8 },
@@ -1558,6 +1583,44 @@ CHECK     How will we judge success or verify factual grounding?</code></pre>
       });
     }
     updateTemperature(0.7);
+
+    // Jaccard Calculator
+    function calculateJaccard() {
+      const aWords = new Set(document.getElementById('jaccard-a').value.toLowerCase().split(/\s+/).filter(Boolean));
+      const bWords = new Set(document.getElementById('jaccard-b').value.toLowerCase().split(/\s+/).filter(Boolean));
+
+      const intersection = new Set([...aWords].filter(x => bWords.has(x)));
+      const union = new Set([...aWords, ...bWords]);
+
+      const score = union.size > 0 ? (intersection.size / union.size).toFixed(3) : 0;
+      const pct = (score * 100).toFixed(1);
+
+      document.getElementById('jaccard-output').innerHTML = `
+        Intersection: {${[...intersection].sort().join(', ')}} (${intersection.size}) | 
+        Union: {${[...union].sort().join(', ')}} (${union.size})<br>
+        <strong style="color:var(--crimson);">Jaccard Similarity J(A, B) = ${intersection.size} / ${union.size} = ${score} (${pct}%)</strong>
+      `;
+    }
+
+    // Dynamic Prompt Builder
+    function generateDynamicPrompt() {
+      const role = document.getElementById('pg-role').value;
+      const task = document.getElementById('pg-task').value;
+      const format = document.getElementById('pg-format').value;
+      const rules = document.getElementById('pg-rules').value;
+
+      document.getElementById('pg-output').textContent = 
+`# ROLE: ${role}
+# TASK: ${task}
+# FORMAT: ${format}
+# CONSTRAINTS: ${rules}`;
+    }
+
+    function copyPrompt() {
+      const text = document.getElementById('pg-output').textContent;
+      navigator.clipboard.writeText(text);
+      alert('Prompt copied to clipboard! 📋');
+    }
   </script>
 </body>
 </html>
