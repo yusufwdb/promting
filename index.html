@@ -207,7 +207,7 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       overflow-x: auto;
       scrollbar-width: none;
     }
@@ -243,7 +243,7 @@
       text-decoration: none;
     }
 
-    /* Quick Search Input inside Jump Bar */
+    /* Quick Search Input */
     .quick-search-box {
       margin-left: auto;
       display: flex;
@@ -262,9 +262,7 @@
       width: 140px;
     }
 
-    /* ===================================== */
-    /* FLOATING RIGHT SPEED-NAV DOCK */
-    /* ===================================== */
+    /* Floating Right Speed Dock */
     .floating-speed-dock {
       position: fixed;
       right: 18px;
@@ -751,13 +749,52 @@
       width: 100%;
     }
 
-    /* Lab Case Cards */
+    /* Live Tokenizer Tokens */
+    .token-chip {
+      display: inline-block;
+      padding: 4px 8px;
+      margin: 3px 2px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid var(--line);
+    }
+
+    /* Interactive Attention Matrix Heatmap */
+    .attn-matrix {
+      display: grid;
+      gap: 4px;
+      margin: 14px 0;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      overflow-x: auto;
+    }
+    .attn-row {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .attn-cell {
+      width: 44px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border-radius: 4px;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s;
+    }
+    .attn-cell:hover { transform: scale(1.15); z-index: 2; }
+
+    /* Lab Case Cards & Interactive Fallacy Guess Buttons */
     .case-card {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
     }
     .case-badge {
       display: inline-block;
@@ -769,6 +806,22 @@
       color: var(--crimson);
       margin-bottom: 6px;
     }
+    .fallacy-opt-btn {
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--paper-dim);
+      font-size: 0.76rem;
+      font-weight: 650;
+      cursor: pointer;
+      color: var(--ink);
+      margin: 3px 2px;
+      transition: all 0.15s;
+    }
+    .fallacy-opt-btn:hover { border-color: var(--crimson); color: var(--crimson); }
+    .fallacy-opt-btn.correct { background: #15803d !important; color: #fff !important; border-color: #15803d !important; }
+    .fallacy-opt-btn.wrong { background: #b91c1c !important; color: #fff !important; border-color: #b91c1c !important; }
+
     .reveal-btn {
       padding: 5px 12px;
       border-radius: 6px;
@@ -851,19 +904,22 @@
   </header>
 
   <!-- ============================================= -->
-  <!-- TOP STICKY QUICK-JUMP BAR -->
+  <!-- TOP STICKY QUICK-JUMP BAR WITH ALL 6 NUMBERS -->
   <!-- ============================================= -->
   <div class="quick-jump-bar">
     <div class="jump-bar-inner">
       <span class="jump-label">⚡ Direct Jump:</span>
       <a class="jump-pill" href="#m01">01. Intro</a>
+      <a class="jump-pill" href="#m02">02. LLM Mechanics</a>
       <a class="jump-pill" href="#sim-temp">Softmax Slider</a>
-      <a class="jump-pill" href="#m03">03. ChatML & Tools</a>
+      <a class="jump-pill" href="#sim-tok">Live Tokenizer</a>
+      <a class="jump-pill" href="#m03">03. Chat & Tools</a>
+      <a class="jump-pill" href="#m04">04. Applications</a>
       <a class="jump-pill" href="#sim-prompt">Prompt Builder</a>
-      <a class="jump-pill" href="#m05">05. RAG Pipeline</a>
+      <a class="jump-pill" href="#m05">05. Context & RAG</a>
       <a class="jump-pill" href="#sim-jaccard">Jaccard Calc</a>
       <a class="jump-pill" href="#m06">06. Lab Workbook</a>
-      <a class="jump-pill" href="#lab1-cases">8 Fallacy Cases</a>
+      <a class="jump-pill" href="#lab1-cases">8 Fallacy Quiz</a>
 
       <!-- Quick Section Search Bar -->
       <div class="quick-search-box">
@@ -884,7 +940,7 @@
     <a class="speed-btn" href="#m04" title="Module 04: Applications">04</a>
     <a class="speed-btn" href="#m05" title="Module 05: RAG & Jaccard">05</a>
     <a class="speed-btn" href="#m06" title="Module 06: Lab Workbook">06</a>
-    <a class="speed-btn" href="#lab1-cases" title="Lab Fallacy Explorer">🧪</a>
+    <a class="speed-btn" href="#lab1-cases" title="Interactive Fallacy Quiz">🧪</a>
   </aside>
 
   <!-- Hero Section -->
@@ -939,7 +995,7 @@
       <a href="#m06">06 · Laboratory Workbook</a>
 
       <div style="margin-top: 24px; padding: 14px; border-radius: 8px; background: var(--crimson-soft); font-size: 0.78rem; color: var(--crimson-dark); line-height: 1.5;">
-        <strong>Interactive Suite:</strong> Features interactive slides, Softmax slider, live Jaccard calculator, Chunking visualizer, and 24-run Fallacy testing workbench.
+        <strong>Interactive Suite:</strong> Features interactive slides, Softmax slider, live Tokenizer, Attention heatmap, Jaccard calculator, and 8-case Fallacy quiz.
       </div>
     </aside>
 
@@ -1034,6 +1090,25 @@
           </div>
         </div>
 
+        <!-- NEW: INTERACTIVE ATTENTION HEATMAP MATRIX -->
+        <h3>Interactive Attention Heatmap Visualizer</h3>
+        <p>Click on any word in the sentence below to visualize how the Transformer routes attention weights ($Q \cdot K^T / \sqrt{d_k}$):</p>
+        
+        <div class="interactive-tool-box">
+          <div style="font-size: 0.85rem; margin-bottom: 12px; color: var(--muted);">
+            Sentence: <em>“The animal didn't cross the street because <strong>it</strong> was too tired.”</em>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
+            <button class="fallacy-opt-btn" onclick="renderAttention('animal')">Focus: "animal"</button>
+            <button class="fallacy-opt-btn active" onclick="renderAttention('it')">Focus: "it" (Pronoun Resolution)</button>
+            <button class="fallacy-opt-btn" onclick="renderAttention('street')">Focus: "street"</button>
+            <button class="fallacy-opt-btn" onclick="renderAttention('tired')">Focus: "tired"</button>
+          </div>
+          <div id="attn-display" style="background: var(--paper-dim); padding: 16px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.85rem;">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
         <h3>2. What Makes a Prompt Operational?</h3>
         <p>Consider the difference between a beginner's vague request and an engineered production prompt:</p>
 
@@ -1054,9 +1129,6 @@ Define every technical term before using it.</code></pre>
         </div>
 
         <h3>3. From Prompt to Application: The 3 Participants</h3>
-        <p>
-          In production software engineering, there is always an intermediary orchestrator between the user and the model:
-        </p>
         <div class="table-container">
           <table>
             <thead>
@@ -1149,7 +1221,23 @@ Define every technical term before using it.</code></pre>
           <div id="sim-bars"></div>
         </div>
 
-        <h3>2. Hallucinations Taxonomy & The 5 Defenses</h3>
+        <!-- NEW: INTERACTIVE TOKENIZER PLAYGROUND -->
+        <h3 id="sim-tok">2. Live Subword Tokenizer Playground</h3>
+        <p>Type any word or sentence below to watch it split into discrete tokens in real time:</p>
+        
+        <div class="interactive-tool-box">
+          <div style="margin-bottom: 12px;">
+            <input type="text" id="tok-input" value="Unbelievable! Prompt engineering at Wrocław University 2026." style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-dim); color: var(--ink); font-size: 0.92rem;" oninput="tokenizeLive(this.value)">
+          </div>
+          <div id="tok-chips" style="min-height: 44px; padding: 10px; background: var(--paper-dim); border-radius: 8px; margin-bottom: 10px;">
+            <!-- Rendered by JS -->
+          </div>
+          <div id="tok-stats" style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted);">
+            Characters: 58 | Words: 7 | Tokens: ~11 | Ratio: ~5.2 chars/token
+          </div>
+        </div>
+
+        <h3>3. Hallucinations Taxonomy & The 5 Defenses</h3>
         <div class="grid-3">
           <div class="info-card">
             <h4>Factual Hallucinations</h4>
@@ -1468,83 +1556,131 @@ Define every technical term before using it.</code></pre>
           </div>
         </div>
 
-        <h3 id="lab1-cases">Lab 1: Interactive Fallacy Case Explorer (8 Cases)</h3>
-        <p>Inspect the arguments used in the 24 experimental runs. Click each card to reveal the expert ground-truth analysis:</p>
+        <h3 id="lab1-cases">Lab 1: Interactive Fallacy Testing Quiz (8 Experimental Cases)</h3>
+        <p>Test your reasoning! Click the fallacy button you predict for each argument, or click <strong>Reveal Analysis</strong> to see the expert ground truth:</p>
 
+        <!-- Case A -->
         <div class="case-card">
           <span class="case-badge">Case A</span>
           <p>“Sales started falling after we introduced a new logo. This proves that the logo change discouraged customers.”</p>
-          <button class="reveal-btn" onclick="toggleCase('c-a')">Reveal Fallacy Analysis</button>
+          <div style="margin: 8px 0;">
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, true, 'c-a')">False Cause (Post hoc)</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-a')">Appeal to Authority</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-a')">Slippery Slope</button>
+            <button class="reveal-btn" onclick="toggleCase('c-a')">Reveal Full Analysis</button>
+          </div>
           <div class="analysis-box" id="c-a">
             <strong>Intended Category:</strong> False Cause (Post hoc ergo propter hoc)<br>
             <strong>Core Issue:</strong> Temporal sequence alone does not establish causation. Other factors (market trends, seasonality, competitor actions) were ignored without justification.
           </div>
         </div>
 
+        <!-- Case B -->
         <div class="case-card">
           <span class="case-badge">Case B</span>
           <p>“This supplement must work because a famous actor said in an interview that it made them feel great.”</p>
-          <button class="reveal-btn" onclick="toggleCase('c-b')">Reveal Fallacy Analysis</button>
+          <div style="margin: 8px 0;">
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-b')">False Cause</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, true, 'c-b')">Appeal to Authority</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-b')">Ad Hominem</button>
+            <button class="reveal-btn" onclick="toggleCase('c-b')">Reveal Full Analysis</button>
+          </div>
           <div class="analysis-box" id="c-b">
             <strong>Intended Category:</strong> Appeal to Authority (Invalid Authority)<br>
             <strong>Core Issue:</strong> A celebrity endorsement does not constitute clinical, peer-reviewed, or pharmacological evidence.
           </div>
         </div>
 
+        <!-- Case C -->
         <div class="case-card">
           <span class="case-badge">Case C</span>
           <p>“I met two rude waiters at this restaurant chain. Clearly, the entire company has terrible staff.”</p>
-          <button class="reveal-btn" onclick="toggleCase('c-c')">Reveal Fallacy Analysis</button>
+          <div style="margin: 8px 0;">
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, true, 'c-c')">Hasty Generalization</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-c')">False Dilemma</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-c')">Slippery Slope</button>
+            <button class="reveal-btn" onclick="toggleCase('c-c')">Reveal Full Analysis</button>
+          </div>
           <div class="analysis-box" id="c-c">
             <strong>Intended Category:</strong> Hasty Generalization<br>
             <strong>Core Issue:</strong> A sample size of two isolated individuals cannot generalize across hundreds of employees in an entire company.
           </div>
         </div>
 
+        <!-- Case D -->
         <div class="case-card">
           <span class="case-badge">Case D</span>
           <p>“If we allow students to use phones in class, within a year nobody will pay attention and the education system will collapse.”</p>
-          <button class="reveal-btn" onclick="toggleCase('c-d')">Reveal Fallacy Analysis</button>
+          <div style="margin: 8px 0;">
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-d')">Ad Hominem</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, true, 'c-d')">Slippery Slope</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-d')">False Cause</button>
+            <button class="reveal-btn" onclick="toggleCase('c-d')">Reveal Full Analysis</button>
+          </div>
           <div class="analysis-box" id="c-d">
             <strong>Intended Category:</strong> Slippery Slope<br>
             <strong>Core Issue:</strong> Asserts an extreme catastrophic chain of events without establishing that each subsequent link is an inevitable consequence.
           </div>
         </div>
 
+        <!-- Case E -->
         <div class="case-card">
           <span class="case-badge">Case E</span>
           <p>“If we do not vote for this bill, our economy will collapse catastrophically and we will all lose our savings.”</p>
-          <button class="reveal-btn" onclick="toggleCase('c-e')">Reveal Fallacy Analysis</button>
+          <div style="margin: 8px 0;">
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, true, 'c-e')">Appeal to Fear</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-e')">False Cause</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-e')">Hasty Generalization</button>
+            <button class="reveal-btn" onclick="toggleCase('c-e')">Reveal Full Analysis</button>
+          </div>
           <div class="analysis-box" id="c-e">
             <strong>Intended Category:</strong> Appeal to Fear (Argumentum ad metum)<br>
             <strong>Core Issue:</strong> Uses extreme emotional panic and fear to force agreement rather than presenting empirical macroeconomic evidence.
           </div>
         </div>
 
+        <!-- Case F -->
         <div class="case-card">
           <span class="case-badge">Case F</span>
           <p>“We should not listen to his tax-reform proposal because he changed jobs twice within one year.”</p>
-          <button class="reveal-btn" onclick="toggleCase('c-f')">Reveal Fallacy Analysis</button>
+          <div style="margin: 8px 0;">
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-f')">False Dilemma</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, true, 'c-f')">Ad Hominem</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-f')">Appeal to Authority</button>
+            <button class="reveal-btn" onclick="toggleCase('c-f')">Reveal Full Analysis</button>
+          </div>
           <div class="analysis-box" id="c-f">
             <strong>Intended Category:</strong> Ad Hominem<br>
             <strong>Core Issue:</strong> Attacks a person's employment history rather than analyzing the fiscal merits or flaws of the tax reform proposal.
           </div>
         </div>
 
+        <!-- Case G -->
         <div class="case-card">
           <span class="case-badge">Case G</span>
           <p>“Either you support a complete ban on internal-combustion cars, or you do not care about the environment at all.”</p>
-          <button class="reveal-btn" onclick="toggleCase('c-g')">Reveal Fallacy Analysis</button>
+          <div style="margin: 8px 0;">
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, true, 'c-g')">False Dilemma</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-g')">Slippery Slope</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-g')">False Cause</button>
+            <button class="reveal-btn" onclick="toggleCase('c-g')">Reveal Full Analysis</button>
+          </div>
           <div class="analysis-box" id="c-g">
             <strong>Intended Category:</strong> False Dilemma (Bifurcation)<br>
             <strong>Core Issue:</strong> Artificially collapses a complex spectrum of environmental policies into two extreme binary positions.
           </div>
         </div>
 
+        <!-- Case H -->
         <div class="case-card">
           <span class="case-badge">Case H</span>
           <p>“A study involving 10,000 people indicates that regular physical activity reduces the risk of heart disease. Therefore, it is worth introducing programs that encourage older adults to exercise.”</p>
-          <button class="reveal-btn" onclick="toggleCase('c-h')">Reveal Fallacy Analysis</button>
+          <div style="margin: 8px 0;">
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-h')">False Cause</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, false, 'c-h')">Hasty Generalization</button>
+            <button class="fallacy-opt-btn" onclick="checkFallacy(this, true, 'c-h')">No Clear Fallacy (Sound)</button>
+            <button class="reveal-btn" onclick="toggleCase('c-h')">Reveal Full Analysis</button>
+          </div>
           <div class="analysis-box" id="c-h">
             <strong>Intended Category:</strong> No Clear Fallacy (Sound Practical Argument)<br>
             <strong>Core Issue:</strong> Cites substantial empirical data in support of a proportionate, qualified policy recommendation.
@@ -1665,23 +1801,42 @@ Define every technical term before using it.</code></pre>
       el.style.display = el.style.display === 'block' ? 'none' : 'block';
     }
 
+    // Interactive Fallacy Quiz Button Checker
+    function checkFallacy(btn, isCorrect, caseId) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.fallacy-opt-btn').forEach(b => b.classList.remove('correct', 'wrong'));
+      if (isCorrect) {
+        btn.classList.add('correct');
+        document.getElementById(caseId).style.display = 'block';
+      } else {
+        btn.classList.add('wrong');
+      }
+    }
+
     // Quick Search Jump Filter
     function filterJump(query) {
       query = query.toLowerCase().trim();
       if (!query) return;
 
       const mapping = [
+        { key: '01', target: '#m01' },
+        { key: 'intro', target: '#m01' },
+        { key: '02', target: '#m02' },
         { key: 'softmax', target: '#sim-temp' },
         { key: 'temp', target: '#sim-temp' },
-        { key: 'prompt', target: '#sim-prompt' },
-        { key: 'jaccard', target: '#sim-jaccard' },
-        { key: 'rag', target: '#m05' },
-        { key: 'fallacy', target: '#lab1-cases' },
-        { key: 'case', target: '#lab1-cases' },
-        { key: 'lab', target: '#m06' },
+        { key: 'token', target: '#sim-tok' },
+        { key: '03', target: '#m03' },
         { key: 'chat', target: '#m03' },
-        { key: 'token', target: '#m02' },
-        { key: 'attention', target: '#m01' }
+        { key: '04', target: '#m04' },
+        { key: 'app', target: '#m04' },
+        { key: 'prompt', target: '#sim-prompt' },
+        { key: '05', target: '#m05' },
+        { key: 'rag', target: '#m05' },
+        { key: 'jaccard', target: '#sim-jaccard' },
+        { key: '06', target: '#m06' },
+        { key: 'lab', target: '#m06' },
+        { key: 'fallacy', target: '#lab1-cases' },
+        { key: 'case', target: '#lab1-cases' }
       ];
 
       for (let m of mapping) {
@@ -1750,6 +1905,71 @@ Define every technical term before using it.</code></pre>
       });
     }
     updateTemperature(0.7);
+
+    // Interactive Attention Matrix Renderer
+    function renderAttention(focusWord) {
+      const words = ["The", "animal", "didn't", "cross", "the", "street", "because", "it", "was", "too", "tired."];
+      const weights = {
+        animal: [0.05, 0.65, 0.05, 0.05, 0.02, 0.05, 0.02, 0.08, 0.01, 0.01, 0.01],
+        it: [0.02, 0.62, 0.02, 0.04, 0.02, 0.08, 0.04, 0.12, 0.01, 0.01, 0.02],
+        street: [0.03, 0.08, 0.02, 0.12, 0.05, 0.58, 0.02, 0.06, 0.01, 0.01, 0.02],
+        tired: [0.01, 0.45, 0.02, 0.03, 0.01, 0.05, 0.04, 0.25, 0.02, 0.04, 0.08]
+      };
+
+      const w = weights[focusWord] || weights.it;
+      let html = `<div style="margin-bottom:8px; font-weight:700; color:var(--crimson);">Attention Distribution when resolving query "${focusWord}":</div><div style="display:flex; gap:6px; flex-wrap:wrap;">`;
+
+      words.forEach((word, idx) => {
+        const val = w[idx];
+        const opacity = Math.max(0.15, val);
+        const isTarget = word.toLowerCase().includes(focusWord);
+        html += `
+          <div style="text-align:center; padding:6px 8px; border-radius:6px; background:rgba(185, 28, 28, ${opacity}); color:${val > 0.3 ? '#fff' : 'inherit'}; border:1px solid ${isTarget ? 'var(--crimson)' : 'transparent'};">
+            <div>${word}</div>
+            <div style="font-size:0.7rem; font-weight:700;">${(val * 100).toFixed(0)}%</div>
+          </div>
+        `;
+      });
+      html += `</div><div style="margin-top:10px; font-size:0.75rem; color:var(--muted);">Notice how "it" assigns <strong>62% attention weight to "animal"</strong>, correctly resolving the coreference link!</div>`;
+      document.getElementById('attn-display').innerHTML = html;
+    }
+    renderAttention('it');
+
+    // Live Subword Tokenizer Simulation
+    function tokenizeLive(text) {
+      if (!text.trim()) {
+        document.getElementById('tok-chips').innerHTML = '<span style="color:var(--muted); font-size:0.8rem;">Type something above...</span>';
+        return;
+      }
+      const rawWords = text.split(/(\s+|[.,!?;:])/).filter(Boolean);
+      const colors = ['#fee2e2', '#e0f2fe', '#fef3c7', '#f3e8ff', '#dcfce7', '#ffedd5'];
+      let tokenCount = 0;
+      let chipsHtml = '';
+
+      rawWords.forEach(chunk => {
+        if (/^\s+$/.test(chunk)) return;
+        // Simulate subword splits for rare or long words
+        let subparts = [chunk];
+        if (chunk.length > 7 && !/https?/.test(chunk)) {
+          const mid = Math.floor(chunk.length / 2);
+          subparts = [chunk.slice(0, mid), chunk.slice(mid)];
+        }
+
+        subparts.forEach((sp, i) => {
+          tokenCount++;
+          const col = colors[tokenCount % colors.length];
+          chipsHtml += `<span class="token-chip" style="background:${col}; color:#1e293b;">${sp}</span>`;
+        });
+      });
+
+      document.getElementById('tok-chips').innerHTML = chipsHtml;
+      const chars = text.length;
+      const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+      const ratio = tokenCount > 0 ? (chars / tokenCount).toFixed(1) : 0;
+      document.getElementById('tok-stats').textContent = 
+        `Characters: ${chars} | Words: ${wordCount} | Tokens: ~${tokenCount} | Ratio: ~${ratio} chars/token`;
+    }
+    tokenizeLive(document.getElementById('tok-input').value);
 
     // Jaccard Calculator
     function calculateJaccard() {
