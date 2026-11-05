@@ -107,7 +107,7 @@
       max-width: 1400px;
       margin: 0 auto;
       padding: 0 24px;
-      height: 70px;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -118,22 +118,22 @@
       align-items: center;
       gap: 12px;
       font-weight: 800;
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       color: var(--ink);
       letter-spacing: 0.04em;
       text-transform: uppercase;
       text-decoration: none !important;
     }
     .brand-mark {
-      width: 36px;
-      height: 36px;
-      border-radius: 9px;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
       background: var(--crimson);
       color: #fff;
       display: grid;
       place-items: center;
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       box-shadow: 0 2px 10px var(--crimson-glow);
     }
 
@@ -143,9 +143,9 @@
       gap: 6px;
     }
     .nav-btn {
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 20px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 650;
       color: var(--muted);
       transition: all 0.15s;
@@ -159,7 +159,7 @@
       background: var(--crimson) !important;
       color: #fff !important;
       border-radius: 20px;
-      padding: 6px 16px;
+      padding: 5px 14px;
       font-weight: 700;
       box-shadow: 0 2px 10px var(--crimson-glow);
     }
@@ -167,20 +167,19 @@
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
-    /* Translate & Theme Buttons */
     .ctrl-pill-btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 12px;
+      padding: 5px 12px;
       border-radius: 8px;
       border: 1px solid var(--line);
       background: var(--card);
       color: var(--ink);
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
@@ -191,11 +190,122 @@
       color: var(--crimson);
     }
 
+    /* ===================================== */
+    /* STICKY QUICK-JUMP BAR (TOP DOCK) */
+    /* ===================================== */
+    .quick-jump-bar {
+      position: sticky;
+      top: 64px;
+      z-index: 850;
+      background: var(--paper-dim);
+      border-bottom: 1px solid var(--line);
+      padding: 8px 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .jump-bar-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .jump-bar-inner::-webkit-scrollbar { display: none; }
+    
+    .jump-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--crimson);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .jump-pill {
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      font-size: 0.76rem;
+      font-weight: 650;
+      color: var(--ink-secondary);
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .jump-pill:hover, .jump-pill.active {
+      background: var(--crimson);
+      color: #ffffff;
+      border-color: var(--crimson);
+      text-decoration: none;
+    }
+
+    /* Quick Search Input inside Jump Bar */
+    .quick-search-box {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 3px 8px;
+    }
+    .quick-search-box input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 0.75rem;
+      color: var(--ink);
+      width: 140px;
+    }
+
+    /* ===================================== */
+    /* FLOATING RIGHT SPEED-NAV DOCK */
+    /* ===================================== */
+    .floating-speed-dock {
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 800;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      background: var(--card);
+      padding: 10px 8px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-md);
+    }
+    .speed-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      background: var(--paper-dim);
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      font-size: 0.72rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none !important;
+    }
+    .speed-btn:hover {
+      background: var(--crimson);
+      color: #fff;
+      transform: scale(1.1);
+    }
+
     /* Hero Section */
     .hero {
       background: linear-gradient(180deg, var(--crimson-soft) 0%, var(--paper) 100%);
       border-bottom: 1px solid var(--line);
-      padding: 68px 24px 54px;
+      padding: 60px 24px 48px;
     }
     .hero-inner {
       max-width: 1400px;
@@ -203,13 +313,13 @@
       display: grid;
       grid-template-columns: 1.18fr 0.82fr;
       align-items: center;
-      gap: 50px;
+      gap: 48px;
     }
     .eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 800;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -218,38 +328,38 @@
       padding: 5px 14px;
       border-radius: 20px;
       border: 1px solid var(--crimson-border);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     h1 {
       font-family: var(--font-serif);
-      font-size: clamp(2.4rem, 4.6vw, 4.1rem);
+      font-size: clamp(2.3rem, 4.4vw, 3.8rem);
       font-weight: 700;
-      line-height: 1.14;
-      margin-bottom: 20px;
+      line-height: 1.15;
+      margin-bottom: 18px;
       color: var(--ink);
       letter-spacing: -0.02em;
     }
     .hero-lead {
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       color: var(--ink-secondary);
       line-height: 1.68;
-      margin-bottom: 28px;
+      margin-bottom: 26px;
       max-width: 650px;
     }
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 11px 22px;
-      border-radius: 9px;
+      padding: 10px 20px;
+      border-radius: 8px;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       cursor: pointer;
       text-decoration: none !important;
       transition: all 0.2s;
@@ -275,17 +385,17 @@
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 16px;
-      padding: 26px;
+      padding: 24px;
       box-shadow: var(--shadow-lg);
       border-top: 4px solid var(--crimson);
     }
     .demo-input {
-      margin: 14px 0 16px;
-      padding: 16px 18px;
+      margin: 12px 0 14px;
+      padding: 14px 16px;
       border-radius: 10px;
       background: var(--paper-dim);
       font-family: var(--font-serif);
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       line-height: 1.45;
       border-left: 4px solid var(--crimson);
     }
@@ -294,10 +404,10 @@
       display: flex;
       align-items: baseline;
       gap: 12px;
-      padding: 11px 14px;
+      padding: 10px 12px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       background: var(--card);
       cursor: pointer;
       transition: all 0.15s;
@@ -318,17 +428,17 @@
     .content-shell {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 50px 24px 100px;
+      padding: 44px 24px 90px;
       display: grid;
-      grid-template-columns: 250px minmax(0, 1fr);
-      gap: 50px;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: 48px;
     }
 
     /* Sidebar */
     .side-nav {
       position: sticky;
-      top: 92px;
-      max-height: calc(100vh - 120px);
+      top: 130px;
+      max-height: calc(100vh - 150px);
       overflow-y: auto;
       padding-right: 12px;
     }
@@ -338,11 +448,11 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
-      margin: 18px 0 8px;
+      margin: 16px 0 8px;
     }
     .side-nav a {
       display: block;
-      padding: 7px 12px;
+      padding: 6px 10px;
       border-radius: 6px;
       font-size: 0.82rem;
       color: var(--ink-secondary);
@@ -361,9 +471,10 @@
     /* Sections */
     main { min-width: 0; }
     .course-module {
-      margin-bottom: 100px;
-      padding-bottom: 70px;
+      margin-bottom: 90px;
+      padding-bottom: 60px;
       border-bottom: 2px dashed var(--line);
+      scroll-margin-top: 120px;
     }
     .course-module:last-child { border-bottom: none; }
     
@@ -382,7 +493,7 @@
     }
     h2 {
       font-family: var(--font-serif);
-      font-size: clamp(2.1rem, 3.4vw, 2.9rem);
+      font-size: clamp(2rem, 3.2vw, 2.7rem);
       font-weight: 700;
       line-height: 1.2;
       color: var(--ink);
@@ -390,39 +501,32 @@
       letter-spacing: -0.015em;
     }
     h3 {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 700;
-      margin: 36px 0 14px;
+      margin: 32px 0 12px;
       color: var(--ink);
       letter-spacing: -0.01em;
-    }
-    h4 {
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: var(--ink);
+      scroll-margin-top: 120px;
     }
     p {
-      margin-bottom: 18px;
-      font-size: 0.98rem;
+      margin-bottom: 16px;
+      font-size: 0.96rem;
       color: var(--ink-secondary);
-      line-height: 1.75;
+      line-height: 1.72;
     }
 
-    /* ===================================== */
-    /* INTERACTIVE SLIDE DECK COMPONENT */
-    /* ===================================== */
+    /* Slide Deck */
     .slide-deck {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 16px;
       overflow: hidden;
-      margin: 28px 0 40px;
+      margin: 26px 0 36px;
       box-shadow: var(--shadow-md);
       border-top: 4px solid var(--crimson);
     }
     .slide-deck-header {
-      padding: 14px 22px;
+      padding: 12px 20px;
       background: var(--paper-dim);
       border-bottom: 1px solid var(--line);
       display: flex;
@@ -432,7 +536,7 @@
       gap: 10px;
     }
     .slide-tag {
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -457,8 +561,8 @@
     }
 
     .slide-content-stage {
-      padding: 34px;
-      min-height: 270px;
+      padding: 30px;
+      min-height: 250px;
       display: none;
       animation: fadeIn 0.3s ease-in-out;
     }
@@ -479,17 +583,17 @@
     }
     .slide-headline {
       font-family: var(--font-serif);
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       font-weight: 700;
       margin-bottom: 12px;
       color: var(--ink);
     }
-    .slide-bullets { list-style: none; margin-top: 14px; }
+    .slide-bullets { list-style: none; margin-top: 12px; }
     .slide-bullets li {
       padding-left: 22px;
       position: relative;
-      margin-bottom: 10px;
-      font-size: 0.94rem;
+      margin-bottom: 9px;
+      font-size: 0.92rem;
       color: var(--ink-secondary);
       line-height: 1.6;
     }
@@ -502,7 +606,7 @@
     }
 
     .slide-deck-footer {
-      padding: 12px 22px;
+      padding: 10px 20px;
       background: var(--card-alt);
       border-top: 1px solid var(--line);
       display: flex;
@@ -510,11 +614,11 @@
       align-items: center;
     }
     .slide-ctrl-btn {
-      padding: 7px 18px;
+      padding: 6px 16px;
       border-radius: 6px;
       border: 1px solid var(--line);
       background: var(--card);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--ink);
       cursor: pointer;
@@ -526,15 +630,14 @@
     }
 
     /* Grids & Cards */
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin: 24px 0; }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 24px 0; }
-    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 24px 0; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin: 22px 0; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin: 22px 0; }
 
     .info-card {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 22px;
+      padding: 20px;
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .info-card:hover {
@@ -544,8 +647,8 @@
     }
 
     .callout {
-      margin: 26px 0;
-      padding: 20px 24px;
+      margin: 24px 0;
+      padding: 18px 22px;
       border-radius: 8px;
       border-left: 4px solid var(--crimson);
       background: var(--crimson-soft);
@@ -557,31 +660,31 @@
     .table-container {
       width: 100%;
       overflow-x: auto;
-      margin: 24px 0;
+      margin: 22px 0;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--card);
     }
     table { width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left; }
-    th { background: var(--paper-dim); padding: 12px 16px; font-weight: 700; border-bottom: 1px solid var(--line); color: var(--ink); }
-    td { padding: 12px 16px; border-bottom: 1px solid var(--line); color: var(--ink-secondary); vertical-align: top; }
+    th { background: var(--paper-dim); padding: 11px 15px; font-weight: 700; border-bottom: 1px solid var(--line); color: var(--ink); }
+    td { padding: 11px 15px; border-bottom: 1px solid var(--line); color: var(--ink-secondary); vertical-align: top; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: var(--paper-dim); }
 
     /* Code Blocks */
     .code-block-wrapper {
-      margin: 24px 0;
+      margin: 22px 0;
       border-radius: var(--radius);
       overflow: hidden;
       border: 1px solid var(--line);
       background: #0d1117;
     }
     .code-header {
-      padding: 9px 16px;
+      padding: 8px 15px;
       background: #080c12;
       border-bottom: 1px solid #1f2937;
       color: #9ca3af;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
@@ -589,16 +692,17 @@
       justify-content: space-between;
       align-items: center;
     }
-    pre { padding: 20px; overflow-x: auto; color: #f3f4f6; font-size: 0.86rem; line-height: 1.65; }
+    pre { padding: 18px; overflow-x: auto; color: #f3f4f6; font-size: 0.85rem; line-height: 1.65; }
 
     /* Interactive Simulators */
     .interactive-tool-box {
       background: var(--card);
       border: 2px solid var(--crimson-border);
       border-radius: var(--radius);
-      padding: 24px;
-      margin: 28px 0;
+      padding: 22px;
+      margin: 26px 0;
       box-shadow: var(--shadow-sm);
+      scroll-margin-top: 130px;
     }
     .tool-header {
       display: flex;
@@ -606,9 +710,9 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       border-bottom: 1px solid var(--line);
-      padding-bottom: 12px;
+      padding-bottom: 10px;
     }
 
     .prob-row {
@@ -617,11 +721,11 @@
       align-items: center;
       gap: 14px;
       font-size: 0.88rem;
-      margin-bottom: 9px;
+      margin-bottom: 8px;
     }
     .prob-track {
       background: var(--paper-dim);
-      height: 20px;
+      height: 18px;
       border-radius: 6px;
       overflow: hidden;
     }
@@ -631,20 +735,19 @@
       transition: width 0.2s;
     }
 
-    /* Interactive Jaccard Box */
     .calc-input-group {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 14px;
+      gap: 12px;
+      margin-bottom: 12px;
     }
     .calc-input-group input {
-      padding: 10px 14px;
+      padding: 9px 12px;
       border-radius: 8px;
       border: 1px solid var(--line);
       background: var(--paper-dim);
       color: var(--ink);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       width: 100%;
     }
 
@@ -653,25 +756,25 @@
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 10px;
-      padding: 18px;
-      margin-bottom: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
     }
     .case-badge {
       display: inline-block;
       font-size: 0.72rem;
       font-weight: 800;
-      padding: 3px 8px;
+      padding: 2px 8px;
       border-radius: 4px;
       background: var(--crimson-soft);
       color: var(--crimson);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .reveal-btn {
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 6px;
       border: 1px solid var(--line);
       background: var(--paper-dim);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       cursor: pointer;
       color: var(--ink);
@@ -684,11 +787,11 @@
     }
     .analysis-box {
       display: none;
-      margin-top: 12px;
-      padding: 12px 14px;
+      margin-top: 10px;
+      padding: 10px 12px;
       background: var(--crimson-soft);
       border-radius: 6px;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       line-height: 1.6;
     }
 
@@ -696,15 +799,11 @@
     .site-footer {
       border-top: 1px solid var(--line);
       background: var(--paper-dim);
-      padding: 44px 24px;
+      padding: 40px 24px;
       text-align: center;
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.86rem;
     }
-
-    /* Google Translate hidden banner styling */
-    .goog-te-banner-frame.skiptranslate { display: none !important; }
-    body { top: 0px !important; }
 
     @media (max-width: 980px) {
       .hero-inner { grid-template-columns: 1fr; }
@@ -712,6 +811,7 @@
       .side-nav { display: none; }
       .top-nav { display: none; }
       .calc-input-group { grid-template-columns: 1fr; }
+      .floating-speed-dock { display: none; }
     }
   </style>
 </head>
@@ -749,6 +849,43 @@
       </div>
     </div>
   </header>
+
+  <!-- ============================================= -->
+  <!-- TOP STICKY QUICK-JUMP BAR -->
+  <!-- ============================================= -->
+  <div class="quick-jump-bar">
+    <div class="jump-bar-inner">
+      <span class="jump-label">⚡ Direct Jump:</span>
+      <a class="jump-pill" href="#m01">01. Intro</a>
+      <a class="jump-pill" href="#sim-temp">Softmax Slider</a>
+      <a class="jump-pill" href="#m03">03. ChatML & Tools</a>
+      <a class="jump-pill" href="#sim-prompt">Prompt Builder</a>
+      <a class="jump-pill" href="#m05">05. RAG Pipeline</a>
+      <a class="jump-pill" href="#sim-jaccard">Jaccard Calc</a>
+      <a class="jump-pill" href="#m06">06. Lab Workbook</a>
+      <a class="jump-pill" href="#lab1-cases">8 Fallacy Cases</a>
+
+      <!-- Quick Section Search Bar -->
+      <div class="quick-search-box">
+        <span style="font-size: 0.75rem; margin-right: 4px;">🔍</span>
+        <input type="text" id="sec-search" placeholder="Quick search..." onkeyup="filterJump(this.value)">
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- FLOATING RIGHT SPEED-NAV DOCK -->
+  <!-- ============================================= -->
+  <aside class="floating-speed-dock" aria-label="Speed Jump Dock">
+    <a class="speed-btn" href="#top" title="Top of Page">↑</a>
+    <a class="speed-btn" href="#m01" title="Module 01: Intro">01</a>
+    <a class="speed-btn" href="#m02" title="Module 02: LLMs & Softmax">02</a>
+    <a class="speed-btn" href="#m03" title="Module 03: Chat & Tools">03</a>
+    <a class="speed-btn" href="#m04" title="Module 04: Applications">04</a>
+    <a class="speed-btn" href="#m05" title="Module 05: RAG & Jaccard">05</a>
+    <a class="speed-btn" href="#m06" title="Module 06: Lab Workbook">06</a>
+    <a class="speed-btn" href="#lab1-cases" title="Lab Fallacy Explorer">🧪</a>
+  </aside>
 
   <!-- Hero Section -->
   <section class="hero" id="top">
@@ -997,7 +1134,7 @@ Define every technical term before using it.</code></pre>
           </div>
         </div>
 
-        <h3>1. Interactive Softmax & Temperature Tool</h3>
+        <h3 id="sim-temp">1. Interactive Softmax & Temperature Tool</h3>
         <p>Adjust the slider below to dynamically compute the probability distribution for next-token sampling:</p>
 
         <div class="interactive-tool-box">
@@ -1159,7 +1296,7 @@ Define every technical term before using it.</code></pre>
           </div>
         </div>
 
-        <h3>Interactive Operational Prompt Generator</h3>
+        <h3 id="sim-prompt">Interactive Operational Prompt Generator</h3>
         <p>Choose parameters below to synthesize a structured production prompt with 1-click copy:</p>
 
         <div class="interactive-tool-box">
@@ -1238,7 +1375,7 @@ Define every technical term before using it.</code></pre>
           </div>
         </div>
 
-        <h3>Interactive Jaccard Similarity Calculator</h3>
+        <h3 id="sim-jaccard">Interactive Jaccard Similarity Calculator</h3>
         <p>Type keywords to calculate intersection $|A \cap B|$, union $|A \cup B|$, and exact Jaccard score in real time:</p>
 
         <div class="interactive-tool-box">
@@ -1254,7 +1391,7 @@ Define every technical term before using it.</code></pre>
           </div>
           <div style="background: var(--paper-dim); padding: 14px 18px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.88rem;" id="jaccard-output">
             Intersection: {science, space, travel} (3) | Union: {exploration, novel, rocket, science, space, travel} (6)<br>
-            <strong>Jaccard Similarity J(A, B) = 3 / 6 = 0.500 (50.0%)</strong>
+            <strong style="color:var(--crimson);">Jaccard Similarity J(A, B) = 3 / 6 = 0.500 (50.0%)</strong>
           </div>
         </div>
 
@@ -1331,7 +1468,7 @@ Define every technical term before using it.</code></pre>
           </div>
         </div>
 
-        <h3>Lab 1: Interactive Fallacy Case Explorer (8 Cases)</h3>
+        <h3 id="lab1-cases">Lab 1: Interactive Fallacy Case Explorer (8 Cases)</h3>
         <p>Inspect the arguments used in the 24 experimental runs. Click each card to reveal the expert ground-truth analysis:</p>
 
         <div class="case-card">
@@ -1526,6 +1663,36 @@ Define every technical term before using it.</code></pre>
     function toggleCase(id) {
       const el = document.getElementById(id);
       el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Quick Search Jump Filter
+    function filterJump(query) {
+      query = query.toLowerCase().trim();
+      if (!query) return;
+
+      const mapping = [
+        { key: 'softmax', target: '#sim-temp' },
+        { key: 'temp', target: '#sim-temp' },
+        { key: 'prompt', target: '#sim-prompt' },
+        { key: 'jaccard', target: '#sim-jaccard' },
+        { key: 'rag', target: '#m05' },
+        { key: 'fallacy', target: '#lab1-cases' },
+        { key: 'case', target: '#lab1-cases' },
+        { key: 'lab', target: '#m06' },
+        { key: 'chat', target: '#m03' },
+        { key: 'token', target: '#m02' },
+        { key: 'attention', target: '#m01' }
+      ];
+
+      for (let m of mapping) {
+        if (query.includes(m.key)) {
+          const el = document.querySelector(m.target);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+            break;
+          }
+        }
+      }
     }
 
     // Slide Deck Engine
