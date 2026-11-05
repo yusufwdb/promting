@@ -10,7 +10,7 @@
   <!-- Google Fonts & KaTeX -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
@@ -18,25 +18,25 @@
   <style>
     :root {
       /* Crimson / Executive Red Design System */
-      --crimson: #c9182b;
-      --crimson-hover: #a51020;
-      --crimson-dark: #7c0b16;
-      --crimson-soft: #fff1f2;
-      --crimson-border: #fecdd3;
-      --crimson-glow: rgba(201, 24, 43, 0.18);
+      --crimson: #b91c1c;
+      --crimson-hover: #991b1b;
+      --crimson-dark: #7f1d1d;
+      --crimson-soft: #fef2f2;
+      --crimson-border: #fecaca;
+      --crimson-glow: rgba(185, 28, 28, 0.18);
 
-      --ink: #111827;
-      --ink-secondary: #374151;
-      --muted: #6b7280;
-      --line: #e5e7eb;
-      --paper: #fafafa;
-      --paper-dim: #f3f4f6;
+      --ink: #0f172a;
+      --ink-secondary: #334155;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --paper: #f8fafc;
+      --paper-dim: #f1f5f9;
       --card: #ffffff;
-      --card-alt: #f9fafb;
+      --card-alt: #f8fafc;
 
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-      --shadow-md: 0 8px 24px rgba(0,0,0,0.07);
-      --shadow-lg: 0 20px 40px rgba(0,0,0,0.1);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
+      --shadow-lg: 0 20px 35px -5px rgba(0,0,0,0.12);
       --radius: 12px;
 
       --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
@@ -45,25 +45,25 @@
     }
 
     [data-theme="dark"] {
-      --crimson: #ff384d;
-      --crimson-hover: #ff6071;
-      --crimson-dark: #ff1f37;
-      --crimson-soft: #270d10;
-      --crimson-border: #5c181f;
-      --crimson-glow: rgba(255, 56, 77, 0.25);
+      --crimson: #ef4444;
+      --crimson-hover: #f87171;
+      --crimson-dark: #dc2626;
+      --crimson-soft: #2d1215;
+      --crimson-border: #5a1c22;
+      --crimson-glow: rgba(239, 68, 68, 0.25);
 
-      --ink: #f9fafb;
-      --ink-secondary: #d1d5db;
-      --muted: #9ca3af;
-      --line: #2d3748;
+      --ink: #f8fafc;
+      --ink-secondary: #cbd5e1;
+      --muted: #94a3b8;
+      --line: #1e293b;
       --paper: #0b0f17;
-      --paper-dim: #131924;
-      --card: #161e2e;
-      --card-alt: #1c2638;
+      --paper-dim: #111827;
+      --card: #151e2e;
+      --card-alt: #1a2538;
 
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
-      --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
-      --shadow-lg: 0 20px 40px rgba(0,0,0,0.5);
+      --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.4);
+      --shadow-lg: 0 20px 35px -5px rgba(0,0,0,0.6);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -72,11 +72,11 @@
       font-family: var(--font-sans);
       color: var(--ink);
       background-color: var(--paper);
-      line-height: 1.7;
+      line-height: 1.75;
       transition: background-color 0.25s, color 0.25s;
     }
 
-    a { color: var(--crimson); text-decoration: none; font-weight: 600; }
+    a { color: var(--crimson); text-decoration: none; font-weight: 600; text-underline-offset: 3px; }
     a:hover { color: var(--crimson-hover); text-decoration: underline; }
     code, pre { font-family: var(--font-mono); }
 
@@ -85,7 +85,7 @@
       position: fixed;
       top: 0; left: 0;
       height: 3.5px;
-      background: linear-gradient(90deg, var(--crimson), #ff6b6b);
+      background: linear-gradient(90deg, var(--crimson), #f87171);
       width: 0%;
       z-index: 1000;
       transition: width 0.1s ease-out;
@@ -96,18 +96,18 @@
       position: sticky;
       top: 0;
       z-index: 900;
-      background: rgba(250, 250, 250, 0.94);
+      background: rgba(248, 250, 252, 0.95);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
     }
     [data-theme="dark"] .site-header {
-      background: rgba(11, 15, 23, 0.94);
+      background: rgba(11, 15, 23, 0.95);
     }
     .header-inner {
-      max-width: 1360px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 24px;
-      height: 68px;
+      height: 70px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -125,28 +125,28 @@
       text-decoration: none !important;
     }
     .brand-mark {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 8px;
       background: var(--crimson);
       color: #fff;
       display: grid;
       place-items: center;
       font-weight: 800;
-      font-size: 0.8rem;
-      box-shadow: 0 2px 8px var(--crimson-glow);
+      font-size: 0.82rem;
+      box-shadow: 0 2px 10px var(--crimson-glow);
     }
 
     .top-nav {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
     .nav-btn {
       padding: 6px 14px;
       border-radius: 20px;
       font-size: 0.82rem;
-      font-weight: 600;
+      font-weight: 650;
       color: var(--muted);
       transition: all 0.15s;
     }
@@ -161,12 +161,12 @@
       border-radius: 20px;
       padding: 6px 16px;
       font-weight: 700;
-      box-shadow: 0 2px 8px var(--crimson-glow);
+      box-shadow: 0 2px 10px var(--crimson-glow);
     }
 
     .theme-btn {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 8px;
       border: 1px solid var(--line);
       background: var(--card);
@@ -175,21 +175,23 @@
       place-items: center;
       cursor: pointer;
       font-size: 1rem;
+      transition: all 0.2s;
     }
+    .theme-btn:hover { border-color: var(--crimson); }
 
     /* Hero Section */
     .hero {
       background: linear-gradient(180deg, var(--crimson-soft) 0%, var(--paper) 100%);
       border-bottom: 1px solid var(--line);
-      padding: 60px 24px 48px;
+      padding: 68px 24px 54px;
     }
     .hero-inner {
-      max-width: 1360px;
+      max-width: 1400px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
+      grid-template-columns: 1.18fr 0.82fr;
       align-items: center;
-      gap: 48px;
+      gap: 50px;
     }
     .eyebrow {
       display: inline-flex;
@@ -208,19 +210,19 @@
     }
     h1 {
       font-family: var(--font-serif);
-      font-size: clamp(2.4rem, 4.8vw, 4.2rem);
+      font-size: clamp(2.4rem, 4.6vw, 4.1rem);
       font-weight: 700;
-      line-height: 1.12;
-      margin-bottom: 18px;
+      line-height: 1.14;
+      margin-bottom: 20px;
       color: var(--ink);
       letter-spacing: -0.02em;
     }
     .hero-lead {
-      font-size: 1.12rem;
+      font-size: 1.15rem;
       color: var(--ink-secondary);
-      line-height: 1.65;
-      margin-bottom: 26px;
-      max-width: 640px;
+      line-height: 1.68;
+      margin-bottom: 28px;
+      max-width: 650px;
     }
     .hero-actions {
       display: flex;
@@ -274,7 +276,7 @@
       background: var(--paper-dim);
       font-family: var(--font-serif);
       font-size: 1.15rem;
-      line-height: 1.4;
+      line-height: 1.45;
       border-left: 4px solid var(--crimson);
     }
     .demo-options { display: grid; gap: 8px; }
@@ -285,7 +287,7 @@
       padding: 11px 14px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      font-size: 0.84rem;
+      font-size: 0.85rem;
       background: var(--card);
       cursor: pointer;
       transition: all 0.15s;
@@ -304,12 +306,12 @@
 
     /* Content Layout */
     .content-shell {
-      max-width: 1360px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 50px 24px 90px;
+      padding: 50px 24px 100px;
       display: grid;
-      grid-template-columns: 240px minmax(0, 1fr);
-      gap: 48px;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 50px;
     }
 
     /* Sidebar */
@@ -326,7 +328,7 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
-      margin: 16px 0 8px;
+      margin: 18px 0 8px;
     }
     .side-nav a {
       display: block;
@@ -337,6 +339,7 @@
       text-decoration: none !important;
       transition: all 0.15s;
       margin-bottom: 2px;
+      line-height: 1.35;
     }
     .side-nav a:hover, .side-nav a.active {
       background: var(--crimson-soft);
@@ -348,8 +351,8 @@
     /* Sections */
     main { min-width: 0; }
     .course-module {
-      margin-bottom: 90px;
-      padding-bottom: 60px;
+      margin-bottom: 100px;
+      padding-bottom: 70px;
       border-bottom: 2px dashed var(--line);
     }
     .course-module:last-child { border-bottom: none; }
@@ -362,14 +365,14 @@
       letter-spacing: 0.1em;
       color: var(--crimson);
       background: var(--crimson-soft);
-      padding: 4px 10px;
+      padding: 4px 12px;
       border-radius: 6px;
       margin-bottom: 12px;
       border: 1px solid var(--crimson-border);
     }
     h2 {
       font-family: var(--font-serif);
-      font-size: clamp(2rem, 3.2vw, 2.8rem);
+      font-size: clamp(2.1rem, 3.4vw, 2.9rem);
       font-weight: 700;
       line-height: 1.2;
       color: var(--ink);
@@ -377,10 +380,11 @@
       letter-spacing: -0.015em;
     }
     h3 {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 700;
-      margin: 32px 0 12px;
+      margin: 36px 0 14px;
       color: var(--ink);
+      letter-spacing: -0.01em;
     }
     h4 {
       font-size: 1.05rem;
@@ -389,10 +393,10 @@
       color: var(--ink);
     }
     p {
-      margin-bottom: 16px;
-      font-size: 0.96rem;
+      margin-bottom: 18px;
+      font-size: 0.98rem;
       color: var(--ink-secondary);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     /* ===================================== */
@@ -403,12 +407,12 @@
       border: 1px solid var(--line);
       border-radius: 16px;
       overflow: hidden;
-      margin: 28px 0 36px;
+      margin: 28px 0 40px;
       box-shadow: var(--shadow-md);
       border-top: 4px solid var(--crimson);
     }
     .slide-deck-header {
-      padding: 14px 20px;
+      padding: 14px 22px;
       background: var(--paper-dim);
       border-bottom: 1px solid var(--line);
       display: flex;
@@ -418,7 +422,7 @@
       gap: 10px;
     }
     .slide-tag {
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -446,8 +450,8 @@
     }
 
     .slide-content-stage {
-      padding: 32px;
-      min-height: 260px;
+      padding: 34px;
+      min-height: 270px;
       display: none;
       animation: fadeIn 0.3s ease-in-out;
     }
@@ -470,7 +474,7 @@
     }
     .slide-headline {
       font-family: var(--font-serif);
-      font-size: 1.45rem;
+      font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 12px;
       color: var(--ink);
@@ -480,11 +484,12 @@
       margin-top: 14px;
     }
     .slide-bullets li {
-      padding-left: 20px;
+      padding-left: 22px;
       position: relative;
-      margin-bottom: 8px;
-      font-size: 0.92rem;
+      margin-bottom: 10px;
+      font-size: 0.94rem;
       color: var(--ink-secondary);
+      line-height: 1.6;
     }
     .slide-bullets li::before {
       content: "▸";
@@ -495,7 +500,7 @@
     }
 
     .slide-deck-footer {
-      padding: 12px 20px;
+      padding: 12px 22px;
       background: var(--card-alt);
       border-top: 1px solid var(--line);
       display: flex;
@@ -503,7 +508,7 @@
       align-items: center;
     }
     .slide-ctrl-btn {
-      padding: 7px 16px;
+      padding: 7px 18px;
       border-radius: 6px;
       border: 1px solid var(--line);
       background: var(--card);
@@ -519,15 +524,15 @@
     }
 
     /* Grids & Cards */
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin: 22px 0; }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 22px 0; }
-    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin: 22px 0; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin: 24px 0; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 24px 0; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 24px 0; }
 
     .info-card {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 20px;
+      padding: 22px;
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .info-card:hover {
@@ -537,8 +542,8 @@
     }
 
     .callout {
-      margin: 24px 0;
-      padding: 18px 22px;
+      margin: 26px 0;
+      padding: 20px 24px;
       border-radius: 8px;
       border-left: 4px solid var(--crimson);
       background: var(--crimson-soft);
@@ -550,44 +555,44 @@
     .table-container {
       width: 100%;
       overflow-x: auto;
-      margin: 22px 0;
+      margin: 24px 0;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--card);
     }
     table { width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left; }
-    th { background: var(--paper-dim); padding: 12px 14px; font-weight: 700; border-bottom: 1px solid var(--line); color: var(--ink); }
-    td { padding: 12px 14px; border-bottom: 1px solid var(--line); color: var(--ink-secondary); vertical-align: top; }
+    th { background: var(--paper-dim); padding: 12px 16px; font-weight: 700; border-bottom: 1px solid var(--line); color: var(--ink); }
+    td { padding: 12px 16px; border-bottom: 1px solid var(--line); color: var(--ink-secondary); vertical-align: top; }
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: var(--paper-dim); }
 
     /* Code Blocks */
     .code-block-wrapper {
-      margin: 22px 0;
+      margin: 24px 0;
       border-radius: var(--radius);
       overflow: hidden;
       border: 1px solid var(--line);
       background: #0d1117;
     }
     .code-header {
-      padding: 8px 14px;
+      padding: 9px 16px;
       background: #080c12;
       border-bottom: 1px solid #1f2937;
       color: #9ca3af;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 700;
       letter-spacing: 0.05em;
       text-transform: uppercase;
     }
-    pre { padding: 18px; overflow-x: auto; color: #f3f4f6; font-size: 0.85rem; line-height: 1.6; }
+    pre { padding: 20px; overflow-x: auto; color: #f3f4f6; font-size: 0.86rem; line-height: 1.65; }
 
     /* Interactive Softmax Simulator */
     .sim-panel {
       background: var(--card);
       border: 2px solid var(--crimson-border);
       border-radius: var(--radius);
-      padding: 22px;
-      margin: 26px 0;
+      padding: 24px;
+      margin: 28px 0;
     }
     .sim-top {
       display: flex;
@@ -595,34 +600,34 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
     .temp-badge {
       background: var(--crimson);
       color: #fff;
-      padding: 3px 10px;
+      padding: 4px 12px;
       border-radius: 6px;
       font-family: var(--font-mono);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 700;
     }
     .prob-row {
       display: grid;
-      grid-template-columns: 80px 1fr 60px;
+      grid-template-columns: 80px 1fr 65px;
       align-items: center;
-      gap: 12px;
-      font-size: 0.85rem;
-      margin-bottom: 8px;
+      gap: 14px;
+      font-size: 0.88rem;
+      margin-bottom: 9px;
     }
     .prob-track {
       background: var(--paper-dim);
-      height: 18px;
+      height: 20px;
       border-radius: 6px;
       overflow: hidden;
     }
     .prob-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--crimson), #ff5c72);
+      background: linear-gradient(90deg, var(--crimson), #f87171);
       transition: width 0.2s;
     }
 
@@ -631,44 +636,45 @@
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 8px;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     summary.quiz-question {
-      padding: 13px 16px;
+      padding: 14px 18px;
       font-weight: 650;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       cursor: pointer;
     }
     .quiz-answer {
-      padding: 10px 16px 14px;
-      font-size: 0.86rem;
+      padding: 12px 18px 16px;
+      font-size: 0.88rem;
       color: var(--ink-secondary);
       border-top: 1px solid var(--line);
+      line-height: 1.65;
     }
 
     .case-card {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
     }
     .case-badge {
       display: inline-block;
       font-size: 0.72rem;
       font-weight: 800;
-      padding: 2px 8px;
+      padding: 3px 8px;
       border-radius: 4px;
       background: var(--crimson-soft);
       color: var(--crimson);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
     .reveal-btn {
-      padding: 5px 12px;
+      padding: 6px 14px;
       border-radius: 6px;
       border: 1px solid var(--line);
       background: var(--paper-dim);
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
       color: var(--ink);
@@ -680,24 +686,25 @@
     }
     .analysis-box {
       display: none;
-      margin-top: 10px;
-      padding: 10px 12px;
+      margin-top: 12px;
+      padding: 12px 14px;
       background: var(--crimson-soft);
       border-radius: 6px;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
+      line-height: 1.6;
     }
 
     /* Footer */
     .site-footer {
       border-top: 1px solid var(--line);
       background: var(--paper-dim);
-      padding: 40px 24px;
+      padding: 44px 24px;
       text-align: center;
       color: var(--muted);
-      font-size: 0.85rem;
+      font-size: 0.88rem;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 980px) {
       .hero-inner { grid-template-columns: 1fr; }
       .content-shell { grid-template-columns: 1fr; }
       .side-nav { display: none; }
@@ -709,12 +716,12 @@
 
   <div id="progress-bar"></div>
 
-  <!-- Sticky Header -->
+  <!-- Header -->
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="#top">
         <span class="brand-mark">PE</span>
-        <span>promting / field notes</span>
+        <span>promting / master manual</span>
       </a>
       <nav class="top-nav">
         <a class="nav-btn" href="#m01">01 · Intro</a>
@@ -732,58 +739,58 @@
   <section class="hero" id="top">
     <div class="hero-inner">
       <div>
-        <span class="eyebrow">Comprehensive 6-Module Curriculum</span>
-        <h1>Introduction to prompt engineering.</h1>
+        <span class="eyebrow">Production-Grade Prompt Engineering Manual</span>
+        <h1>The Architecture of Language Model Prompts.</h1>
         <p class="hero-lead">
-          A language model continues the information it receives. Prompt engineering is the rigorous discipline of shaping that continuation into something useful, relevant, and reliable.
+          A language model produces a continuation of the information it receives. Prompt engineering is the rigorous science and software discipline of transforming that continuation into something deterministic, useful, verifiable, and safe.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-crimson" href="#m01">Explore Curriculum ↓</a>
-          <a class="btn btn-outline" href="#m06">Go to Lab Assignments 🧪</a>
+          <a class="btn btn-crimson" href="#m01">Read Full Curriculum ↓</a>
+          <a class="btn btn-outline" href="#m06">Interactive Laboratory 🧪</a>
         </div>
       </div>
 
       <div class="hero-demo-card">
-        <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: var(--crimson);">The Core Premise</span>
+        <span style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; color: var(--crimson);">The Fundamental Physics of Continuation</span>
         <div class="demo-input" id="demo-quote">
           “The most important discovery of the experiment was…”
         </div>
         <div class="demo-options">
-          <div class="demo-option active" onclick="setHeroDemo(this, '…a measurable change in the observed samples.')">
-            <b>Report</b><span>…a measurable change in the observed samples.</span>
+          <div class="demo-option active" onclick="setHeroDemo(this, '…a statistically significant reduction in latency under distributed load, validating the pipeline hypothesis.')">
+            <b>Scientific</b><span>…a measurable change in observed samples.</span>
           </div>
-          <div class="demo-option" onclick="setHeroDemo(this, '…hidden behind the locked laboratory door.')">
-            <b>Story</b><span>…hidden behind the locked laboratory door.</span>
+          <div class="demo-option" onclick="setHeroDemo(this, '…hidden behind the rusted vault door that had remained sealed since 1944.')">
+            <b>Narrative</b><span>…hidden behind the locked laboratory door.</span>
           </div>
-          <div class="demo-option" onclick="setHeroDemo(this, '…that the first hypothesis did not hold.')">
-            <b>Summary</b><span>…that the first hypothesis did not hold.</span>
+          <div class="demo-option" onclick="setHeroDemo(this, '…that our initial baseline assumptions were completely false.')">
+            <b>Executive</b><span>…that the primary hypothesis did not hold.</span>
           </div>
         </div>
-        <p style="font-size: 0.74rem; color: var(--muted); margin-top: 12px;">
-          The model does not intend an outcome; the surrounding context determines which branch of text is generated.
+        <p style="font-size: 0.76rem; color: var(--muted); margin-top: 14px;">
+          The model possesses no innate intent; the surrounding frame controls which subspace of knowledge and stylistic continuation is triggered.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Content Layout -->
+  <!-- Main Layout -->
   <div class="content-shell">
     
-    <!-- Sticky Sidebar -->
+    <!-- Sticky Navigation Sidebar -->
     <aside class="side-nav">
-      <div class="side-nav-heading">Curriculum Modules</div>
+      <div class="side-nav-heading">Curriculum Index</div>
       <a class="active" href="#m01">01 · Introduction & History</a>
-      <a href="#m02">02 · Understanding LLMs</a>
-      <a href="#m03">03 · Chat, Alignment & Tools</a>
+      <a href="#m02">02 · Mechanics & Probabilities</a>
+      <a href="#m03">03 · Chat Alignment & Tools</a>
       <a href="#m04">04 · Designing Applications</a>
-      <a href="#m05">05 · Context & RAG</a>
+      <a href="#m05">05 · Context & RAG Architecture</a>
       <a href="#m06">06 · Laboratory Workbook</a>
-      <div style="margin-top: 24px; padding: 14px; border-radius: 8px; background: var(--crimson-soft); font-size: 0.76rem; color: var(--crimson-dark);">
-        Includes interactive presentation slides, probability simulators, and all 4 laboratory experiments.
+      <div style="margin-top: 24px; padding: 14px; border-radius: 8px; background: var(--crimson-soft); font-size: 0.78rem; color: var(--crimson-dark); line-height: 1.5;">
+        <strong>Professional Edition:</strong> Contains exhaustive theory, exact math formulas, production code examples, interactive slides, and all 4 laboratory experiments.
       </div>
     </aside>
 
-    <!-- Main Content -->
+    <!-- Main Content Area -->
     <main>
 
       <!-- ============================================== -->
@@ -791,12 +798,12 @@
       <!-- ============================================== -->
       <article class="course-module" id="m01">
         <span class="module-badge">Module 01 · ~10 min read</span>
-        <h2>Introduction to Prompt Engineering</h2>
+        <h2>01 · Introduction to Prompt Engineering</h2>
         <div class="callout">
           <p><strong>Big Idea:</strong> A language model produces a continuation of the information it receives. Prompt engineering is the practice of making that continuation useful, relevant, and reliable.</p>
         </div>
 
-        <!-- Interactive Slide Deck for Module 1 -->
+        <!-- Slide Deck 1 -->
         <div class="slide-deck" id="deck-1">
           <div class="slide-deck-header">
             <span class="slide-tag">🖥 Interactive Presentation Slides · Module 1</span>
@@ -808,71 +815,108 @@
             </div>
           </div>
           <div class="slide-content-stage active">
-            <span class="slide-step-num">Slide 1 of 4 · Core Concept</span>
-            <div class="slide-headline">The Central Question of Prompting</div>
-            <p>What makes a model's next words useful for a particular task? When given an opening prompt, thousands of continuations are plausible.</p>
+            <span class="slide-step-num">Slide 1 of 4 · The Core Dilemma</span>
+            <div class="slide-headline">The Central Question of Prompt Engineering</div>
+            <p>What makes a model's next words useful for a specific engineering task?</p>
             <ul class="slide-bullets">
-              <li><strong>Instructions:</strong> Explicitly describe the task, audience, and constraints.</li>
-              <li><strong>Context:</strong> Provide verified facts, references, and conversation state.</li>
-              <li><strong>Output Schema:</strong> Dictate exact structure (JSON, table, bulleted steps).</li>
+              <li><strong>Open-Ended Continuation:</strong> Given <em>“The most important discovery was…”</em>, thousands of continuations are valid. The surrounding text acts as a steering wheel.</li>
+              <li><strong>Not Just Clever Phrasing:</strong> In real applications, prompt engineering means deciding what data to retrieve, how to structure multi-turn memory, and how to validate outputs.</li>
             </ul>
           </div>
           <div class="slide-content-stage">
-            <span class="slide-step-num">Slide 2 of 4 · Architecture Evolution</span>
-            <div class="slide-headline">From Markov to the Transformer</div>
-            <p>The progression of sequence modeling:</p>
+            <span class="slide-step-num">Slide 2 of 4 · The Timeline</span>
+            <div class="slide-headline">From N-Grams to Autoregressive Transformers</div>
             <ul class="slide-bullets">
-              <li><strong>1940s+:</strong> Statistical N-grams (limited 1-3 token local context).</li>
-              <li><strong>2014:</strong> Seq2Seq models (compressing whole sentences into a single "thought vector").</li>
-              <li><strong>2015:</strong> Attention mechanisms (allowing decoder to query all source positions).</li>
-              <li><strong>2017:</strong> The Transformer (Attention Is All You Need — eliminating recurrence).</li>
+              <li><strong>1940s+: Statistical Language Models:</strong> Markov models predicting next words based on 1–3 preceding words. Zero long-range understanding.</li>
+              <li><strong>2014: Seq2Seq Models:</strong> Encoder-decoder architecture compressing entire sentences into a single fixed "thought vector".</li>
+              <li><strong>2015: Attention in Neural Sequence Models:</strong> The decoder queries all source token representations instead of one bottleneck vector.</li>
+              <li><strong>2017: The Transformer:</strong> <em>Attention Is All You Need</em> replaces recurrence entirely with stacked self-attention.</li>
             </ul>
           </div>
           <div class="slide-content-stage">
-            <span class="slide-step-num">Slide 3 of 4 · The GPT Mechanism</span>
-            <div class="slide-headline">Autoregressive Generation</div>
-            <p>GPT models estimate the conditional probability of the next token:</p>
-            <div style="font-size: 1.15rem; text-align: center; margin: 12px 0;">
+            <span class="slide-step-num">Slide 3 of 4 · The GPT Formula</span>
+            <div class="slide-headline">Autoregressive Mathematical Generation</div>
+            <p>GPT-style generation repeatedly estimates conditional probability distributions:</p>
+            <div style="font-size: 1.2rem; text-align: center; margin: 12px 0;">
               $$P(t_{n+1} \mid t_1, t_2, \ldots, t_n)$$
             </div>
             <ul class="slide-bullets">
-              <li><strong>Generative:</strong> Produces new text token-by-token.</li>
-              <li><strong>Pre-trained:</strong> Learns representations from broad web corpora.</li>
-              <li><strong>Transformer:</strong> Multi-head self-attention connects all token positions.</li>
+              <li><strong>G (Generative):</strong> Synthesizes new text token-by-token.</li>
+              <li><strong>P (Pre-trained):</strong> Learns broad language patterns from web-scale data before task specialization.</li>
+              <li><strong>T (Transformer):</strong> Processes all token relationships simultaneously using multi-head attention.</li>
             </ul>
           </div>
           <div class="slide-content-stage">
-            <span class="slide-step-num">Slide 4 of 4 · Operational Prompts</span>
-            <div class="slide-headline">Vague vs Designed Prompts</div>
+            <span class="slide-step-num">Slide 4 of 4 · The 3 Inescapable Limitations</span>
+            <div class="slide-headline">Crucial Boundaries to Remember</div>
             <ul class="slide-bullets">
-              <li><strong>Vague:</strong> "Explain transformers." (Produces generic textbook summary).</li>
-              <li><strong>Designed:</strong> Specify target audience, scope, length constraints, and required comparison tables.</li>
-              <li><strong>Three Limits:</strong> Not a search engine, finite context window, fluent ≠ verified.</li>
+              <li><strong>1. Not a Search Engine:</strong> Models calculate statistical continuations; they do not natively verify truth or query sources without tools.</li>
+              <li><strong>2. Context Windows are Finite:</strong> Information must be snippetized, ranked, and prioritized.</li>
+              <li><strong>3. Fluency ≠ Correctness:</strong> Confident, grammatical prose can still contain subtle mathematical, logical, or factual errors.</li>
             </ul>
           </div>
           <div class="slide-deck-footer">
-            <button class="slide-ctrl-btn" onclick="stepSlide('deck-1', -1)">← Previous</button>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-1', -1)">← Previous Slide</button>
             <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 4</span>
-            <button class="slide-ctrl-btn" onclick="stepSlide('deck-1', 1)">Next →</button>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-1', 1)">Next Slide →</button>
           </div>
         </div>
 
-        <h3>The Architectural Bottleneck</h3>
-        <p>In early sequence-to-sequence translation (2014), an encoder compressed an entire paragraph into a single vector. For longer sentences, crucial entities and grammatical relationships were lost. <strong>Attention</strong> solved this by allowing the decoder to dynamically weight and consult every source word at each generation step.</p>
+        <h3>1. The Bottleneck: A Sentence Is Not a Single Vector</h3>
+        <p>
+          Early 2014 sequence-to-sequence translation models consisted of two parts: an <strong>encoder</strong> that read the source text and compressed it into a single fixed-dimension vector (often called a <em>thought vector</em>), and a <strong>decoder</strong> that unpacked that vector to emit the target translation.
+        </p>
+        <p>
+          While this worked for short phrases like <em>“How are you?”</em>, it completely collapsed when translating complex legal, technical, or literary paragraphs. Preserving names, numerical qualifiers, dependent clauses, and stylistic nuances inside a single fixed-size mathematical vector created an extreme information bottleneck. Important context was lost before decoding finished.
+        </p>
 
-        <div class="grid-3">
+        <div class="grid-2">
           <div class="info-card">
-            <h4>1. Not a Search Engine</h4>
-            <p>Produces statistically plausible continuations without inherent fact verification.</p>
+            <h4>❌ Without Attention (Classical Seq2Seq)</h4>
+            <p>One fixed summary vector must carry all information. Early context vanishes in long sequences. Unavoidable memory bottleneck.</p>
           </div>
-          <div class="info-card">
-            <h4>2. Finite Context</h4>
-            <p>Selection, compression, and ranking of information are required engineering tasks.</p>
+          <div class="info-card" style="border-color: var(--crimson-border); background: var(--crimson-soft);">
+            <h4>✓ With Attention (Modern Architecture)</h4>
+            <p>The decoder dynamically cross-references all source word representations at every generation step. Relevant context is directly accessible.</p>
           </div>
-          <div class="info-card">
-            <h4>3. Fluency ≠ Accuracy</h4>
-            <p>Grammatical polish does not guarantee logical validity or empirical truth.</p>
+        </div>
+
+        <h3>2. What Makes a Prompt Operational?</h3>
+        <p>Consider the difference between a beginner's vague request and an engineered production prompt:</p>
+
+        <div class="grid-2">
+          <div class="code-block-wrapper">
+            <div class="code-header"><span>VAGUE / UNENGINEREED PROMPT</span></div>
+            <pre><code>Explain transformers.</code></pre>
+            <p style="padding: 12px 16px; font-size: 0.8rem; color: var(--muted); margin: 0;">Fails to specify target audience, prerequisite depth, formatting structure, or length limits. Leads to unpredictable, generic completions.</p>
           </div>
+          <div class="code-block-wrapper" style="border-color: var(--crimson-border);">
+            <div class="code-header" style="background: var(--crimson-dark); color: #fff;"><span>ENGINEERED OPERATIONAL PROMPT</span></div>
+            <pre><code>Explain the transformer architecture to first-year computer science students.
+Begin with the seq2seq bottleneck, then introduce attention.
+Use one simple analogy, one comparison table, and no more than 300 words.
+Define every technical term before using it.</code></pre>
+            <p style="padding: 12px 16px; font-size: 0.8rem; color: var(--ink-secondary); margin: 0;">Explicitly specifies: <strong>Audience</strong>, <strong>Logical Sequence</strong>, <strong>Presentation Format</strong>, and <strong>Negative Constraints</strong>.</p>
+          </div>
+        </div>
+
+        <h3>3. From Prompt to Application: The 3 Participants</h3>
+        <p>
+          When interacting with a raw chatbot, it may look like only two entities exist: a human and a model. In real software engineering, there is always a third, critical participant: <strong>the application orchestrator</strong>.
+        </p>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr><th>Engineering Layer</th><th>Core Architectural Question</th><th>Real-World Example</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Task Definition</strong></td><td>What exact goal is the user attempting to accomplish?</td><td>Classify support ticket urgency.</td></tr>
+              <tr><td><strong>Instructions</strong></td><td>What persona, tone, style, and rules must be enforced?</td><td>Friendly tier-1 agent; never guess refund amounts.</td></tr>
+              <tr><td><strong>Context Assembly</strong></td><td>What facts, user records, or excerpts must be injected?</td><td>Retrieve customer order #9821 from SQL DB.</td></tr>
+              <tr><td><strong>Interaction State</strong></td><td>Is this a single-pass request or multi-turn stateful dialogue?</td><td>Preserve active shopping cart across turns.</td></tr>
+              <tr><td><strong>Output Handling</strong></td><td>How will the output be validated, parsed, and executed?</td><td>Extract JSON schema; verify with Pydantic.</td></tr>
+            </tbody>
+          </table>
         </div>
       </article>
 
@@ -881,12 +925,12 @@
       <!-- ============================================== -->
       <article class="course-module" id="m02">
         <span class="module-badge">Module 02 · ~17 min read</span>
-        <h2>Understanding How Language Models Work</h2>
+        <h2>02 · Understanding How Language Models Work</h2>
         <div class="callout">
-          <p><strong>Big Idea:</strong> To use a language model well, understand what it actually processes: <strong>tokens, probability distributions, and context</strong>.</p>
+          <p><strong>Big Idea:</strong> To use a language model well, understand what it actually processes: <strong>tokens, probability distributions, and context</strong>. Many prompting mistakes become easy to diagnose once these mechanics are clear.</p>
         </div>
 
-        <!-- Interactive Slide Deck for Module 2 -->
+        <!-- Slide Deck 2 -->
         <div class="slide-deck" id="deck-2">
           <div class="slide-deck-header">
             <span class="slide-tag">🖥 Interactive Presentation Slides · Module 2</span>
@@ -897,56 +941,115 @@
             </div>
           </div>
           <div class="slide-content-stage active">
-            <span class="slide-step-num">Slide 1 of 3 · Representation</span>
-            <div class="slide-headline">Tokens & Tokenization Realities</div>
-            <p>Models process token integer IDs, not raw human characters:</p>
+            <span class="slide-step-num">Slide 1 of 3 · Atomic Representation</span>
+            <div class="slide-headline">Tokens: How Language Is Digitized</div>
+            <p>Humans see letters and words; language models receive token integer IDs:</p>
             <ul class="slide-bullets">
-              <li>Common words are 1 token; rare or compound words split into 2-4 subwords.</li>
-              <li>Spelling, anagrams, and letter counts are difficult because individual letters are hidden inside token IDs.</li>
-              <li>Non-English languages often require significantly more tokens for the same meaning.</li>
+              <li><strong>Subword Splitting:</strong> Tokenizers like Byte-Pair Encoding (BPE) assign single IDs to common words, but split rare words (<code>un-believ-able</code>) into chunks.</li>
+              <li><strong>Character-Level Failures:</strong> Letter counting, palindromes, and anagrams fail because characters are blended inside token IDs.</li>
+              <li><strong>Token Inflation:</strong> Non-English languages (Turkish, Polish, Arabic) consume 2–3× more tokens per sentence than English.</li>
             </ul>
           </div>
           <div class="slide-content-stage">
-            <span class="slide-step-num">Slide 2 of 3 · Softmax Math</span>
-            <div class="slide-headline">Softmax & Temperature (T)</div>
-            <p>The network outputs raw logits ($z_i$), converted to probabilities via:</p>
+            <span class="slide-step-num">Slide 2 of 3 · Probability Mathematics</span>
+            <div class="slide-headline">Logits, Softmax & Temperature Scaling</div>
+            <p>At every step, the transformer computes raw scores (logits $z_i$). Softmax normalizes them:</p>
             <div style="font-size: 1.15rem; text-align: center; margin: 12px 0;">
               $$p_i(T) = \frac{\exp(z_i / T)}{\sum_j \exp(z_j / T)}$$
             </div>
             <ul class="slide-bullets">
-              <li><strong>Low Temperature (0.1–0.3):</strong> Concentrates probability on top candidate (deterministic, factual).</li>
-              <li><strong>High Temperature (0.8–1.2):</strong> Flattens distribution, increasing vocabulary diversity and novelty.</li>
+              <li><strong>Temperature = 0.0:</strong> Pure greedy decoding. The single highest logit is selected with 100% determinism.</li>
+              <li><strong>Temperature &gt; 1.0:</strong> Flattens differences, increasing sampling probability of less likely words.</li>
+              <li><strong>Key Insight:</strong> Low temperature guarantees <em>predictability</em>, NOT accuracy!</li>
             </ul>
           </div>
           <div class="slide-content-stage">
-            <span class="slide-step-num">Slide 3 of 3 · Hallucinations</span>
-            <div class="slide-headline">The 3 Types of Hallucinations & Defenses</div>
+            <span class="slide-step-num">Slide 3 of 3 · Self-Attention & Latency</span>
+            <div class="slide-headline">Attention Q/K/V and Prefill vs Generation</div>
             <ul class="slide-bullets">
-              <li><strong>Factual:</strong> Inventing wrong dates, names, or events.</li>
-              <li><strong>Logical:</strong> Generating conclusions that contradict supplied prompt data.</li>
-              <li><strong>Structural:</strong> Inventing fake DOIs, academic citations, or nonexistent API endpoints.</li>
-              <li><strong>Defenses:</strong> Provide source grounding, negative fallback ("Say I don't know"), and tool lookups.</li>
+              <li><strong>Query (Q):</strong> What information am I seeking?</li>
+              <li><strong>Key (K):</strong> What information do I contain?</li>
+              <li><strong>Value (V):</strong> What representation do I pass forward?</li>
+              <li><strong>Prefill Phase (Parallel):</strong> Prompt tokens processed all at once on GPU matrix cores.</li>
+              <li><strong>Generation Phase (Sequential):</strong> Output tokens generated one by one. The primary latency bottleneck!</li>
             </ul>
           </div>
           <div class="slide-deck-footer">
-            <button class="slide-ctrl-btn" onclick="stepSlide('deck-2', -1)">← Previous</button>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-2', -1)">← Previous Slide</button>
             <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 3</span>
-            <button class="slide-ctrl-btn" onclick="stepSlide('deck-2', 1)">Next →</button>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-2', 1)">Next Slide →</button>
           </div>
+        </div>
+
+        <h3>1. The Generation Loop in Action</h3>
+        <div class="code-block-wrapper">
+          <div class="code-header"><span>AUTOREGRESSIVE GENERATION PSEUDOCODE</span></div>
+          <pre><code>def autoregressive_generate(prompt_text, max_tokens, temperature):
+    token_ids = tokenizer.encode(prompt_text)
+    
+    for _ in range(max_tokens):
+        # 1. Forward pass through transformer layers
+        logits = model.forward(token_ids) # shape: [vocab_size]
+        
+        # 2. Rescale logits by temperature
+        scaled_logits = logits / max(temperature, 1e-5)
+        
+        # 3. Softmax into normalized probability distribution
+        probabilities = softmax(scaled_logits)
+        
+        # 4. Sample next token ID
+        next_token_id = sample(probabilities)
+        
+        # 5. Append to context sequence
+        token_ids.append(next_token_id)
+        if next_token_id == tokenizer.eos_token_id:
+            break
+            
+    return tokenizer.decode(token_ids)</code></pre>
         </div>
 
         <!-- Live Temperature Simulator Widget -->
         <div class="sim-panel">
           <div class="sim-top">
-            <strong>⚡ Live Temperature & Softmax Simulator ("The cat sat on the…")</strong>
+            <div>
+              <strong>⚡ Live Softmax & Temperature Probability Simulator</strong>
+              <div style="font-size: 0.8rem; color: var(--muted);">Context: “The cat sat on the…”</div>
+            </div>
             <span class="temp-badge" id="temp-indicator">T = 0.7</span>
           </div>
           <input type="range" id="temp-range" min="0.1" max="2.0" step="0.1" value="0.7" style="width: 100%; accent-color: var(--crimson); margin-bottom: 14px;" oninput="updateTemperature(this.value)">
           <div id="sim-bars"></div>
+          <p style="font-size: 0.78rem; color: var(--muted); margin-top: 12px;">
+            Slide the temperature to <strong>0.1</strong> to see greedy probability convergence on <code>mat</code> (99%), or to <strong>2.0</strong> to observe uniform randomness across unexpected candidates.
+          </p>
         </div>
 
-        <h3>Self-Attention & Causal Masking</h3>
-        <p>In causal transformers, tokens cannot attend to future positions. A lower-triangular causal mask enforces strictly left-to-right generation, meaning position 2 can attend only to positions 1 and 2, but never 3.</p>
+        <h3>2. Hallucinations Taxonomy & The 5 Defenses</h3>
+        <p>A hallucination occurs when an LLM emits unsupported, factually false, or fabricated information presented with persuasive confidence.</p>
+        
+        <div class="grid-3">
+          <div class="info-card">
+            <h4>Factual Hallucinations</h4>
+            <p>Fabricating historical dates, inventing clinical dosages, or attributing quotes to the wrong historical figures.</p>
+          </div>
+          <div class="info-card">
+            <h4>Logical Contradictions</h4>
+            <p>Reaching mathematical conclusions or deductive claims that directly contradict numbers supplied in the prompt.</p>
+          </div>
+          <div class="info-card">
+            <h4>Structural Hallucinations</h4>
+            <p>Inventing fictitious book titles, realistic-looking DOIs, nonexistent GitHub repositories, or invalid API methods.</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>The 5 Production Engineering Defenses:</strong><br>
+          1. <strong>Source Grounding:</strong> Always provide verified excerpts in the prompt context.<br>
+          2. <strong>Explicit Negative Fallback:</strong> Instruct the model: <em>“If the provided documentation does not state the answer, reply that it is unknown.”</em><br>
+          3. <strong>Tool Grounding:</strong> Offload volatile, private, or real-time information to external APIs.<br>
+          4. <strong>External Code/Schema Checks:</strong> Run generated code in a sandbox; validate JSON against Pydantic schemas.<br>
+          5. <strong>Task Decomposition:</strong> Break large reasoning tasks into staged subtasks with intermediate validation gates.</p>
+        </div>
       </article>
 
       <!-- ============================================== -->
@@ -954,58 +1057,94 @@
       <!-- ============================================== -->
       <article class="course-module" id="m03">
         <span class="module-badge">Module 03 · ~15 min read</span>
-        <h2>Chat Models, Human Feedback, and Tools</h2>
+        <h2>03 · Chat Models, Human Feedback, and Tools</h2>
         <div class="callout">
-          <p><strong>Big Idea:</strong> A base model completes text. A <strong>chat assistant</strong> is aligned to participate in structured conversation, follow boundaries, and operate tools.</p>
+          <p><strong>Big Idea:</strong> A base model completes text. A <strong>chat assistant</strong> is aligned to participate in structured conversations, respect system boundaries, and operate tools safely.</p>
         </div>
 
-        <!-- Interactive Slide Deck for Module 3 -->
+        <!-- Slide Deck 3 -->
         <div class="slide-deck" id="deck-3">
           <div class="slide-deck-header">
             <span class="slide-tag">🖥 Interactive Presentation Slides · Module 3</span>
             <div class="slide-indicators">
               <span class="slide-dot active" onclick="gotoSlide('deck-3', 0)"></span>
               <span class="slide-dot" onclick="gotoSlide('deck-3', 1)"></span>
+              <span class="slide-dot" onclick="gotoSlide('deck-3', 2)"></span>
             </div>
           </div>
           <div class="slide-content-stage active">
-            <span class="slide-step-num">Slide 1 of 2 · Alignment</span>
-            <div class="slide-headline">The Training Pipeline: SFT to RLHF</div>
+            <span class="slide-step-num">Slide 1 of 3 · The Alignment Pipeline</span>
+            <div class="slide-headline">From Pre-training to RLHF</div>
             <ul class="slide-bullets">
-              <li><strong>Pre-training:</strong> Base model trained on internet tokens.</li>
-              <li><strong>SFT:</strong> Supervised fine-tuning teaches assistant persona.</li>
-              <li><strong>Reward Model:</strong> Trained on human preference rankings.</li>
-              <li><strong>RLHF (PPO):</strong> Optimizes policy against reward model. Beware reward hacking!</li>
+              <li><strong>Pre-training:</strong> Massive web crawl (~500B+ tokens). Model learns statistical grammar and broad associations.</li>
+              <li><strong>SFT (Supervised Fine-Tuning):</strong> Human experts write thousands of ideal question/answer pairs to teach helpful conversational structure.</li>
+              <li><strong>Reward Modeling:</strong> Humans rank competing model outputs. A reward neural network learns human preference scoring.</li>
+              <li><strong>RLHF with PPO:</strong> The model is optimized using reinforcement learning to maximize reward scores while minimizing sycophancy.</li>
             </ul>
           </div>
           <div class="slide-content-stage">
-            <span class="slide-step-num">Slide 2 of 2 · Tool Calling</span>
-            <div class="slide-headline">How Tool Calling Actually Works</div>
+            <span class="slide-step-num">Slide 2 of 3 · ChatML & Security</span>
+            <div class="slide-headline">Structured Dialogue Roles</div>
             <ul class="slide-bullets">
-              <li>Model never touches external databases directly; it emits structured JSON function arguments.</li>
-              <li>The <strong>application software</strong> executes the real API call and returns the response as a <code>tool</code> message.</li>
-              <li>Read-only tools (search, check status) have low risk; write-capable tools require user confirmation.</li>
+              <li><strong>system:</strong> High-priority instructions defining persona and negative rules.</li>
+              <li><strong>user:</strong> Human input; must be treated as untrusted data.</li>
+              <li><strong>assistant:</strong> Model responses and proposed tool execution calls.</li>
+              <li><strong>tool:</strong> Output from external APIs and databases.</li>
+            </ul>
+          </div>
+          <div class="slide-content-stage">
+            <span class="slide-step-num">Slide 3 of 3 · Function Calling</span>
+            <div class="slide-headline">The Tool Calling Execution Loop</div>
+            <ul class="slide-bullets">
+              <li>The LLM never runs code directly. It emits structured JSON arguments matching a defined schema.</li>
+              <li>The surrounding software application executes the actual HTTP/DB call.</li>
+              <li>The software feeds the result back to the model as a <code>tool</code> role message.</li>
+              <li>The model interprets the response and explains it clearly to the human user.</li>
             </ul>
           </div>
           <div class="slide-deck-footer">
-            <button class="slide-ctrl-btn" onclick="stepSlide('deck-3', -1)">← Previous</button>
-            <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 2</span>
-            <button class="slide-ctrl-btn" onclick="stepSlide('deck-3', 1)">Next →</button>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-3', -1)">← Previous Slide</button>
+            <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 3</span>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-3', 1)">Next Slide →</button>
           </div>
         </div>
 
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr><th>Role</th><th>Primary Responsibility</th><th>Security Level</th></tr>
-            </thead>
-            <tbody>
-              <tr><td><code>system</code></td><td>Defines global behavior, persona, and negative constraints.</td><td>High priority developer directives.</td></tr>
-              <tr><td><code>user</code></td><td>The end-user request or conversation turn.</td><td>Standard input; bounded by system rules.</td></tr>
-              <tr><td><code>assistant</code></td><td>Generated output or proposed tool calling request.</td><td>Model-generated tokens.</td></tr>
-              <tr><td><code>tool</code></td><td>Data returned from external database/API executions.</td><td>Treated as external data; validate against injection.</td></tr>
-            </tbody>
-          </table>
+        <h3>1. The HHH Alignment Framework</h3>
+        <div class="grid-3">
+          <div class="info-card">
+            <h4>Helpful</h4>
+            <p>Directly solves legitimate user goals with clear, actionable, structured explanations without extraneous fluff.</p>
+          </div>
+          <div class="info-card">
+            <h4>Honest</h4>
+            <p>Expresses calibrated confidence, acknowledges missing context, and refuses to fabricate citations or numbers.</p>
+          </div>
+          <div class="info-card">
+            <h4>Harmless</h4>
+            <p>Refuses malicious requests (malware, exploitation, weapons) while avoiding unnecessary false-positive refusals.</p>
+          </div>
+        </div>
+
+        <h3>2. Production System Prompt Template</h3>
+        <div class="code-block-wrapper">
+          <div class="code-header"><span>PRODUCTION SYSTEM PROMPT ARCHITECTURE</span></div>
+          <pre><code># ROLE & PERSONA
+You are a Senior Technical Support Specialist for enterprise cloud deployments.
+
+# KNOWLEDGE BOUNDARIES
+- Answer ONLY using the retrieved documentation excerpts provided in this conversation.
+- If the excerpts do not contain the answer, reply: "I do not have sufficient documentation to answer this question."
+- Do NOT speculate or cite external community forums.
+
+# OPERATIONAL RULES
+- Provide at most 5 numbered troubleshooting steps.
+- Prioritize non-destructive diagnostic commands before suggesting service restarts.
+- For all terminal commands, display them inside markdown code fences with comments.
+
+# OUTPUT FORMAT
+1. Summary of Diagnosis (1 sentence)
+2. Numbered Action Steps
+3. Verification Command</code></pre>
         </div>
       </article>
 
@@ -1014,12 +1153,12 @@
       <!-- ============================================== -->
       <article class="course-module" id="m04">
         <span class="module-badge">Module 04 · ~17 min read</span>
-        <h2>Designing Applications with Language Models</h2>
+        <h2>04 · Designing Applications with Language Models</h2>
         <div class="callout">
-          <p><strong>Big Idea:</strong> The model produces text; the <strong>application</strong> turns a real-world problem into model input and turns generated text into verified results.</p>
+          <p><strong>Big Idea:</strong> The model produces text; the <strong>application</strong> turns a real-world problem into the right model input and turns generated text into verified results.</p>
         </div>
 
-        <!-- Interactive Slide Deck for Module 4 -->
+        <!-- Slide Deck 4 -->
         <div class="slide-deck" id="deck-4">
           <div class="slide-deck-header">
             <span class="slide-tag">🖥 Interactive Presentation Slides · Module 4</span>
@@ -1029,32 +1168,48 @@
             </div>
           </div>
           <div class="slide-content-stage active">
-            <span class="slide-step-num">Slide 1 of 2 · System Loops</span>
-            <div class="slide-headline">The 4-Stage Feedforward Pipeline</div>
+            <span class="slide-step-num">Slide 1 of 2 · System Topology</span>
+            <div class="slide-headline">The 4 Dimensions of Application Complexity</div>
             <ul class="slide-bullets">
-              <li><strong>1. Retrieval:</strong> Fetch relevant knowledge base articles & user context.</li>
-              <li><strong>2. Snippetizing:</strong> Chunk large documents into focused passages.</li>
-              <li><strong>3. Prioritization:</strong> Score and rank snippets by recency and relevance.</li>
-              <li><strong>4. Assembly:</strong> Build the operational prompt within context budget.</li>
+              <li><strong>Medium:</strong> Plain text vs multimodal audio/video vs structured JSON APIs.</li>
+              <li><strong>Abstraction:</strong> Bounded spelling correction vs complex multi-variable travel logistics.</li>
+              <li><strong>Context:</strong> Single document vs corporate documentation vs real-time booking APIs.</li>
+              <li><strong>Statefulness:</strong> Stateless one-pass vs evolving multi-day session memory.</li>
             </ul>
           </div>
           <div class="slide-content-stage">
-            <span class="slide-step-num">Slide 2 of 2 · Verification</span>
-            <div class="slide-headline">Evaluation: Offline vs Online</div>
+            <span class="slide-step-num">Slide 2 of 2 · The Pipeline</span>
+            <div class="slide-headline">The 4-Stage Feedforward Input Pipeline</div>
             <ul class="slide-bullets">
-              <li><strong>Offline Testing:</strong> Run against 50-500 test cases with ground-truth answers; check JSON schema validity and test code execution.</li>
-              <li><strong>Online Telemetry:</strong> Track user acceptance rates, downstream revisions, and task completion instead of relying on subjective feedback.</li>
+              <li><strong>1. Retrieval:</strong> Fetch user history and candidate support articles.</li>
+              <li><strong>2. Snippetizing:</strong> Chunk long documents to fit context token limits.</li>
+              <li><strong>3. Prioritization:</strong> Rank snippets by relevance and recency.</li>
+              <li><strong>4. Assembly:</strong> Assemble system prompt, excerpts, and user prompt.</li>
             </ul>
           </div>
           <div class="slide-deck-footer">
-            <button class="slide-ctrl-btn" onclick="stepSlide('deck-4', -1)">← Previous</button>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-4', -1)">← Previous Slide</button>
             <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 2</span>
-            <button class="slide-ctrl-btn" onclick="stepSlide('deck-4', 1)">Next →</button>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-4', 1)">Next Slide →</button>
           </div>
         </div>
 
         <h3>The Little Red Riding Hood Principle</h3>
-        <p>Prompts should use familiar structural formats (dialogues, standard reports, structured schemas). When the input pattern is clear and recognizable, the expected continuation is much easier for the model to infer accurately.</p>
+        <p>
+          Models generate text by matching statistical patterns. When a prompt uses a widely recognized, canonical format (such as standard dialogue, technical troubleshooting reports, or formal JSON schemas), the expected continuation is much easier for the model to infer accurately.
+        </p>
+
+        <h3>Application Evaluation Strategies</h3>
+        <div class="grid-2">
+          <div class="info-card">
+            <h4>Offline Testing (Pre-Deployment)</h4>
+            <p>Evaluate against benchmark datasets of 50–500 test cases with known ground truth. Check JSON schema validity rates and execute generated code in isolated sandboxes.</p>
+          </div>
+          <div class="info-card">
+            <h4>Online Telemetry (Production Monitoring)</h4>
+            <p>Measure real-world user acceptance rates of suggestions, downstream edit distances (how much the user had to rewrite), task completion, and session duration.</p>
+          </div>
+        </div>
       </article>
 
       <!-- ============================================== -->
@@ -1062,12 +1217,12 @@
       <!-- ============================================== -->
       <article class="course-module" id="m05">
         <span class="module-badge">Module 05 · ~22 min read</span>
-        <h2>Prompt Content, Context, and RAG</h2>
+        <h2>05 · Prompt Content, Context, and RAG</h2>
         <div class="callout">
-          <p><strong>Big Idea:</strong> The quality of response depends on which information enters the prompt. The core engineering challenge is to find, prioritize, and present the most useful context.</p>
+          <p><strong>Big Idea:</strong> The quality of an LLM response depends fundamentally on <strong>which information enters the prompt</strong>. The core engineering challenge is to find, prioritize, and present the most useful context.</p>
         </div>
 
-        <!-- Interactive Slide Deck for Module 5 -->
+        <!-- Slide Deck 5 -->
         <div class="slide-deck" id="deck-5">
           <div class="slide-deck-header">
             <span class="slide-tag">🖥 Interactive Presentation Slides · Module 5</span>
@@ -1077,40 +1232,56 @@
             </div>
           </div>
           <div class="slide-content-stage active">
-            <span class="slide-step-num">Slide 1 of 2 · Retrieval Math</span>
-            <div class="slide-headline">Lexical vs Neural Embeddings</div>
+            <span class="slide-step-num">Slide 1 of 2 · Retrieval Mathematics</span>
+            <div class="slide-headline">Lexical vs Neural Semantic Matching</div>
             <ul class="slide-bullets">
-              <li><strong>Lexical (Jaccard / BM25):</strong> $J(A, B) = \frac{|A \cap B|}{|A \cup B|}$. Best for exact error codes, part numbers, and verbatim matching.</li>
-              <li><strong>Neural (Cosine Similarity):</strong> $\operatorname{cosim}(\mathbf{a}, \mathbf{b}) = \frac{\mathbf{a} \cdot \mathbf{b}}{\|\mathbf{a}\| \|\mathbf{b}\|}$. Best for synonyms, paraphrasing, and multilingual queries.</li>
+              <li><strong>Lexical (Jaccard / BM25):</strong> $J(A, B) = \frac{|A \cap B|}{|A \cup B|}$. Compares exact character sets and keywords. Essential for error codes, part numbers, and IDs.</li>
+              <li><strong>Neural (Cosine Embeddings):</strong> $\operatorname{cosim}(\mathbf{a}, \mathbf{b}) = \frac{\mathbf{a} \cdot \mathbf{b}}{\|\mathbf{a}\| \|\mathbf{b}\|}$. Compares angles of high-dimensional vectors. Excels at synonyms, paraphrasing, and multilingual queries.</li>
             </ul>
           </div>
           <div class="slide-content-stage">
             <span class="slide-step-num">Slide 2 of 2 · Architecture</span>
-            <div class="slide-headline">The Two RAG Pipelines</div>
+            <div class="slide-headline">The Two Independent RAG Pipelines</div>
             <ul class="slide-bullets">
-              <li><strong>Offline Indexing:</strong> Collect documents → Split into chunks (sliding window) → Embed chunks → Store in vector index. (Generative LLM is not used here!).</li>
-              <li><strong>Request-Time:</strong> Embed query → Retrieve top-$k$ nearest chunks → Assemble prompt → Generative LLM creates grounded answer.</li>
+              <li><strong>Pipeline A: Offline Indexing:</strong> Collect documents → Split into sliding-window chunks → Generate embeddings with embedding model → Store vectors and metadata in vector DB. (The generative LLM is never called here!).</li>
+              <li><strong>Pipeline B: Online Request-Time:</strong> Embed user query → Nearest-neighbor cosine search in vector index → Assemble prompt with top-$k$ snippets → Generative LLM creates grounded answer.</li>
             </ul>
           </div>
           <div class="slide-deck-footer">
-            <button class="slide-ctrl-btn" onclick="stepSlide('deck-5', -1)">← Previous</button>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-5', -1)">← Previous Slide</button>
             <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 2</span>
-            <button class="slide-ctrl-btn" onclick="stepSlide('deck-5', 1)">Next →</button>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-5', 1)">Next Slide →</button>
           </div>
         </div>
 
+        <h3>Sliding-Window Chunking with Overlap</h3>
+        <p>
+          In production RAG systems, breaking documents into chunks is necessary to prevent ideas split across sentence boundaries from being severed. A sliding window uses a defined <strong>window size</strong> and <strong>stride</strong>:
+        </p>
+
         <div class="code-block-wrapper">
-          <div class="code-header"><span>SLIDING WINDOW CHUNKING IN PYTHON</span></div>
+          <div class="code-header"><span>PRODUCTION PYTHON SLIDING WINDOW CHUNKER</span></div>
           <pre><code>def snippetize(text: str, window_words: int = 200, stride_words: int = 120) -> list[str]:
+    """
+    Splits text into chunks of 200 words with 80 words overlap (stride=120).
+    Ensures contextual continuity across chunk boundaries.
+    """
     words = text.split()
     chunks = []
     for start in range(0, len(words), stride_words):
         chunk = words[start:start + window_words]
-        if not chunk: break
+        if not chunk:
+            break
         chunks.append(" ".join(chunk))
-        if start + window_words >= len(words): break
+        if start + window_words >= len(words):
+            break
     return chunks</code></pre>
         </div>
+
+        <h3>Chekhov’s Gun in Prompt Engineering</h3>
+        <p>
+          If an irrelevant detail, tangential paragraph, or noisy snippet is injected into the context window, the model will often assume it must be essential and force it into the output. <strong>Improving retrieval quality is vastly more valuable than simply increasing the number of retrieved chunks.</strong>
+        </p>
       </article>
 
       <!-- ============================================== -->
@@ -1118,12 +1289,12 @@
       <!-- ============================================== -->
       <article class="course-module" id="m06">
         <span class="module-badge">Module 06 · ~25 min read</span>
-        <h2>Prompt Engineering Laboratory Workbook</h2>
+        <h2>06 · Prompt Engineering Laboratory Workbook</h2>
         <div class="callout">
-          <p><strong>Your Mission:</strong> Treat prompts as <strong>reproducible experimental designs</strong>: make a hypothesis, test alternatives, record evidence, and document what changed.</p>
+          <p><strong>Your Mission:</strong> Stop treating prompts as magic phrases. Treat them as <strong>reproducible experimental designs</strong>: make a hypothesis, test alternatives, record evidence, and document what changed.</p>
         </div>
 
-        <!-- Interactive Slide Deck for Module 6 -->
+        <!-- Slide Deck 6 -->
         <div class="slide-deck" id="deck-6">
           <div class="slide-deck-header">
             <span class="slide-tag">🖥 Interactive Presentation Slides · Module 6</span>
@@ -1135,94 +1306,167 @@
           </div>
           <div class="slide-content-stage active">
             <span class="slide-step-num">Slide 1 of 3 · The Toolkit</span>
-            <div class="slide-headline">10 Prompting Patterns</div>
+            <div class="slide-headline">The 10 Prompting Patterns</div>
             <ul class="slide-bullets">
-              <li><strong>Zero-shot:</strong> Direct instruction without solved examples.</li>
+              <li><strong>Zero-shot:</strong> Direct instruction with no demonstrations.</li>
               <li><strong>Few-shot:</strong> 2-4 demonstrations to lock in formatting and labels.</li>
               <li><strong>Chain-of-Thought (CoT):</strong> Request step-by-step reasoning before answer.</li>
               <li><strong>Prompt Chaining:</strong> Stage $N$ output becomes Stage $N+1$ input.</li>
               <li><strong>Tree of Thought:</strong> Explore multiple parallel branches and evaluate trade-offs.</li>
+              <li><strong>ReAct:</strong> Alternate reasoning with tool actions and observation.</li>
             </ul>
           </div>
           <div class="slide-content-stage">
             <span class="slide-step-num">Slide 2 of 3 · Lab 1</span>
             <div class="slide-headline">Lab 1: Fallacy Analysis (24 Runs)</div>
-            <p>8 Argument Cases × 3 Strategies (Zero-Shot, Few-Shot, Few-Shot + Structured) = 24 Controlled Runs.</p>
+            <p>8 Argument Cases × 3 Strategies (Zero-Shot, Few-Shot, Few-Shot + Structured) = 24 Controlled Model Runs.</p>
             <ul class="slide-bullets">
-              <li>Inspect whether few-shot demonstrations introduce label anchoring.</li>
-              <li>Score with 0-2 point rubric across Classification, Justification, and Format.</li>
+              <li>Tests whether requiring step-by-step reasoning improves fallacy identification.</li>
+              <li>Evaluates label anchoring caused by few-shot demonstrations.</li>
+              <li>Uses a 0-2 point rubric for Classification, Justification, and Formatting.</li>
             </ul>
           </div>
           <div class="slide-content-stage">
             <span class="slide-step-num">Slide 3 of 3 · Labs 2, 3 & 4</span>
-            <div class="slide-headline">Labs 2, 3, and 4 Workflows</div>
+            <div class="slide-headline">Labs 2, 3, and 4 Advanced Workflows</div>
             <ul class="slide-bullets">
-              <li><strong>Lab 2 (Chaining):</strong> 5-stage pipeline for a high-school renewable energy textbook.</li>
-              <li><strong>Lab 3 (Tree of Thought):</strong> 10-year urban mobility strategy exploring 3 distinct branches (Transit, Traffic AI, Demand pricing).</li>
-              <li><strong>Lab 4 (ReAct):</strong> Comparative medical diagnostics report across CNNs, ViTs, and Classical ML.</li>
+              <li><strong>Lab 2 (Chaining):</strong> 5-stage sequential chain producing a renewable energy textbook for high schoolers.</li>
+              <li><strong>Lab 3 (Tree of Thought):</strong> 10-year mobility strategy exploring 3 distinct branches: Public Transit, Traffic AI, and Demand Pricing.</li>
+              <li><strong>Lab 4 (ReAct Research):</strong> Comparative analysis of CNNs, ViTs, and Classical ML across 3 clinical medical scenarios.</li>
             </ul>
           </div>
           <div class="slide-deck-footer">
-            <button class="slide-ctrl-btn" onclick="stepSlide('deck-6', -1)">← Previous</button>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-6', -1)">← Previous Slide</button>
             <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 3</span>
-            <button class="slide-ctrl-btn" onclick="stepSlide('deck-6', 1)">Next →</button>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-6', 1)">Next Slide →</button>
           </div>
         </div>
 
-        <h3>Lab 1: Interactive Fallacy Case Explorer</h3>
-        <p>Click any case to inspect the argument and reveal the expert ground-truth analysis:</p>
+        <h3>The Minimal 5-Factor Prompt Formula</h3>
+        <div class="code-block-wrapper">
+          <div class="code-header"><span>THE PRODUCTION PROMPT FORMULA</span></div>
+          <pre><code>TASK      What exact objective must be accomplished?
+CONTEXT   What facts, excerpts, audience profile, and constraints apply?
+FORMAT    What is the required structural output (JSON, Markdown, Table)?
+RULES     What negative constraints and boundaries must be obeyed?
+CHECK     How will we judge success or verify factual grounding?</code></pre>
+        </div>
+
+        <h3>Lab 1: Interactive Fallacy Case Explorer (8 Cases)</h3>
+        <p>Inspect the arguments used in the 24 experimental runs. Click each card to reveal the expert ground-truth analysis:</p>
 
         <div class="case-card">
           <span class="case-badge">Case A</span>
           <p>“Sales started falling after we introduced a new logo. This proves that the logo change discouraged customers.”</p>
-          <button class="reveal-btn" onclick="toggleCase('c-a')">Reveal Fallacy</button>
-          <div class="analysis-box" id="c-a"><strong>False Cause (Post hoc):</strong> Temporal order alone does not prove causation; market trends, seasonality, or competitor actions were ignored.</div>
+          <button class="reveal-btn" onclick="toggleCase('c-a')">Reveal Fallacy Analysis</button>
+          <div class="analysis-box" id="c-a">
+            <strong>Intended Category:</strong> False Cause (Post hoc ergo propter hoc)<br>
+            <strong>Core Issue:</strong> Temporal sequence alone does not establish causation. Other factors (market trends, seasonality, competitor actions) were ignored without justification.
+          </div>
         </div>
 
         <div class="case-card">
           <span class="case-badge">Case B</span>
           <p>“This supplement must work because a famous actor said in an interview that it made them feel great.”</p>
-          <button class="reveal-btn" onclick="toggleCase('c-b')">Reveal Fallacy</button>
-          <div class="analysis-box" id="c-b"><strong>Appeal to Authority:</strong> Celebrity endorsement does not constitute clinical or pharmacological evidence.</div>
+          <button class="reveal-btn" onclick="toggleCase('c-b')">Reveal Fallacy Analysis</button>
+          <div class="analysis-box" id="c-b">
+            <strong>Intended Category:</strong> Appeal to Authority (Invalid Authority)<br>
+            <strong>Core Issue:</strong> A celebrity endorsement does not constitute clinical, peer-reviewed, or pharmacological evidence.
+          </div>
         </div>
 
         <div class="case-card">
           <span class="case-badge">Case C</span>
           <p>“I met two rude waiters at this restaurant chain. Clearly, the entire company has terrible staff.”</p>
-          <button class="reveal-btn" onclick="toggleCase('c-c')">Reveal Fallacy</button>
-          <div class="analysis-box" id="c-c"><strong>Hasty Generalization:</strong> A sample of two cannot generalize across hundreds of employees.</div>
+          <button class="reveal-btn" onclick="toggleCase('c-c')">Reveal Fallacy Analysis</button>
+          <div class="analysis-box" id="c-c">
+            <strong>Intended Category:</strong> Hasty Generalization<br>
+            <strong>Core Issue:</strong> A sample size of two isolated individuals cannot generalize across hundreds of employees in an entire company.
+          </div>
         </div>
 
         <div class="case-card">
           <span class="case-badge">Case D</span>
-          <p>“If we allow students to use phones in class, within a year nobody will pay attention and education will collapse.”</p>
-          <button class="reveal-btn" onclick="toggleCase('c-d')">Reveal Fallacy</button>
-          <div class="analysis-box" id="c-d"><strong>Slippery Slope:</strong> Asserts an extreme catastrophic chain without justifying the necessity of each step.</div>
+          <p>“If we allow students to use phones in class, within a year nobody will pay attention and the education system will collapse.”</p>
+          <button class="reveal-btn" onclick="toggleCase('c-d')">Reveal Fallacy Analysis</button>
+          <div class="analysis-box" id="c-d">
+            <strong>Intended Category:</strong> Slippery Slope<br>
+            <strong>Core Issue:</strong> Asserts an extreme catastrophic chain of events without establishing that each subsequent link is an inevitable consequence.
+          </div>
+        </div>
+
+        <div class="case-card">
+          <span class="case-badge">Case E</span>
+          <p>“If we do not vote for this bill, our economy will collapse catastrophically and we will all lose our savings.”</p>
+          <button class="reveal-btn" onclick="toggleCase('c-e')">Reveal Fallacy Analysis</button>
+          <div class="analysis-box" id="c-e">
+            <strong>Intended Category:</strong> Appeal to Fear (Argumentum ad metum)<br>
+            <strong>Core Issue:</strong> Uses extreme emotional panic and fear to force agreement rather than presenting empirical macroeconomic evidence.
+          </div>
+        </div>
+
+        <div class="case-card">
+          <span class="case-badge">Case F</span>
+          <p>“We should not listen to his tax-reform proposal because he changed jobs twice within one year.”</p>
+          <button class="reveal-btn" onclick="toggleCase('c-f')">Reveal Fallacy Analysis</button>
+          <div class="analysis-box" id="c-f">
+            <strong>Intended Category:</strong> Ad Hominem<br>
+            <strong>Core Issue:</strong> Attacks a person's employment history rather than analyzing the fiscal merits or flaws of the tax reform proposal.
+          </div>
+        </div>
+
+        <div class="case-card">
+          <span class="case-badge">Case G</span>
+          <p>“Either you support a complete ban on internal-combustion cars, or you do not care about the environment at all.”</p>
+          <button class="reveal-btn" onclick="toggleCase('c-g')">Reveal Fallacy Analysis</button>
+          <div class="analysis-box" id="c-g">
+            <strong>Intended Category:</strong> False Dilemma (Bifurcation)<br>
+            <strong>Core Issue:</strong> Artificially collapses a complex spectrum of environmental policies into two extreme binary positions.
+          </div>
         </div>
 
         <div class="case-card">
           <span class="case-badge">Case H</span>
-          <p>“A study involving 10,000 people indicates that exercise reduces heart disease. Therefore, programs encouraging exercise are worthwhile.”</p>
-          <button class="reveal-btn" onclick="toggleCase('c-h')">Reveal Fallacy</button>
-          <div class="analysis-box" id="c-h"><strong>No Clear Fallacy (Sound Practical Argument):</strong> Cites substantial empirical evidence supporting a proportionate recommendation.</div>
+          <p>“A study involving 10,000 people indicates that regular physical activity reduces the risk of heart disease. Therefore, it is worth introducing programs that encourage older adults to exercise.”</p>
+          <button class="reveal-btn" onclick="toggleCase('c-h')">Reveal Fallacy Analysis</button>
+          <div class="analysis-box" id="c-h">
+            <strong>Intended Category:</strong> No Clear Fallacy (Sound Practical Argument)<br>
+            <strong>Core Issue:</strong> Cites substantial empirical data in support of a proportionate, qualified policy recommendation.
+          </div>
+        </div>
+
+        <h3>Labs 2, 3, & 4 Methodologies</h3>
+        <div class="grid-3">
+          <div class="info-card">
+            <h4>Lab 2: Prompt Chaining</h4>
+            <p>5-stage sequential workflow: Audience definition → Outline creation → Systematic drafting → Adversarial review → Polished textbook output.</p>
+          </div>
+          <div class="info-card">
+            <h4>Lab 3: Tree of Thought</h4>
+            <p>10-year urban mobility strategy exploring 3 distinct branches: Transit expansion, Smart traffic AI, and Congestion pricing.</p>
+          </div>
+          <div class="info-card">
+            <h4>Lab 4: Medical AI & ReAct</h4>
+            <p>Comparative diagnostic report evaluating CNNs, ViTs, and Classical ML across X-Rays, Lab tests, and Cardiovascular risk with tool retrieval.</p>
+          </div>
         </div>
 
         <div class="callout" style="margin-top: 30px;">
-          <p><strong>Final Lesson:</strong> Prompt engineering becomes a science when you can explain <strong>what you changed, why you changed it, how you evaluated it, and whether it improved the result</strong>.</p>
+          <p><strong>Final Lesson:</strong> Prompt engineering becomes a true engineering discipline when you can document <strong>what you changed, why you changed it, how you evaluated it, and whether it measurably improved task completion</strong>.</p>
         </div>
       </article>
 
     </main>
   </div>
 
-  <!-- Site Footer -->
+  <!-- Footer -->
   <footer class="site-footer">
-    <p><strong>promting / field notes</strong> · Complete 6-Module Curriculum & Laboratory</p>
+    <p><strong>promting / master manual</strong> · Complete 6-Module Curriculum & Laboratory</p>
     <p style="margin-top: 6px;"><a href="#top">Back to top ↑</a></p>
   </footer>
 
   <script>
-    // Reading Progress
+    // Reading Progress Bar
     window.addEventListener('scroll', () => {
       const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -1240,22 +1484,22 @@
       }
     });
 
-    // Hero demo click
+    // Hero Interactive Demo
     function setHeroDemo(el, text) {
       document.querySelectorAll('.demo-option').forEach(o => o.classList.remove('active'));
       el.classList.add('active');
       document.getElementById('demo-quote').innerHTML = `“The most important discovery of the experiment was <span style="color:var(--crimson); font-weight:700;">${text}</span>”`;
     }
 
-    // Toggle Lab Case
+    // Lab Case Toggler
     function toggleCase(id) {
       const el = document.getElementById(id);
       el.style.display = el.style.display === 'block' ? 'none' : 'block';
     }
 
-    // ===================================
+    // =====================================
     // SLIDE DECK ENGINE
-    // ===================================
+    // =====================================
     function gotoSlide(deckId, index) {
       const deck = document.getElementById(deckId);
       const slides = deck.querySelectorAll('.slide-content-stage');
@@ -1280,12 +1524,12 @@
       gotoSlide(deckId, current + delta);
     }
 
-    // Initialize all decks
+    // Initialize all slide decks
     document.querySelectorAll('.slide-deck').forEach(d => d.setAttribute('data-current', '0'));
 
-    // ===================================
+    // =====================================
     // SOFTMAX TEMPERATURE SIMULATOR
-    // ===================================
+    // =====================================
     const vocab = [
       { word: 'mat', logit: 6.2 },
       { word: 'sofa', logit: 4.8 },
