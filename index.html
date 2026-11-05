@@ -4,53 +4,66 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <meta name="description" content="Master prompt engineering, language model architectures, chat alignment, application loops, RAG, and reproducible experimental design.">
-  <title>Prompting: The Complete Field Manual & Laboratory</title>
-  
+  <meta name="description" content="An illustrated introduction to prompt engineering: language models, attention, transformers, and the design of useful prompts.">
+  <title>Introduction to Prompt Engineering · promting</title>
+
+  <!-- Google Fonts & KaTeX -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
   <style>
     :root {
-      --ink: #162427;
-      --ink-dim: #3a4b4e;
-      --muted: #5a6e72;
-      --line: #dbe2df;
-      --paper: #f8f7f2;
-      --paper-dim: #edece4;
+      /* Crimson / Executive Red Design System */
+      --crimson: #c9182b;
+      --crimson-hover: #a51020;
+      --crimson-dark: #7c0b16;
+      --crimson-soft: #fff1f2;
+      --crimson-border: #fecdd3;
+      --crimson-glow: rgba(201, 24, 43, 0.18);
+
+      --ink: #111827;
+      --ink-secondary: #374151;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --paper: #fafafa;
+      --paper-dim: #f3f4f6;
       --card: #ffffff;
-      --card-alt: #f3f6f4;
-      --teal: #115754;
-      --teal-light: #1b736f;
-      --teal-soft: #e4eee9;
-      --teal-border: #bfd6ce;
-      --orange: #e46835;
-      --orange-soft: #fdf0e7;
+      --card-alt: #f9fafb;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.07);
+      --shadow-lg: 0 20px 40px rgba(0,0,0,0.1);
       --radius: 12px;
-      --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-      --font-serif: 'Newsreader', Georgia, 'Times New Roman', serif;
-      --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-serif: 'Lora', Georgia, serif;
+      --font-mono: 'JetBrains Mono', Menlo, monospace;
     }
 
     [data-theme="dark"] {
-      --ink: #e3ebe8;
-      --ink-dim: #b0c2be;
-      --muted: #829894;
-      --line: #273738;
-      --paper: #0f1617;
-      --paper-dim: #162022;
-      --card: #182325;
-      --card-alt: #1c2a2d;
-      --teal: #42b7b0;
-      --teal-light: #5fd4cd;
-      --teal-soft: #142a2b;
-      --teal-border: #224a48;
-      --orange: #f28b5e;
-      --orange-soft: #311d16;
+      --crimson: #ff384d;
+      --crimson-hover: #ff6071;
+      --crimson-dark: #ff1f37;
+      --crimson-soft: #270d10;
+      --crimson-border: #5c181f;
+      --crimson-glow: rgba(255, 56, 77, 0.25);
+
+      --ink: #f9fafb;
+      --ink-secondary: #d1d5db;
+      --muted: #9ca3af;
+      --line: #2d3748;
+      --paper: #0b0f17;
+      --paper-dim: #131924;
+      --card: #161e2e;
+      --card-alt: #1c2638;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+      --shadow-lg: 0 20px 40px rgba(0,0,0,0.5);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -60,93 +73,98 @@
       color: var(--ink);
       background-color: var(--paper);
       line-height: 1.7;
-      transition: background-color 0.25s ease, color 0.25s ease;
-      overflow-x: hidden;
+      transition: background-color 0.25s, color 0.25s;
     }
 
-    a { color: var(--teal); text-decoration: none; text-underline-offset: 3px; }
-    a:hover { color: var(--orange); text-decoration: underline; }
-    button, input, select, textarea { font: inherit; }
+    a { color: var(--crimson); text-decoration: none; font-weight: 600; }
+    a:hover { color: var(--crimson-hover); text-decoration: underline; }
     code, pre { font-family: var(--font-mono); }
 
+    /* Top Progress Bar */
     #progress-bar {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       height: 3.5px;
-      background: linear-gradient(90deg, var(--teal), var(--orange));
+      background: linear-gradient(90deg, var(--crimson), #ff6b6b);
       width: 0%;
       z-index: 1000;
       transition: width 0.1s ease-out;
     }
 
-    .site-nav {
+    /* Site Header */
+    .site-header {
       position: sticky;
       top: 0;
       z-index: 900;
-      background: rgba(248, 247, 242, 0.94);
-      backdrop-filter: blur(16px);
+      background: rgba(250, 250, 250, 0.94);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--line);
     }
-    [data-theme="dark"] .site-nav {
-      background: rgba(15, 22, 23, 0.94);
+    [data-theme="dark"] .site-header {
+      background: rgba(11, 15, 23, 0.94);
     }
-
-    .nav-container {
-      max-width: 1400px;
+    .header-inner {
+      max-width: 1360px;
       margin: 0 auto;
       padding: 0 24px;
-      height: 64px;
+      height: 68px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
     }
-
-    .nav-brand {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       font-weight: 800;
-      font-size: 0.92rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
+      font-size: 0.98rem;
       color: var(--ink);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none !important;
     }
-    .brand-badge {
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--crimson);
+      color: #fff;
       display: grid;
       place-items: center;
-      width: 30px;
-      height: 30px;
-      background: var(--teal);
-      color: #ffffff;
-      border-radius: 8px;
-      font-size: 0.78rem;
       font-weight: 800;
+      font-size: 0.8rem;
+      box-shadow: 0 2px 8px var(--crimson-glow);
     }
 
-    .nav-modules {
+    .top-nav {
       display: flex;
       align-items: center;
-      gap: 6px;
-      overflow-x: auto;
+      gap: 8px;
     }
-    .module-tab {
-      padding: 5px 12px;
+    .nav-btn {
+      padding: 6px 14px;
       border-radius: 20px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       font-weight: 600;
       color: var(--muted);
-      white-space: nowrap;
-      transition: all 0.15s ease;
+      transition: all 0.15s;
     }
-    .module-tab:hover, .module-tab.active {
-      color: var(--teal);
-      background: var(--teal-soft);
+    .nav-btn:hover, .nav-btn.active {
+      color: var(--crimson);
+      background: var(--crimson-soft);
       text-decoration: none;
     }
+    .nav-pill-cta {
+      background: var(--crimson) !important;
+      color: #fff !important;
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-weight: 700;
+      box-shadow: 0 2px 8px var(--crimson-glow);
+    }
 
-    .icon-btn {
+    .theme-btn {
       width: 36px;
       height: 36px;
       border-radius: 8px;
@@ -156,208 +174,379 @@
       display: inline-grid;
       place-items: center;
       cursor: pointer;
+      font-size: 1rem;
     }
 
+    /* Hero Section */
     .hero {
-      background: linear-gradient(180deg, var(--teal-soft) 0%, var(--paper) 100%);
+      background: linear-gradient(180deg, var(--crimson-soft) 0%, var(--paper) 100%);
       border-bottom: 1px solid var(--line);
-      padding: 64px 24px 50px;
+      padding: 60px 24px 48px;
     }
-    .hero-wrap {
-      max-width: 1400px;
+    .hero-inner {
+      max-width: 1360px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1.15fr 0.85fr;
       align-items: center;
-      gap: 40px;
+      gap: 48px;
     }
-    .hero-eyebrow {
-      display: inline-block;
-      font-size: 0.75rem;
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.76rem;
       font-weight: 800;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--teal);
+      color: var(--crimson);
       background: var(--card);
-      padding: 5px 12px;
+      padding: 5px 14px;
       border-radius: 20px;
-      border: 1px solid var(--teal-border);
+      border: 1px solid var(--crimson-border);
       margin-bottom: 16px;
     }
-    .hero h1 {
+    h1 {
       font-family: var(--font-serif);
-      font-size: clamp(2.3rem, 4.5vw, 3.8rem);
+      font-size: clamp(2.4rem, 4.8vw, 4.2rem);
       font-weight: 700;
-      line-height: 1.15;
+      line-height: 1.12;
       margin-bottom: 18px;
       color: var(--ink);
+      letter-spacing: -0.02em;
     }
     .hero-lead {
-      font-size: 1.1rem;
-      color: var(--ink-dim);
-      margin-bottom: 24px;
-      max-width: 620px;
+      font-size: 1.12rem;
+      color: var(--ink-secondary);
+      line-height: 1.65;
+      margin-bottom: 26px;
+      max-width: 640px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
     }
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 650;
-      font-size: 0.88rem;
+      padding: 11px 22px;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 0.9rem;
       cursor: pointer;
       text-decoration: none !important;
+      transition: all 0.2s;
     }
-    .btn-primary {
-      background: var(--teal);
-      color: #ffffff;
+    .btn-crimson {
+      background: var(--crimson);
+      color: #fff !important;
+      box-shadow: 0 4px 14px var(--crimson-glow);
+    }
+    .btn-crimson:hover {
+      background: var(--crimson-hover);
+      transform: translateY(-1px);
     }
     .btn-outline {
       background: var(--card);
-      color: var(--ink);
+      color: var(--ink) !important;
       border: 1px solid var(--line);
     }
-
-    .hero-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 24px;
-      box-shadow: 0 10px 28px rgba(18, 32, 34, 0.08);
-    }
-    .interactive-prompt-box {
+    .btn-outline:hover {
       background: var(--paper-dim);
-      border-radius: 8px;
-      padding: 14px;
-      font-family: var(--font-serif);
-      font-size: 1.1rem;
-      margin-bottom: 14px;
-      border-left: 4px solid var(--orange);
-    }
-    .continuation-item {
-      padding: 10px 12px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--card);
-      font-size: 0.82rem;
-      display: flex;
-      gap: 10px;
-      margin-bottom: 8px;
-      cursor: pointer;
-    }
-    .continuation-item:hover, .continuation-item.active {
-      border-color: var(--teal);
-      background: var(--teal-soft);
     }
 
-    .main-layout {
-      max-width: 1400px;
+    /* Hero interactive card */
+    .hero-demo-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 26px;
+      box-shadow: var(--shadow-lg);
+      border-top: 4px solid var(--crimson);
+    }
+    .demo-input {
+      margin: 14px 0 16px;
+      padding: 16px 18px;
+      border-radius: 10px;
+      background: var(--paper-dim);
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      line-height: 1.4;
+      border-left: 4px solid var(--crimson);
+    }
+    .demo-options { display: grid; gap: 8px; }
+    .demo-option {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 0.84rem;
+      background: var(--card);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .demo-option:hover, .demo-option.active {
+      border-color: var(--crimson);
+      background: var(--crimson-soft);
+    }
+    .demo-option b {
+      color: var(--crimson);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      min-width: 65px;
+    }
+
+    /* Content Layout */
+    .content-shell {
+      max-width: 1360px;
       margin: 0 auto;
-      padding: 40px 24px 80px;
+      padding: 50px 24px 90px;
       display: grid;
       grid-template-columns: 240px minmax(0, 1fr);
-      gap: 40px;
+      gap: 48px;
     }
 
-    .sidebar {
+    /* Sidebar */
+    .side-nav {
       position: sticky;
-      top: 84px;
-      height: calc(100vh - 100px);
+      top: 92px;
+      max-height: calc(100vh - 120px);
       overflow-y: auto;
-      padding-right: 10px;
+      padding-right: 12px;
     }
-    .sidebar-heading {
-      font-size: 0.7rem;
+    .side-nav-heading {
+      font-size: 0.72rem;
       font-weight: 800;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--muted);
-      margin: 18px 0 8px;
+      margin: 16px 0 8px;
     }
-    .sidebar-link {
+    .side-nav a {
       display: block;
-      padding: 6px 10px;
+      padding: 7px 12px;
       border-radius: 6px;
       font-size: 0.82rem;
-      color: var(--ink-dim);
+      color: var(--ink-secondary);
       text-decoration: none !important;
+      transition: all 0.15s;
+      margin-bottom: 2px;
     }
-    .sidebar-link:hover, .sidebar-link.active {
-      background: var(--teal-soft);
-      color: var(--teal);
+    .side-nav a:hover, .side-nav a.active {
+      background: var(--crimson-soft);
+      color: var(--crimson);
       font-weight: 700;
+      border-left: 3px solid var(--crimson);
     }
 
-    .content-area { min-width: 0; }
-    .module-wrapper {
-      margin-bottom: 80px;
-      padding-bottom: 50px;
+    /* Sections */
+    main { min-width: 0; }
+    .course-module {
+      margin-bottom: 90px;
+      padding-bottom: 60px;
       border-bottom: 2px dashed var(--line);
     }
-    .module-wrapper:last-child { border-bottom: none; }
-    .module-header { margin-bottom: 30px; }
-    .module-number {
-      font-size: 0.75rem;
+    .course-module:last-child { border-bottom: none; }
+    
+    .module-badge {
+      display: inline-block;
+      font-size: 0.74rem;
       font-weight: 800;
       text-transform: uppercase;
-      color: var(--teal);
-      background: var(--teal-soft);
+      letter-spacing: 0.1em;
+      color: var(--crimson);
+      background: var(--crimson-soft);
       padding: 4px 10px;
       border-radius: 6px;
-      display: inline-block;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      border: 1px solid var(--crimson-border);
     }
-    .module-title {
+    h2 {
       font-family: var(--font-serif);
-      font-size: clamp(1.8rem, 3vw, 2.7rem);
+      font-size: clamp(2rem, 3.2vw, 2.8rem);
       font-weight: 700;
       line-height: 1.2;
       color: var(--ink);
-      margin-bottom: 12px;
-    }
-    .big-idea-box {
-      background: var(--teal-soft);
-      border-left: 4px solid var(--teal);
-      border-radius: 0 8px 8px 0;
-      padding: 14px 18px;
-      font-size: 0.98rem;
-      margin: 16px 0;
-    }
-
-    h2 {
-      font-family: var(--font-serif);
-      font-size: 1.7rem;
-      font-weight: 700;
-      margin: 36px 0 14px;
-      color: var(--ink);
+      margin-bottom: 16px;
+      letter-spacing: -0.015em;
     }
     h3 {
-      font-size: 1.15rem;
+      font-size: 1.25rem;
       font-weight: 700;
-      margin: 24px 0 10px;
+      margin: 32px 0 12px;
       color: var(--ink);
     }
-    p { margin-bottom: 16px; font-size: 0.95rem; color: var(--ink-dim); }
-
-    .grid-2, .grid-3, .grid-4 {
-      display: grid;
-      gap: 16px;
-      margin: 20px 0;
+    h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--ink);
     }
-    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+    p {
+      margin-bottom: 16px;
+      font-size: 0.96rem;
+      color: var(--ink-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===================================== */
+    /* INTERACTIVE SLIDE DECK COMPONENT */
+    /* ===================================== */
+    .slide-deck {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 28px 0 36px;
+      box-shadow: var(--shadow-md);
+      border-top: 4px solid var(--crimson);
+    }
+    .slide-deck-header {
+      padding: 14px 20px;
+      background: var(--paper-dim);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .slide-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--crimson);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .slide-indicators {
+      display: flex;
+      gap: 6px;
+    }
+    .slide-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--line);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .slide-dot.active {
+      background: var(--crimson);
+      width: 24px;
+      border-radius: 10px;
+    }
+
+    .slide-content-stage {
+      padding: 32px;
+      min-height: 260px;
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .slide-content-stage.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-step-num {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--crimson);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+    .slide-headline {
+      font-family: var(--font-serif);
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+    .slide-bullets {
+      list-style: none;
+      margin-top: 14px;
+    }
+    .slide-bullets li {
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 8px;
+      font-size: 0.92rem;
+      color: var(--ink-secondary);
+    }
+    .slide-bullets li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--crimson);
+      font-weight: bold;
+    }
+
+    .slide-deck-footer {
+      padding: 12px 20px;
+      background: var(--card-alt);
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .slide-ctrl-btn {
+      padding: 7px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .slide-ctrl-btn:hover {
+      border-color: var(--crimson);
+      color: var(--crimson);
+    }
+
+    /* Grids & Cards */
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin: 22px 0; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 22px 0; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin: 22px 0; }
 
     .info-card {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 18px;
+      padding: 20px;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .info-card h4 { font-size: 1rem; margin-bottom: 6px; color: var(--ink); }
-    .info-card p { font-size: 0.85rem; margin-bottom: 0; color: var(--muted); }
+    .info-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--crimson-border);
+    }
 
+    .callout {
+      margin: 24px 0;
+      padding: 18px 22px;
+      border-radius: 8px;
+      border-left: 4px solid var(--crimson);
+      background: var(--crimson-soft);
+    }
+    .callout p { margin: 0; color: var(--ink); }
+    .callout strong { color: var(--crimson); }
+
+    /* Tables */
     .table-container {
       width: 100%;
       overflow-x: auto;
@@ -366,43 +555,56 @@
       border-radius: var(--radius);
       background: var(--card);
     }
-    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; text-align: left; }
-    th { background: var(--paper-dim); padding: 10px 14px; font-weight: 700; border-bottom: 1px solid var(--line); }
-    td { padding: 10px 14px; border-bottom: 1px solid var(--line); color: var(--ink-dim); vertical-align: top; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; text-align: left; }
+    th { background: var(--paper-dim); padding: 12px 14px; font-weight: 700; border-bottom: 1px solid var(--line); color: var(--ink); }
+    td { padding: 12px 14px; border-bottom: 1px solid var(--line); color: var(--ink-secondary); vertical-align: top; }
     tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--paper-dim); }
 
+    /* Code Blocks */
     .code-block-wrapper {
-      margin: 20px 0;
+      margin: 22px 0;
       border-radius: var(--radius);
       overflow: hidden;
       border: 1px solid var(--line);
-      background: #111b1d;
+      background: #0d1117;
     }
     .code-header {
       padding: 8px 14px;
-      background: #0d1517;
-      border-bottom: 1px solid #1f2f32;
-      color: #92a7a5;
+      background: #080c12;
+      border-bottom: 1px solid #1f2937;
+      color: #9ca3af;
       font-size: 0.72rem;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
-    pre { padding: 16px; overflow-x: auto; color: #e3ebe8; font-size: 0.84rem; line-height: 1.55; }
+    pre { padding: 18px; overflow-x: auto; color: #f3f4f6; font-size: 0.85rem; line-height: 1.6; }
 
-    .callout {
-      margin: 22px 0;
-      padding: 16px 20px;
-      border-radius: 8px;
-      border-left: 4px solid var(--orange);
-      background: var(--orange-soft);
-    }
-    .callout p { margin: 0; color: var(--ink); font-size: 0.92rem; }
-
-    .simulator-box {
+    /* Interactive Softmax Simulator */
+    .sim-panel {
       background: var(--card);
-      border: 2px solid var(--teal-border);
+      border: 2px solid var(--crimson-border);
       border-radius: var(--radius);
-      padding: 20px;
-      margin: 24px 0;
+      padding: 22px;
+      margin: 26px 0;
+    }
+    .sim-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .temp-badge {
+      background: var(--crimson);
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
     }
     .prob-row {
       display: grid;
@@ -420,10 +622,11 @@
     }
     .prob-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--teal), var(--teal-light));
-      transition: width 0.2s ease;
+      background: linear-gradient(90deg, var(--crimson), #ff5c72);
+      transition: width 0.2s;
     }
 
+    /* Lab Accordion & Case Cards */
     details.quiz-item {
       background: var(--card);
       border: 1px solid var(--line);
@@ -431,19 +634,19 @@
       margin-bottom: 8px;
     }
     summary.quiz-question {
-      padding: 12px 16px;
+      padding: 13px 16px;
       font-weight: 650;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       cursor: pointer;
     }
     .quiz-answer {
       padding: 10px 16px 14px;
-      font-size: 0.85rem;
-      color: var(--ink-dim);
+      font-size: 0.86rem;
+      color: var(--ink-secondary);
       border-top: 1px solid var(--line);
     }
 
-    .lab-case-card {
+    .case-card {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 10px;
@@ -456,8 +659,8 @@
       font-weight: 800;
       padding: 2px 8px;
       border-radius: 4px;
-      background: var(--teal-soft);
-      color: var(--teal);
+      background: var(--crimson-soft);
+      color: var(--crimson);
       margin-bottom: 6px;
     }
     .reveal-btn {
@@ -466,32 +669,39 @@
       border: 1px solid var(--line);
       background: var(--paper-dim);
       font-size: 0.75rem;
-      font-weight: 650;
+      font-weight: 700;
       cursor: pointer;
+      color: var(--ink);
     }
-    .hidden-analysis {
+    .reveal-btn:hover {
+      background: var(--crimson);
+      color: #fff;
+      border-color: var(--crimson);
+    }
+    .analysis-box {
       display: none;
       margin-top: 10px;
       padding: 10px 12px;
-      background: var(--teal-soft);
+      background: var(--crimson-soft);
       border-radius: 6px;
       font-size: 0.82rem;
     }
 
+    /* Footer */
     .site-footer {
       border-top: 1px solid var(--line);
       background: var(--paper-dim);
       padding: 40px 24px;
+      text-align: center;
       color: var(--muted);
       font-size: 0.85rem;
-      text-align: center;
     }
 
     @media (max-width: 900px) {
-      .main-layout { grid-template-columns: 1fr; }
-      .sidebar { display: none; }
-      .hero-wrap { grid-template-columns: 1fr; }
-      .nav-modules { display: none; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .content-shell { grid-template-columns: 1fr; }
+      .side-nav { display: none; }
+      .top-nav { display: none; }
     }
   </style>
 </head>
@@ -499,324 +709,529 @@
 
   <div id="progress-bar"></div>
 
-  <header class="site-nav">
-    <div class="nav-container">
-      <a class="nav-brand" href="#top">
-        <span class="brand-badge">PE</span>
-        <span>Prompting · Field Manual</span>
+  <!-- Sticky Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">PE</span>
+        <span>promting / field notes</span>
       </a>
-      <nav class="nav-modules">
-        <a class="module-tab" href="#m01">01 · Intro</a>
-        <a class="module-tab" href="#m02">02 · Mechanics</a>
-        <a class="module-tab" href="#m03">03 · Chat & Tools</a>
-        <a class="module-tab" href="#m04">04 · Architecture</a>
-        <a class="module-tab" href="#m05">05 · RAG & Context</a>
-        <a class="module-tab" href="#m06">06 · Lab Workbook</a>
+      <nav class="top-nav">
+        <a class="nav-btn" href="#m01">01 · Intro</a>
+        <a class="nav-btn" href="#m02">02 · LLMs</a>
+        <a class="nav-btn" href="#m03">03 · Chat</a>
+        <a class="nav-btn" href="#m04">04 · Apps</a>
+        <a class="nav-btn" href="#m05">05 · RAG</a>
+        <a class="nav-btn nav-pill-cta" href="#m06">06 · Lab Workbook ↗</a>
       </nav>
-      <button class="icon-btn" id="theme-toggle" title="Toggle Theme">🌓</button>
+      <button class="theme-btn" id="theme-toggle" title="Toggle Dark/Light Mode">🌓</button>
     </div>
   </header>
 
+  <!-- Hero Section -->
   <section class="hero" id="top">
-    <div class="hero-wrap">
+    <div class="hero-inner">
       <div>
-        <span class="hero-eyebrow">Complete 6-Module Curriculum & Lab</span>
-        <h1>Prompting: The Complete Field Manual.</h1>
+        <span class="eyebrow">Comprehensive 6-Module Curriculum</span>
+        <h1>Introduction to prompt engineering.</h1>
         <p class="hero-lead">
-          A language model produces a continuation of the information it receives. Prompt engineering is the discipline of turning that continuation into something useful, verifiable, and robust.
+          A language model continues the information it receives. Prompt engineering is the rigorous discipline of shaping that continuation into something useful, relevant, and reliable.
         </p>
-        <div style="display: flex; gap: 12px; margin-bottom: 24px;">
-          <a class="btn btn-primary" href="#m01">Start Reading ↓</a>
-          <a class="btn btn-outline" href="#m06">Lab Workbook 🧪</a>
+        <div class="hero-actions">
+          <a class="btn btn-crimson" href="#m01">Explore Curriculum ↓</a>
+          <a class="btn btn-outline" href="#m06">Go to Lab Assignments 🧪</a>
         </div>
       </div>
-      <div class="hero-card">
-        <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--teal); margin-bottom: 10px;">The Central Premise</div>
-        <div class="interactive-prompt-box" id="hero-demo-box">
+
+      <div class="hero-demo-card">
+        <span style="font-size: 0.72rem; font-weight: 800; text-transform: uppercase; color: var(--crimson);">The Core Premise</span>
+        <div class="demo-input" id="demo-quote">
           “The most important discovery of the experiment was…”
         </div>
-        <div class="continuation-item active" onclick="setDemo('…a measurable change in observed samples.')">
-          <strong>Scientific:</strong> <span>…a measurable change in observed samples.</span>
+        <div class="demo-options">
+          <div class="demo-option active" onclick="setHeroDemo(this, '…a measurable change in the observed samples.')">
+            <b>Report</b><span>…a measurable change in the observed samples.</span>
+          </div>
+          <div class="demo-option" onclick="setHeroDemo(this, '…hidden behind the locked laboratory door.')">
+            <b>Story</b><span>…hidden behind the locked laboratory door.</span>
+          </div>
+          <div class="demo-option" onclick="setHeroDemo(this, '…that the first hypothesis did not hold.')">
+            <b>Summary</b><span>…that the first hypothesis did not hold.</span>
+          </div>
         </div>
-        <div class="continuation-item" onclick="setDemo('…hidden behind the locked laboratory door.')">
-          <strong>Narrative:</strong> <span>…hidden behind the locked laboratory door.</span>
-        </div>
-        <div class="continuation-item" onclick="setDemo('…that the first hypothesis did not hold.')">
-          <strong>Executive:</strong> <span>…that the first hypothesis did not hold.</span>
-        </div>
+        <p style="font-size: 0.74rem; color: var(--muted); margin-top: 12px;">
+          The model does not intend an outcome; the surrounding context determines which branch of text is generated.
+        </p>
       </div>
     </div>
   </section>
 
-  <div class="main-layout">
-    <aside class="sidebar">
-      <div class="sidebar-heading">Curriculum</div>
-      <a class="sidebar-link" href="#m01">01 · Introduction</a>
-      <a class="sidebar-link" href="#m02">02 · LLM Mechanics</a>
-      <a class="sidebar-link" href="#m03">03 · Chat & Tools</a>
-      <a class="sidebar-link" href="#m04">04 · Applications</a>
-      <a class="sidebar-link" href="#m05">05 · RAG & Context</a>
-      <a class="sidebar-link" href="#m06">06 · Lab Workbook</a>
+  <!-- Content Layout -->
+  <div class="content-shell">
+    
+    <!-- Sticky Sidebar -->
+    <aside class="side-nav">
+      <div class="side-nav-heading">Curriculum Modules</div>
+      <a class="active" href="#m01">01 · Introduction & History</a>
+      <a href="#m02">02 · Understanding LLMs</a>
+      <a href="#m03">03 · Chat, Alignment & Tools</a>
+      <a href="#m04">04 · Designing Applications</a>
+      <a href="#m05">05 · Context & RAG</a>
+      <a href="#m06">06 · Laboratory Workbook</a>
+      <div style="margin-top: 24px; padding: 14px; border-radius: 8px; background: var(--crimson-soft); font-size: 0.76rem; color: var(--crimson-dark);">
+        Includes interactive presentation slides, probability simulators, and all 4 laboratory experiments.
+      </div>
     </aside>
 
-    <main class="content-area">
+    <!-- Main Content -->
+    <main>
 
+      <!-- ============================================== -->
       <!-- MODULE 01 -->
-      <article class="module-wrapper" id="m01">
-        <header class="module-header">
-          <span class="module-number">Module 01</span>
-          <h2 class="module-title">Introduction to Prompt Engineering</h2>
-          <div class="big-idea-box">
-            <strong>Big Idea:</strong> A language model produces a continuation of the information it receives. Prompt engineering is the practice of making that continuation useful, relevant, and reliable.
-          </div>
-        </header>
+      <!-- ============================================== -->
+      <article class="course-module" id="m01">
+        <span class="module-badge">Module 01 · ~10 min read</span>
+        <h2>Introduction to Prompt Engineering</h2>
+        <div class="callout">
+          <p><strong>Big Idea:</strong> A language model produces a continuation of the information it receives. Prompt engineering is the practice of making that continuation useful, relevant, and reliable.</p>
+        </div>
 
-        <h3>1. How Did We Get Here?</h3>
-        <p>From statistical Markov chains to seq2seq with attention, and the 2017 Transformer architecture (<em>Attention Is All You Need</em>), prompt engineering emerged because large pre-trained generative models (GPT) adapt dynamically to context.</p>
+        <!-- Interactive Slide Deck for Module 1 -->
+        <div class="slide-deck" id="deck-1">
+          <div class="slide-deck-header">
+            <span class="slide-tag">🖥 Interactive Presentation Slides · Module 1</span>
+            <div class="slide-indicators">
+              <span class="slide-dot active" onclick="gotoSlide('deck-1', 0)"></span>
+              <span class="slide-dot" onclick="gotoSlide('deck-1', 1)"></span>
+              <span class="slide-dot" onclick="gotoSlide('deck-1', 2)"></span>
+              <span class="slide-dot" onclick="gotoSlide('deck-1', 3)"></span>
+            </div>
+          </div>
+          <div class="slide-content-stage active">
+            <span class="slide-step-num">Slide 1 of 4 · Core Concept</span>
+            <div class="slide-headline">The Central Question of Prompting</div>
+            <p>What makes a model's next words useful for a particular task? When given an opening prompt, thousands of continuations are plausible.</p>
+            <ul class="slide-bullets">
+              <li><strong>Instructions:</strong> Explicitly describe the task, audience, and constraints.</li>
+              <li><strong>Context:</strong> Provide verified facts, references, and conversation state.</li>
+              <li><strong>Output Schema:</strong> Dictate exact structure (JSON, table, bulleted steps).</li>
+            </ul>
+          </div>
+          <div class="slide-content-stage">
+            <span class="slide-step-num">Slide 2 of 4 · Architecture Evolution</span>
+            <div class="slide-headline">From Markov to the Transformer</div>
+            <p>The progression of sequence modeling:</p>
+            <ul class="slide-bullets">
+              <li><strong>1940s+:</strong> Statistical N-grams (limited 1-3 token local context).</li>
+              <li><strong>2014:</strong> Seq2Seq models (compressing whole sentences into a single "thought vector").</li>
+              <li><strong>2015:</strong> Attention mechanisms (allowing decoder to query all source positions).</li>
+              <li><strong>2017:</strong> The Transformer (Attention Is All You Need — eliminating recurrence).</li>
+            </ul>
+          </div>
+          <div class="slide-content-stage">
+            <span class="slide-step-num">Slide 3 of 4 · The GPT Mechanism</span>
+            <div class="slide-headline">Autoregressive Generation</div>
+            <p>GPT models estimate the conditional probability of the next token:</p>
+            <div style="font-size: 1.15rem; text-align: center; margin: 12px 0;">
+              $$P(t_{n+1} \mid t_1, t_2, \ldots, t_n)$$
+            </div>
+            <ul class="slide-bullets">
+              <li><strong>Generative:</strong> Produces new text token-by-token.</li>
+              <li><strong>Pre-trained:</strong> Learns representations from broad web corpora.</li>
+              <li><strong>Transformer:</strong> Multi-head self-attention connects all token positions.</li>
+            </ul>
+          </div>
+          <div class="slide-content-stage">
+            <span class="slide-step-num">Slide 4 of 4 · Operational Prompts</span>
+            <div class="slide-headline">Vague vs Designed Prompts</div>
+            <ul class="slide-bullets">
+              <li><strong>Vague:</strong> "Explain transformers." (Produces generic textbook summary).</li>
+              <li><strong>Designed:</strong> Specify target audience, scope, length constraints, and required comparison tables.</li>
+              <li><strong>Three Limits:</strong> Not a search engine, finite context window, fluent ≠ verified.</li>
+            </ul>
+          </div>
+          <div class="slide-deck-footer">
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-1', -1)">← Previous</button>
+            <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 4</span>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-1', 1)">Next →</button>
+          </div>
+        </div>
+
+        <h3>The Architectural Bottleneck</h3>
+        <p>In early sequence-to-sequence translation (2014), an encoder compressed an entire paragraph into a single vector. For longer sentences, crucial entities and grammatical relationships were lost. <strong>Attention</strong> solved this by allowing the decoder to dynamically weight and consult every source word at each generation step.</p>
+
+        <div class="grid-3">
+          <div class="info-card">
+            <h4>1. Not a Search Engine</h4>
+            <p>Produces statistically plausible continuations without inherent fact verification.</p>
+          </div>
+          <div class="info-card">
+            <h4>2. Finite Context</h4>
+            <p>Selection, compression, and ranking of information are required engineering tasks.</p>
+          </div>
+          <div class="info-card">
+            <h4>3. Fluency ≠ Accuracy</h4>
+            <p>Grammatical polish does not guarantee logical validity or empirical truth.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============================================== -->
+      <!-- MODULE 02 -->
+      <!-- ============================================== -->
+      <article class="course-module" id="m02">
+        <span class="module-badge">Module 02 · ~17 min read</span>
+        <h2>Understanding How Language Models Work</h2>
+        <div class="callout">
+          <p><strong>Big Idea:</strong> To use a language model well, understand what it actually processes: <strong>tokens, probability distributions, and context</strong>.</p>
+        </div>
+
+        <!-- Interactive Slide Deck for Module 2 -->
+        <div class="slide-deck" id="deck-2">
+          <div class="slide-deck-header">
+            <span class="slide-tag">🖥 Interactive Presentation Slides · Module 2</span>
+            <div class="slide-indicators">
+              <span class="slide-dot active" onclick="gotoSlide('deck-2', 0)"></span>
+              <span class="slide-dot" onclick="gotoSlide('deck-2', 1)"></span>
+              <span class="slide-dot" onclick="gotoSlide('deck-2', 2)"></span>
+            </div>
+          </div>
+          <div class="slide-content-stage active">
+            <span class="slide-step-num">Slide 1 of 3 · Representation</span>
+            <div class="slide-headline">Tokens & Tokenization Realities</div>
+            <p>Models process token integer IDs, not raw human characters:</p>
+            <ul class="slide-bullets">
+              <li>Common words are 1 token; rare or compound words split into 2-4 subwords.</li>
+              <li>Spelling, anagrams, and letter counts are difficult because individual letters are hidden inside token IDs.</li>
+              <li>Non-English languages often require significantly more tokens for the same meaning.</li>
+            </ul>
+          </div>
+          <div class="slide-content-stage">
+            <span class="slide-step-num">Slide 2 of 3 · Softmax Math</span>
+            <div class="slide-headline">Softmax & Temperature (T)</div>
+            <p>The network outputs raw logits ($z_i$), converted to probabilities via:</p>
+            <div style="font-size: 1.15rem; text-align: center; margin: 12px 0;">
+              $$p_i(T) = \frac{\exp(z_i / T)}{\sum_j \exp(z_j / T)}$$
+            </div>
+            <ul class="slide-bullets">
+              <li><strong>Low Temperature (0.1–0.3):</strong> Concentrates probability on top candidate (deterministic, factual).</li>
+              <li><strong>High Temperature (0.8–1.2):</strong> Flattens distribution, increasing vocabulary diversity and novelty.</li>
+            </ul>
+          </div>
+          <div class="slide-content-stage">
+            <span class="slide-step-num">Slide 3 of 3 · Hallucinations</span>
+            <div class="slide-headline">The 3 Types of Hallucinations & Defenses</div>
+            <ul class="slide-bullets">
+              <li><strong>Factual:</strong> Inventing wrong dates, names, or events.</li>
+              <li><strong>Logical:</strong> Generating conclusions that contradict supplied prompt data.</li>
+              <li><strong>Structural:</strong> Inventing fake DOIs, academic citations, or nonexistent API endpoints.</li>
+              <li><strong>Defenses:</strong> Provide source grounding, negative fallback ("Say I don't know"), and tool lookups.</li>
+            </ul>
+          </div>
+          <div class="slide-deck-footer">
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-2', -1)">← Previous</button>
+            <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 3</span>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-2', 1)">Next →</button>
+          </div>
+        </div>
+
+        <!-- Live Temperature Simulator Widget -->
+        <div class="sim-panel">
+          <div class="sim-top">
+            <strong>⚡ Live Temperature & Softmax Simulator ("The cat sat on the…")</strong>
+            <span class="temp-badge" id="temp-indicator">T = 0.7</span>
+          </div>
+          <input type="range" id="temp-range" min="0.1" max="2.0" step="0.1" value="0.7" style="width: 100%; accent-color: var(--crimson); margin-bottom: 14px;" oninput="updateTemperature(this.value)">
+          <div id="sim-bars"></div>
+        </div>
+
+        <h3>Self-Attention & Causal Masking</h3>
+        <p>In causal transformers, tokens cannot attend to future positions. A lower-triangular causal mask enforces strictly left-to-right generation, meaning position 2 can attend only to positions 1 and 2, but never 3.</p>
+      </article>
+
+      <!-- ============================================== -->
+      <!-- MODULE 03 -->
+      <!-- ============================================== -->
+      <article class="course-module" id="m03">
+        <span class="module-badge">Module 03 · ~15 min read</span>
+        <h2>Chat Models, Human Feedback, and Tools</h2>
+        <div class="callout">
+          <p><strong>Big Idea:</strong> A base model completes text. A <strong>chat assistant</strong> is aligned to participate in structured conversation, follow boundaries, and operate tools.</p>
+        </div>
+
+        <!-- Interactive Slide Deck for Module 3 -->
+        <div class="slide-deck" id="deck-3">
+          <div class="slide-deck-header">
+            <span class="slide-tag">🖥 Interactive Presentation Slides · Module 3</span>
+            <div class="slide-indicators">
+              <span class="slide-dot active" onclick="gotoSlide('deck-3', 0)"></span>
+              <span class="slide-dot" onclick="gotoSlide('deck-3', 1)"></span>
+            </div>
+          </div>
+          <div class="slide-content-stage active">
+            <span class="slide-step-num">Slide 1 of 2 · Alignment</span>
+            <div class="slide-headline">The Training Pipeline: SFT to RLHF</div>
+            <ul class="slide-bullets">
+              <li><strong>Pre-training:</strong> Base model trained on internet tokens.</li>
+              <li><strong>SFT:</strong> Supervised fine-tuning teaches assistant persona.</li>
+              <li><strong>Reward Model:</strong> Trained on human preference rankings.</li>
+              <li><strong>RLHF (PPO):</strong> Optimizes policy against reward model. Beware reward hacking!</li>
+            </ul>
+          </div>
+          <div class="slide-content-stage">
+            <span class="slide-step-num">Slide 2 of 2 · Tool Calling</span>
+            <div class="slide-headline">How Tool Calling Actually Works</div>
+            <ul class="slide-bullets">
+              <li>Model never touches external databases directly; it emits structured JSON function arguments.</li>
+              <li>The <strong>application software</strong> executes the real API call and returns the response as a <code>tool</code> message.</li>
+              <li>Read-only tools (search, check status) have low risk; write-capable tools require user confirmation.</li>
+            </ul>
+          </div>
+          <div class="slide-deck-footer">
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-3', -1)">← Previous</button>
+            <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 2</span>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-3', 1)">Next →</button>
+          </div>
+        </div>
 
         <div class="table-container">
           <table>
             <thead>
-              <tr><th>Era</th><th>Development</th><th>Significance</th></tr>
+              <tr><th>Role</th><th>Primary Responsibility</th><th>Security Level</th></tr>
             </thead>
             <tbody>
-              <tr><td>1940s+</td><td>Statistical N-grams</td><td>Predicts words from 1–3 preceding words.</td></tr>
-              <tr><td>2014</td><td>Seq2seq models</td><td>Encoder compresses input into a single fixed "thought vector".</td></tr>
-              <tr><td>2015</td><td>Neural Attention</td><td>Eliminates single vector bottleneck; queries all input tokens.</td></tr>
-              <tr><td>2017</td><td>The Transformer</td><td>Attention becomes the entire architecture.</td></tr>
-              <tr><td>2018+</td><td>GPT-1 to GPT-4</td><td>Pre-trained autoregressive models conditioned via prompts.</td></tr>
+              <tr><td><code>system</code></td><td>Defines global behavior, persona, and negative constraints.</td><td>High priority developer directives.</td></tr>
+              <tr><td><code>user</code></td><td>The end-user request or conversation turn.</td><td>Standard input; bounded by system rules.</td></tr>
+              <tr><td><code>assistant</code></td><td>Generated output or proposed tool calling request.</td><td>Model-generated tokens.</td></tr>
+              <tr><td><code>tool</code></td><td>Data returned from external database/API executions.</td><td>Treated as external data; validate against injection.</td></tr>
             </tbody>
           </table>
         </div>
-
-        <h3>2. What GPT Stands For</h3>
-        <div class="grid-3">
-          <div class="info-card">
-            <h4>Generative</h4>
-            <p>Generates text autoregressively: \(P(t_{n+1} \mid t_1, \ldots, t_n)\).</p>
-          </div>
-          <div class="info-card">
-            <h4>Pre-trained</h4>
-            <p>Learns language and world representations from vast internet corpora.</p>
-          </div>
-          <div class="info-card">
-            <h4>Transformer</h4>
-            <p>Uses multi-head attention mechanisms to link context positions.</p>
-          </div>
-        </div>
-
-        <h3>3. Vague vs Designed Prompts</h3>
-        <div class="code-block-wrapper">
-          <div class="code-header"><span>VAGUE</span></div>
-          <pre><code>Explain transformers.</code></pre>
-        </div>
-        <div class="code-block-wrapper">
-          <div class="code-header"><span>DESIGNED OPERATIONAL PROMPT</span></div>
-          <pre><code>Explain the transformer architecture to first-year computer science students.
-Begin with the seq2seq bottleneck, then introduce attention.
-Use one analogy, one comparison table, and no more than 300 words.</code></pre>
-        </div>
-
-        <div class="callout">
-          <p><strong>Three Inescapable Limits:</strong> 1) Not a search engine, 2) Context is finite, 3) Fluent does not mean correct.</p>
-        </div>
       </article>
 
-      <!-- MODULE 02 -->
-      <article class="module-wrapper" id="m02">
-        <header class="module-header">
-          <span class="module-number">Module 02</span>
-          <h2 class="module-title">Understanding How Language Models Work</h2>
-          <div class="big-idea-box">
-            <strong>Big Idea:</strong> Understand what the model processes: <strong>tokens, probability distributions, and context</strong>.
-          </div>
-        </header>
-
-        <h3>1. The Generation Loop & Softmax Formula</h3>
-        <p>Text is converted into token IDs. Scores (logits \(z_i\)) are transformed into probabilities via Softmax at temperature \(T\):</p>
-        <div style="text-align: center; margin: 18px 0; font-size: 1.2rem;">
-          $$p_i(T) = \frac{\exp(z_i / T)}{\sum_j \exp(z_j / T)}$$
-        </div>
-
-        <!-- Interactive Softmax Simulator -->
-        <div class="simulator-box">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <strong>⚡ Live Temperature Simulator ("The cat sat on the…")</strong>
-            <span id="temp-val" style="background: var(--teal); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem;">T = 0.7</span>
-          </div>
-          <input type="range" id="temp-slider" min="0.1" max="2.0" step="0.1" value="0.7" style="width: 100%; accent-color: var(--teal); margin-bottom: 14px;" oninput="updateSim(this.value)">
-          <div id="prob-container"></div>
-        </div>
-
-        <h3>2. Five Defenses Against Hallucinations</h3>
-        <div class="grid-2">
-          <div class="info-card"><h4>1. Grounding Excerpts</h4><p>Provide verified source documents in the prompt.</p></div>
-          <div class="info-card"><h4>2. Explicit Fallback</h4><p>Instruct the model to say "I don't know" when missing.</p></div>
-          <div class="info-card"><h4>3. External Tools</h4><p>Use search and APIs for live or private data.</p></div>
-          <div class="info-card"><h4>4. External Validation</h4><p>Run code tests, linters, and schema checkers.</p></div>
-        </div>
-      </article>
-
-      <!-- MODULE 03 -->
-      <article class="module-wrapper" id="m03">
-        <header class="module-header">
-          <span class="module-number">Module 03</span>
-          <h2 class="module-title">Chat Models, Human Feedback, and Tools</h2>
-          <div class="big-idea-box">
-            <strong>Big Idea:</strong> A chat assistant is aligned via SFT, Reward Modeling, and RLHF to follow conversational roles and operate tools.
-          </div>
-        </header>
-
-        <h3>1. ChatML Roles</h3>
-        <div class="table-container">
-          <table>
-            <thead><tr><th>Role</th><th>Purpose</th></tr></thead>
-            <tbody>
-              <tr><td><code>system</code></td><td>Defines behavior, global persona, and negative constraints.</td></tr>
-              <tr><td><code>user</code></td><td>The user query or task instruction.</td></tr>
-              <tr><td><code>assistant</code></td><td>Model response or proposed tool invocation.</td></tr>
-              <tr><td><code>tool</code></td><td>Structured data returned from executed external API calls.</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3>2. Tool Execution Workflow</h3>
-        <p>The model does not execute APIs itself. It emits a structured tool request, the <strong>application</strong> runs the call, and returns the result as a <code>tool</code> message.</p>
-      </article>
-
+      <!-- ============================================== -->
       <!-- MODULE 04 -->
-      <article class="module-wrapper" id="m04">
-        <header class="module-header">
-          <span class="module-number">Module 04</span>
-          <h2 class="module-title">Designing Applications with Language Models</h2>
-          <div class="big-idea-box">
-            <strong>Big Idea:</strong> The application turns a real-world problem into model input and turns generated text into verified actions.
-          </div>
-        </header>
-
-        <h3>Feedforward Pipeline</h3>
-        <div class="grid-4">
-          <div class="info-card"><h4>1. Retrieval</h4><p>Fetch relevant articles & user context.</p></div>
-          <div class="info-card"><h4>2. Snippetizing</h4><p>Chunk text to fit token limits.</p></div>
-          <div class="info-card"><h4>3. Prioritization</h4><p>Score by freshness and relevance.</p></div>
-          <div class="info-card"><h4>4. Assembly</h4><p>Build final operational prompt.</p></div>
+      <!-- ============================================== -->
+      <article class="course-module" id="m04">
+        <span class="module-badge">Module 04 · ~17 min read</span>
+        <h2>Designing Applications with Language Models</h2>
+        <div class="callout">
+          <p><strong>Big Idea:</strong> The model produces text; the <strong>application</strong> turns a real-world problem into model input and turns generated text into verified results.</p>
         </div>
+
+        <!-- Interactive Slide Deck for Module 4 -->
+        <div class="slide-deck" id="deck-4">
+          <div class="slide-deck-header">
+            <span class="slide-tag">🖥 Interactive Presentation Slides · Module 4</span>
+            <div class="slide-indicators">
+              <span class="slide-dot active" onclick="gotoSlide('deck-4', 0)"></span>
+              <span class="slide-dot" onclick="gotoSlide('deck-4', 1)"></span>
+            </div>
+          </div>
+          <div class="slide-content-stage active">
+            <span class="slide-step-num">Slide 1 of 2 · System Loops</span>
+            <div class="slide-headline">The 4-Stage Feedforward Pipeline</div>
+            <ul class="slide-bullets">
+              <li><strong>1. Retrieval:</strong> Fetch relevant knowledge base articles & user context.</li>
+              <li><strong>2. Snippetizing:</strong> Chunk large documents into focused passages.</li>
+              <li><strong>3. Prioritization:</strong> Score and rank snippets by recency and relevance.</li>
+              <li><strong>4. Assembly:</strong> Build the operational prompt within context budget.</li>
+            </ul>
+          </div>
+          <div class="slide-content-stage">
+            <span class="slide-step-num">Slide 2 of 2 · Verification</span>
+            <div class="slide-headline">Evaluation: Offline vs Online</div>
+            <ul class="slide-bullets">
+              <li><strong>Offline Testing:</strong> Run against 50-500 test cases with ground-truth answers; check JSON schema validity and test code execution.</li>
+              <li><strong>Online Telemetry:</strong> Track user acceptance rates, downstream revisions, and task completion instead of relying on subjective feedback.</li>
+            </ul>
+          </div>
+          <div class="slide-deck-footer">
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-4', -1)">← Previous</button>
+            <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 2</span>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-4', 1)">Next →</button>
+          </div>
+        </div>
+
+        <h3>The Little Red Riding Hood Principle</h3>
+        <p>Prompts should use familiar structural formats (dialogues, standard reports, structured schemas). When the input pattern is clear and recognizable, the expected continuation is much easier for the model to infer accurately.</p>
       </article>
 
+      <!-- ============================================== -->
       <!-- MODULE 05 -->
-      <article class="module-wrapper" id="m05">
-        <header class="module-header">
-          <span class="module-number">Module 05</span>
-          <h2 class="module-title">Prompt Content, Context, and RAG</h2>
-          <div class="big-idea-box">
-            <strong>Big Idea:</strong> The quality of response depends on which information enters the prompt.
-          </div>
-        </header>
+      <!-- ============================================== -->
+      <article class="course-module" id="m05">
+        <span class="module-badge">Module 05 · ~22 min read</span>
+        <h2>Prompt Content, Context, and RAG</h2>
+        <div class="callout">
+          <p><strong>Big Idea:</strong> The quality of response depends on which information enters the prompt. The core engineering challenge is to find, prioritize, and present the most useful context.</p>
+        </div>
 
-        <h3>Lexical vs Neural Retrieval</h3>
-        <div class="grid-2">
-          <div class="info-card">
-            <h4>Lexical (Jaccard / BM25)</h4>
-            <p>$$J(A, B) = \frac{|A \cap B|}{|A \cup B|}$$</p>
-            <p>Best for exact IDs, error codes, and verbatim matches.</p>
+        <!-- Interactive Slide Deck for Module 5 -->
+        <div class="slide-deck" id="deck-5">
+          <div class="slide-deck-header">
+            <span class="slide-tag">🖥 Interactive Presentation Slides · Module 5</span>
+            <div class="slide-indicators">
+              <span class="slide-dot active" onclick="gotoSlide('deck-5', 0)"></span>
+              <span class="slide-dot" onclick="gotoSlide('deck-5', 1)"></span>
+            </div>
           </div>
-          <div class="info-card">
-            <h4>Neural (Cosine Embeddings)</h4>
-            <p>$$\operatorname{cosim}(\mathbf{a}, \mathbf{b}) = \frac{\mathbf{a} \cdot \mathbf{b}}{\|\mathbf{a}\| \|\mathbf{b}\|}$$</p>
-            <p>Best for semantic meaning, synonyms, and multilingual search.</p>
+          <div class="slide-content-stage active">
+            <span class="slide-step-num">Slide 1 of 2 · Retrieval Math</span>
+            <div class="slide-headline">Lexical vs Neural Embeddings</div>
+            <ul class="slide-bullets">
+              <li><strong>Lexical (Jaccard / BM25):</strong> $J(A, B) = \frac{|A \cap B|}{|A \cup B|}$. Best for exact error codes, part numbers, and verbatim matching.</li>
+              <li><strong>Neural (Cosine Similarity):</strong> $\operatorname{cosim}(\mathbf{a}, \mathbf{b}) = \frac{\mathbf{a} \cdot \mathbf{b}}{\|\mathbf{a}\| \|\mathbf{b}\|}$. Best for synonyms, paraphrasing, and multilingual queries.</li>
+            </ul>
+          </div>
+          <div class="slide-content-stage">
+            <span class="slide-step-num">Slide 2 of 2 · Architecture</span>
+            <div class="slide-headline">The Two RAG Pipelines</div>
+            <ul class="slide-bullets">
+              <li><strong>Offline Indexing:</strong> Collect documents → Split into chunks (sliding window) → Embed chunks → Store in vector index. (Generative LLM is not used here!).</li>
+              <li><strong>Request-Time:</strong> Embed query → Retrieve top-$k$ nearest chunks → Assemble prompt → Generative LLM creates grounded answer.</li>
+            </ul>
+          </div>
+          <div class="slide-deck-footer">
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-5', -1)">← Previous</button>
+            <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 2</span>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-5', 1)">Next →</button>
           </div>
         </div>
 
-        <h3>Sliding Window Snippetizing</h3>
         <div class="code-block-wrapper">
-          <pre><code>def snippetize(text, window_words=200, stride_words=120):
+          <div class="code-header"><span>SLIDING WINDOW CHUNKING IN PYTHON</span></div>
+          <pre><code>def snippetize(text: str, window_words: int = 200, stride_words: int = 120) -> list[str]:
     words = text.split()
-    return [" ".join(words[i:i+window_words]) for i in range(0, len(words), stride_words)]</code></pre>
+    chunks = []
+    for start in range(0, len(words), stride_words):
+        chunk = words[start:start + window_words]
+        if not chunk: break
+        chunks.append(" ".join(chunk))
+        if start + window_words >= len(words): break
+    return chunks</code></pre>
         </div>
       </article>
 
+      <!-- ============================================== -->
       <!-- MODULE 06 -->
-      <article class="module-wrapper" id="m06">
-        <header class="module-header">
-          <span class="module-number">Module 06</span>
-          <h2 class="module-title">Prompt Engineering Laboratory Workbook</h2>
-          <div class="big-idea-box">
-            <strong>Your Mission:</strong> Treat prompts as reproducible experimental designs.
+      <!-- ============================================== -->
+      <article class="course-module" id="m06">
+        <span class="module-badge">Module 06 · ~25 min read</span>
+        <h2>Prompt Engineering Laboratory Workbook</h2>
+        <div class="callout">
+          <p><strong>Your Mission:</strong> Treat prompts as <strong>reproducible experimental designs</strong>: make a hypothesis, test alternatives, record evidence, and document what changed.</p>
+        </div>
+
+        <!-- Interactive Slide Deck for Module 6 -->
+        <div class="slide-deck" id="deck-6">
+          <div class="slide-deck-header">
+            <span class="slide-tag">🖥 Interactive Presentation Slides · Module 6</span>
+            <div class="slide-indicators">
+              <span class="slide-dot active" onclick="gotoSlide('deck-6', 0)"></span>
+              <span class="slide-dot" onclick="gotoSlide('deck-6', 1)"></span>
+              <span class="slide-dot" onclick="gotoSlide('deck-6', 2)"></span>
+            </div>
           </div>
-        </header>
+          <div class="slide-content-stage active">
+            <span class="slide-step-num">Slide 1 of 3 · The Toolkit</span>
+            <div class="slide-headline">10 Prompting Patterns</div>
+            <ul class="slide-bullets">
+              <li><strong>Zero-shot:</strong> Direct instruction without solved examples.</li>
+              <li><strong>Few-shot:</strong> 2-4 demonstrations to lock in formatting and labels.</li>
+              <li><strong>Chain-of-Thought (CoT):</strong> Request step-by-step reasoning before answer.</li>
+              <li><strong>Prompt Chaining:</strong> Stage $N$ output becomes Stage $N+1$ input.</li>
+              <li><strong>Tree of Thought:</strong> Explore multiple parallel branches and evaluate trade-offs.</li>
+            </ul>
+          </div>
+          <div class="slide-content-stage">
+            <span class="slide-step-num">Slide 2 of 3 · Lab 1</span>
+            <div class="slide-headline">Lab 1: Fallacy Analysis (24 Runs)</div>
+            <p>8 Argument Cases × 3 Strategies (Zero-Shot, Few-Shot, Few-Shot + Structured) = 24 Controlled Runs.</p>
+            <ul class="slide-bullets">
+              <li>Inspect whether few-shot demonstrations introduce label anchoring.</li>
+              <li>Score with 0-2 point rubric across Classification, Justification, and Format.</li>
+            </ul>
+          </div>
+          <div class="slide-content-stage">
+            <span class="slide-step-num">Slide 3 of 3 · Labs 2, 3 & 4</span>
+            <div class="slide-headline">Labs 2, 3, and 4 Workflows</div>
+            <ul class="slide-bullets">
+              <li><strong>Lab 2 (Chaining):</strong> 5-stage pipeline for a high-school renewable energy textbook.</li>
+              <li><strong>Lab 3 (Tree of Thought):</strong> 10-year urban mobility strategy exploring 3 distinct branches (Transit, Traffic AI, Demand pricing).</li>
+              <li><strong>Lab 4 (ReAct):</strong> Comparative medical diagnostics report across CNNs, ViTs, and Classical ML.</li>
+            </ul>
+          </div>
+          <div class="slide-deck-footer">
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-6', -1)">← Previous</button>
+            <span style="font-size: 0.78rem; color: var(--muted);" class="deck-counter">1 / 3</span>
+            <button class="slide-ctrl-btn" onclick="stepSlide('deck-6', 1)">Next →</button>
+          </div>
+        </div>
 
-        <h3>Lab 1: Reasoning & Fallacies (24 Controlled Runs)</h3>
-        <p>Testing 8 Argument Cases across 3 Strategies (Zero-Shot, Few-Shot, Few-Shot + Structured):</p>
+        <h3>Lab 1: Interactive Fallacy Case Explorer</h3>
+        <p>Click any case to inspect the argument and reveal the expert ground-truth analysis:</p>
 
-        <div class="lab-case-card">
+        <div class="case-card">
           <span class="case-badge">Case A</span>
           <p>“Sales started falling after we introduced a new logo. This proves that the logo change discouraged customers.”</p>
           <button class="reveal-btn" onclick="toggleCase('c-a')">Reveal Fallacy</button>
-          <div class="hidden-analysis" id="c-a"><strong>False Cause (Post hoc):</strong> Temporal order alone does not prove causation.</div>
+          <div class="analysis-box" id="c-a"><strong>False Cause (Post hoc):</strong> Temporal order alone does not prove causation; market trends, seasonality, or competitor actions were ignored.</div>
         </div>
 
-        <div class="lab-case-card">
+        <div class="case-card">
           <span class="case-badge">Case B</span>
           <p>“This supplement must work because a famous actor said in an interview that it made them feel great.”</p>
           <button class="reveal-btn" onclick="toggleCase('c-b')">Reveal Fallacy</button>
-          <div class="hidden-analysis" id="c-b"><strong>Appeal to Authority:</strong> Celebrity testimonial is not medical proof.</div>
+          <div class="analysis-box" id="c-b"><strong>Appeal to Authority:</strong> Celebrity endorsement does not constitute clinical or pharmacological evidence.</div>
         </div>
 
-        <div class="lab-case-card">
+        <div class="case-card">
           <span class="case-badge">Case C</span>
           <p>“I met two rude waiters at this restaurant chain. Clearly, the entire company has terrible staff.”</p>
           <button class="reveal-btn" onclick="toggleCase('c-c')">Reveal Fallacy</button>
-          <div class="hidden-analysis" id="c-c"><strong>Hasty Generalization:</strong> Sample size of 2 cannot generalize across an entire company.</div>
+          <div class="analysis-box" id="c-c"><strong>Hasty Generalization:</strong> A sample of two cannot generalize across hundreds of employees.</div>
         </div>
 
-        <div class="lab-case-card">
+        <div class="case-card">
           <span class="case-badge">Case D</span>
           <p>“If we allow students to use phones in class, within a year nobody will pay attention and education will collapse.”</p>
           <button class="reveal-btn" onclick="toggleCase('c-d')">Reveal Fallacy</button>
-          <div class="hidden-analysis" id="c-d"><strong>Slippery Slope:</strong> Catastrophic chain asserted without justifying each link.</div>
+          <div class="analysis-box" id="c-d"><strong>Slippery Slope:</strong> Asserts an extreme catastrophic chain without justifying the necessity of each step.</div>
         </div>
 
-        <div class="lab-case-card">
+        <div class="case-card">
           <span class="case-badge">Case H</span>
           <p>“A study involving 10,000 people indicates that exercise reduces heart disease. Therefore, programs encouraging exercise are worthwhile.”</p>
           <button class="reveal-btn" onclick="toggleCase('c-h')">Reveal Fallacy</button>
-          <div class="hidden-analysis" id="c-h"><strong>No Clear Fallacy:</strong> Substantial empirical sample supporting a proportionate recommendation.</div>
+          <div class="analysis-box" id="c-h"><strong>No Clear Fallacy (Sound Practical Argument):</strong> Cites substantial empirical evidence supporting a proportionate recommendation.</div>
         </div>
 
-        <h3>Overview of Labs 2, 3, & 4</h3>
-        <div class="grid-3">
-          <div class="info-card">
-            <h4>Lab 2: Prompt Chaining</h4>
-            <p>5-stage sequential chain producing a renewable energy textbook for high schoolers.</p>
-          </div>
-          <div class="info-card">
-            <h4>Lab 3: Tree of Thought</h4>
-            <p>10-year mobility strategy exploring 3 distinct branches: Transit, Traffic AI, and Pricing.</p>
-          </div>
-          <div class="info-card">
-            <h4>Lab 4: Medical AI & ReAct</h4>
-            <p>Comparative analysis of CNNs, ViTs, and Classical ML with tool-assisted evidence gathering.</p>
-          </div>
+        <div class="callout" style="margin-top: 30px;">
+          <p><strong>Final Lesson:</strong> Prompt engineering becomes a science when you can explain <strong>what you changed, why you changed it, how you evaluated it, and whether it improved the result</strong>.</p>
         </div>
       </article>
 
     </main>
   </div>
 
+  <!-- Site Footer -->
   <footer class="site-footer">
-    <p><strong>Prompting: The Complete Field Manual</strong> · Full 6-Module Curriculum</p>
+    <p><strong>promting / field notes</strong> · Complete 6-Module Curriculum & Laboratory</p>
     <p style="margin-top: 6px;"><a href="#top">Back to top ↑</a></p>
   </footer>
 
   <script>
+    // Reading Progress
     window.addEventListener('scroll', () => {
       const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       document.getElementById('progress-bar').style.width = ((winScroll / height) * 100) + '%';
     });
 
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', () => {
+    // Dark/Light Theme Toggle
+    const themeBtn = document.getElementById('theme-toggle');
+    themeBtn.addEventListener('click', () => {
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       if (isDark) {
         document.documentElement.removeAttribute('data-theme');
@@ -825,43 +1240,80 @@ Use one analogy, one comparison table, and no more than 300 words.</code></pre>
       }
     });
 
-    function setDemo(text) {
-      document.getElementById('hero-demo-box').innerHTML = `“The most important discovery was <span style="color: var(--teal); font-weight:700;">${text}</span>”`;
+    // Hero demo click
+    function setHeroDemo(el, text) {
+      document.querySelectorAll('.demo-option').forEach(o => o.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('demo-quote').innerHTML = `“The most important discovery of the experiment was <span style="color:var(--crimson); font-weight:700;">${text}</span>”`;
     }
 
+    // Toggle Lab Case
     function toggleCase(id) {
       const el = document.getElementById(id);
       el.style.display = el.style.display === 'block' ? 'none' : 'block';
     }
 
-    const words = [
-      { name: 'mat', logit: 6.2 },
-      { name: 'sofa', logit: 4.8 },
-      { name: 'floor', logit: 3.5 },
-      { name: 'moon', logit: 1.2 }
+    // ===================================
+    // SLIDE DECK ENGINE
+    // ===================================
+    function gotoSlide(deckId, index) {
+      const deck = document.getElementById(deckId);
+      const slides = deck.querySelectorAll('.slide-content-stage');
+      const dots = deck.querySelectorAll('.slide-dot');
+      const counter = deck.querySelector('.deck-counter');
+
+      slides.forEach(s => s.classList.remove('active'));
+      dots.forEach(d => d.classList.remove('active'));
+
+      if (index >= slides.length) index = 0;
+      if (index < 0) index = slides.length - 1;
+
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+      deck.setAttribute('data-current', index);
+      if (counter) counter.textContent = `${index + 1} / ${slides.length}`;
+    }
+
+    function stepSlide(deckId, delta) {
+      const deck = document.getElementById(deckId);
+      const current = parseInt(deck.getAttribute('data-current') || '0', 10);
+      gotoSlide(deckId, current + delta);
+    }
+
+    // Initialize all decks
+    document.querySelectorAll('.slide-deck').forEach(d => d.setAttribute('data-current', '0'));
+
+    // ===================================
+    // SOFTMAX TEMPERATURE SIMULATOR
+    // ===================================
+    const vocab = [
+      { word: 'mat', logit: 6.2 },
+      { word: 'sofa', logit: 4.8 },
+      { word: 'floor', logit: 3.5 },
+      { word: 'moon', logit: 1.2 }
     ];
 
-    function updateSim(T) {
-      T = parseFloat(T);
-      document.getElementById('temp-val').textContent = `T = ${T.toFixed(1)}`;
-      const exps = words.map(w => Math.exp(w.logit / T));
-      const sum = exps.reduce((a, b) => a + b, 0);
-      const probs = exps.map(e => e / sum);
+    function updateTemperature(val) {
+      const T = parseFloat(val);
+      document.getElementById('temp-indicator').textContent = `T = ${T.toFixed(1)}`;
+      const expVals = vocab.map(v => Math.exp(v.logit / T));
+      const sum = expVals.reduce((a, b) => a + b, 0);
+      const probs = expVals.map(e => e / sum);
 
-      const cont = document.getElementById('prob-container');
+      const cont = document.getElementById('sim-bars');
       cont.innerHTML = '';
-      words.forEach((w, i) => {
+      vocab.forEach((v, i) => {
         const pct = (probs[i] * 100).toFixed(1);
         cont.innerHTML += `
           <div class="prob-row">
-            <code>${w.name}</code>
+            <code>${v.word}</code>
             <div class="prob-track"><div class="prob-fill" style="width: ${pct}%"></div></div>
             <span>${pct}%</span>
           </div>
         `;
       });
     }
-    updateSim(0.7);
+    updateTemperature(0.7);
   </script>
 </body>
 </html>
